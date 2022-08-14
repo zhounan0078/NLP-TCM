@@ -15,8 +15,8 @@ import streamlit as st  # For the web app
 def convert_df(out):
     return out.to_csv().encode('utf-8')
 
-english_example=convert_df(out=pd.read_excel('English example.xlsx'))
-chinese_example=convert_df(out=pd.read_excel('中文示例.xlsx'))
+english_example=convert_df(out=pd.read_csv('English example.csv'))
+chinese_example=convert_df(out=pd.read_csv('中文示例.csv'))
 
 
 with st.sidebar:
@@ -25,4 +25,4 @@ with st.sidebar:
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
     st.download_button('download sample data in English',data=english_example,file_name='sample data in English.csv',mime='csv')
-    st.download_button('下载中文示例数据',data=chinese_example,file_name='中文示例数据',mime='csv')
+    st.download_button('下载中文示例数据',data=chinese_example,file_name='中文示例数据.csv',mime='csv')
