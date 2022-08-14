@@ -24,5 +24,5 @@ with st.sidebar:
     st.write("You uploaded:", file)
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
-    st.download_button('Click here to download sample data in English',data=english_example,mime='csv')
-    st.download_button('点击此处下载中文示例数据',data=chinese_example,mime='csv')
+    st.download_button('download sample data in English',data=english_example,file_name='sample data in English.csv',mime='csv')
+    st.download_button('下载中文示例数据',data=chinese_example,file_name='中文示例数据',mime='csv')
