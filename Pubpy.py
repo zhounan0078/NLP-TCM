@@ -12,7 +12,7 @@ import gensim
 from PIL import Image
 import streamlit as st  # For the web app
 #%%
-english_example=pd.read_excel('English_example.xlsx')
+english_example=pd.read_excel('English example.xlsx')
 chinese_example=pd.read_excel('中文示例.xlsx')
 with st.sidebar:
     file = st.file_uploader ("Click “Browse files” to upload files", type=["csv","xlsx", "xls"])
