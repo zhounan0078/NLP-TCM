@@ -12,6 +12,7 @@ import gensim
 import streamlit as st  # For the web app
 #%%
 with st.sidebar:
-    file = st.file_uploader ("Click here to upload files", type=["csv","xlsx", "xls"])
+    file = st.file_uploader ("Click “Browse files” to upload files", type=["csv","xlsx", "xls"])
     st.write("You uploaded:", file)
     st.write('Please upload a file no larger than 200MB')
+    st.write('The file must be a .csv,.xls or .xlsx file')
