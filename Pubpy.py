@@ -21,11 +21,9 @@ out1=out1.set_index('Prescription name')
 out2=out2.set_index('方剂名称')
 english_example=convert_df(out1)
 chinese_example=convert_df(out2)
-
-
+#%%
 with st.sidebar:
     file = st.file_uploader ("Click “Browse files” to upload files", type=["csv","xlsx", "xls"])
-    st.write("You uploaded:", file)
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
     st.download_button('download sample data in English',data=english_example,file_name='sample data in English.csv',mime='csv')

@@ -13,9 +13,9 @@ import streamlit as st  # 导入streamlit
 
 # %%
 # 读文档，这里把方名set成index了，所以dataframe中只有草药
-txt = pd.read_csv('矩阵2.csv')
+txt = pd.read_csv('English example.csv')
 txt = pd.DataFrame(txt)
-txt = txt.set_index('方名')
+txt = txt.set_index('Prescription name')
 # %%
 # 遍历dataframe中的草药，把所有的草药怼成一个长字符串，空格分割
 sentence = ""
@@ -24,7 +24,7 @@ for index, row in txt.iterrows():
         sentence = sentence + sen + ','
 # %%
 word = sentence.split(',')
-' '.join(word)
+#' '.join(word)
 
 # 把长字符转打散成一个list，这里的ls会在CountVectorized和TfidfVectorizer中用到，但是TreebankWordTokenizer不用
 # %%
