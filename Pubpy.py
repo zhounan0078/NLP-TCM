@@ -18,4 +18,4 @@ with st.sidebar:
     st.write("You uploaded:", file)
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
-    st.image(img1, width=200)
+    st.image(img1, width=600)
