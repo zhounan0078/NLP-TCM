@@ -11,6 +11,7 @@ from sklearn.decomposition import LatentDirichletAllocation as LDiA
 import gensim
 import streamlit as st  # For the web app
 #%%
-file = st.file_uploader ("Click here to upload files", type=["csv","xlsx", "xls"])
-st.write("You uploaded:", file)
-st.write('Please upload a file no larger than 200MB')
+with st.sidebar:
+    file = st.file_uploader ("Click here to upload files", type=["csv","xlsx", "xls"])
+    st.write("You uploaded:", file)
+    st.write('Please upload a file no larger than 200MB')
