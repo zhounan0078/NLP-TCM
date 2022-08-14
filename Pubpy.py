@@ -14,9 +14,13 @@ import streamlit as st  # For the web app
 #%%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
-
-english_example=convert_df(out=pd.read_csv('English example.csv'))
-chinese_example=convert_df(out=pd.read_csv('中文示例.csv'))
+out1=pd.read_csv('English example.csv')
+out2=pd.read_csv('中文示例.csv')
+#%%
+out1=out1.set_index('Prescription name')
+out2=out2.set_index('方剂名称')
+english_example=convert_df(out1)
+chinese_example=convert_df(out2)
 
 
 with st.sidebar:
