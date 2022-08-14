@@ -12,12 +12,12 @@ import gensim
 from PIL import Image
 import streamlit as st  # For the web app
 #%%
-img1=Image.open('testimg.png')
+english_example=pd.read_excel('english_example.xlsx')
+chinese_example=pd.read_excel('中文示例.xlsx')
 with st.sidebar:
     file = st.file_uploader ("Click “Browse files” to upload files", type=["csv","xlsx", "xls"])
     st.write("You uploaded:", file)
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
-    st.image(img1, width=350)
-    st.download_button('Click here to download sample data in English',data='English example.xlsx')
-    st.download_button('点击此处下载中文示例数据',data='中文示例.xlsx')
+    st.download_button('Click here to download sample data in English',data=english_example)
+    st.download_button('点击此处下载中文示例数据',data=chinese_example)
