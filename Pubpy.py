@@ -66,7 +66,7 @@ if file != None:
         most_common_herb1 = Counter_every_herb.most_common(color)
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
-        if most_common_herb1.empty == True:
+        if most_common_herb1.empty == False:
             fig,ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
