@@ -46,9 +46,9 @@ if file != None:
     Counter_every_herb = Counter(herb_word_list)
     total_herb_word_list = len(herb_word_list)
     with tab1:
-        st.write('The total number')
+        st.write('1.The total number')
         st.write('The total number of herbs is: ',total_herb_word_list)
-
+        st.write('2.The most common herb')
         color = st.select_slider(
         'How many drugs do you need to display by frequency?',
         options=range(1,50,1))
