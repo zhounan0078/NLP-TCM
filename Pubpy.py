@@ -56,7 +56,10 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ',most_common_herb1)
         if not most_common_herb1.empty:
-            st.bar_chart(most_common_herb1)
+            x=most_common_herb1['herb']
+            y=most_common_herb1['count']
+            plt.bar(x,y,align='center',color = 'c',tick_label=list(x))
+            st.pyplot()
 
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
