@@ -48,7 +48,7 @@ if file != None:
     st.write('The total number of herbs is: ',total_herb_word_list)
     color = st.select_slider(
         'How many drugs do you need to display by frequency?',
-        options=(1,50,1)))
+        options=(1,50,1))
     most_common_herb = Counter_every_herb.most_common()
     most_common_herb = pd.DataFrame(most_common_herb, columns=['herb', 'count'])
     with tab1:
