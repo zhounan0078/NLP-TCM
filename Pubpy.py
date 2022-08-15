@@ -2,6 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import seaborn as sns
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import PCA, TruncatedSVD
@@ -14,6 +15,8 @@ import streamlit as st  # For the web app
 #%%
 sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4 = st.tabs(["Descriptive statistics", "Prescription similarity", "Topic distribution","word embedding"])
+mpl.rcParams["font.sans-serif"] = ["SimHei"]
+mpl.rcParams["axes.unicode_minus"] = False
 #%%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
@@ -56,9 +59,11 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ',most_common_herb1)
         if not most_common_herb1.empty:
+            fig, ax = plt.subplots()
             x=most_common_herb1['herb']
             y=most_common_herb1['count']
-            plt.bar(x,y,align='center',color = 'c',tick_label=list(x))
+            ax.bar(x,y,align='center',color = 'c',tick_label=list(x))
+            ax.setp(axa.xaxis.get_majorticklabels(), rotation=45)
             st.pyplot()
 
         most_common_herb2 = Counter_every_herb.most_common()
