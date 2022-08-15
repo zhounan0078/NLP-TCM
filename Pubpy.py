@@ -66,7 +66,7 @@ if file != None:
         most_common_herb1 = Counter_every_herb.most_common(color)
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
-        if not most_common_herb1.empty:
+        if most_common_herb1.empty == True:
             plt.style.use('ggplot')
             plt.figure(figsize=(10, 6))
             x = most_common_herb1['herb']
