@@ -32,5 +32,6 @@ with st.sidebar:
 if file != None:
     txt = pd.read_csv(file)
     txt = pd.DataFrame(txt)
-    txt = txt.set_index(txt[1])
+    col=txt.columns
+    txt = txt.set_index(col[1])
     st.table(txt)
