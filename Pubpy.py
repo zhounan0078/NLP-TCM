@@ -68,13 +68,15 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
         if not most_common_herb1.empty:
-            fig, ax = plt.subplots()
+            plt.style.use('ggplot')
+            font = FontProperties(fname="SimHei.ttf", size=14)
+            plt.figure(figsize=(10, 6))
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
-            ax.bar(x, y, align='center', color='c', tick_label=list(x))
-            ax.set_xticklabel(x, rotation=45, ha='right',FontProperties=font)
+            plt.bar(x, y, align='center', color='c', tick_label=list(x))
+            plt.set_xticklabel(x, rotation=45, ha='right',FontProperties=font)
             plt.xticks(rotation=90, FontProperties=font)
-            st.pyplot(fig)
+            st.pyplot(plt)
 
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
