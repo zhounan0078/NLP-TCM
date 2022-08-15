@@ -15,8 +15,8 @@ import streamlit as st  # For the web app
 #%%
 sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4 = st.tabs(["Descriptive statistics", "Prescription similarity", "Topic distribution","word embedding"])
-mpl.rcParams["font.sans-serif"] = ["SimHei"]
-mpl.rcParams["axes.unicode_minus"] = False
+plt.rcParams["font.sans-serif"] = ["SimHei"]
+plt.rcParams["axes.unicode_minus"] = False
 #%%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
@@ -63,7 +63,7 @@ if file != None:
             x=most_common_herb1['herb']
             y=most_common_herb1['count']
             ax.bar(x,y,align='center',color = 'c',tick_label=list(x))
-            plt.xticks(rotation=45)
+            plt.xticks(rotation=90)
             st.pyplot(fig)
 
         most_common_herb2 = Counter_every_herb.most_common()
