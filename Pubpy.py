@@ -20,13 +20,11 @@ tab1, tab2, tab3, tab4 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding"])
 mpl.rcParams["font.sans-serif"] = ["SimHei"]
 mpl.rcParams["axes.unicode_minus"] = False
-#font = FontProperties(fname="SimHei.ttf", size=14)
-#plt.style.use('ggplot')
+font = FontProperties(fname="SimHei.ttf", size=14)
+plt.style.use('ggplot')
 # %%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
-
-
 out1 = pd.read_csv('English example.csv')
 out2 = pd.read_csv('中文示例.csv')
 # %%
@@ -67,8 +65,7 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
         if most_common_herb1.empty == False:
-            plt.style.use('ggplot')
-            font = FontProperties(fname="SimHei.ttf", size=14)
+
             fig,ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
