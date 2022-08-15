@@ -20,8 +20,7 @@ tab1, tab2, tab3, tab4 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding"])
 plt.rcParams["font.sans-serif"] = ["SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
-font = FontProperties(fname="./data/SimHei.ttf", size=14)
-
+font = FontProperties(fname="SimHei.ttf", size=14)
 
 # %%
 def convert_df(out):
@@ -69,7 +68,6 @@ if file != None:
         st.write('The most common herb is: ', most_common_herb1)
         if not most_common_herb1.empty:
             plt.style.use('ggplot')
-            font = FontProperties(fname="SimHei.ttf", size=14)
             plt.figure(figsize=(10, 6))
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
