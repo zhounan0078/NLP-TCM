@@ -34,4 +34,4 @@ if file != None:
     txt = pd.DataFrame(txt)
     col=txt.columns
     txt = txt.set_index(col[1])
-    st.table(txt)
+    st.dataframe(txt)
