@@ -73,7 +73,7 @@ if file != None:
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
             ax.bar(x, y, align='center', color='c', tick_label=list(x))
-            ax.xlabel(FontProperties=font)
+            #ax.xlabel(FontProperties=font)
             plt.xticks(x,rotation=90)
             st.pyplot(fig)
 
