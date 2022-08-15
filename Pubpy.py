@@ -21,7 +21,7 @@ tab1, tab2, tab3, tab4 = st.tabs(
 plt.rcParams["font.sans-serif"] = ["SimHei"]
 plt.rcParams["axes.unicode_minus"] = False
 font = FontProperties(fname="SimHei.ttf", size=14)
-
+plt.style.use('ggplot')
 # %%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
@@ -67,14 +67,13 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
         if most_common_herb1.empty == True:
-            plt.style.use('ggplot')
-            plt.figure(figsize=(10, 6))
+            fig,ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
-            plt.bar(x, y, align='center', color='c', tick_label=list(x))
+            ax.bar(x, y, align='center', color='c', tick_label=list(x))
             plt.xlabel(x, FontProperties=font)
             plt.xticks(rotation=90)
-            st.pyplot(plt)
+            st.pyplot(fig)
 
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
