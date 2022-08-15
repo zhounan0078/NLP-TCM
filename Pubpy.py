@@ -55,7 +55,7 @@ if file != None:
         most_common_herb1 = Counter_every_herb.most_common(color)
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ',most_common_herb1)
-        st.bar_chart(data=most_common_herb1, x=['herb'], y=['count'], width=50, height=50, use_container_width=True)
+        st.bar_chart(data=most_common_herb1)
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
         full_common_data=convert_df(most_common_herb2)
