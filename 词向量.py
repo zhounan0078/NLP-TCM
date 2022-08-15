@@ -16,25 +16,26 @@ import copy as cp
 # 实例化
 cvect = CountVectorizer(lowercase=False)
 tf_idf = TfidfVectorizer()
-tbw = TreebankWordTokenizer()
+
 #%%
 # file=open('C:\Myfiles\方剂\矩阵数据.txt','r',encoding='utf-8',errors='ignore')
 # txt=file.read()
 # file.close()
 
 # 读文档，这里把方名set成index了，所以dataframe中只有草药
-txt = pd.read_csv('C:\Myfiles\方剂\矩阵.csv')
+txt = pd.read_csv('English example.csv')
 txt = pd.DataFrame(txt)
-txt = txt.set_index('方名')
+txt = txt.set_index('Prescription name')
 #%%
 # 遍历dataframe中的草药，把所有的草药怼成一个长字符串，空格分割
 sentence = ""
 for index, row in txt.iterrows():
     for sen in row:
-        sentence = sentence+sen+' '
+        sentence = sentence+sen+','
 
 # 把长字符转打散成一个list，这里的ls会在CountVectorizer和TfidfVectorizer中用到，但是TreebankWordTokenizer不用
 ls = sentence.split(sep=' ')
+Counter(ls)
 #%%
 # TreebankWordTokenizer
 tbww = tbw.tokenize(sentence)
