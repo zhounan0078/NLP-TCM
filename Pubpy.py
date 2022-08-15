@@ -36,7 +36,7 @@ if file != None:
     txt = pd.read_csv(file)
     txt = pd.DataFrame(txt)
     col=txt.columns
-    txt = txt.set_index(col[1])
+    txt = txt.set_index(col[0])
 #%%
     sentence = ""
     for index, row in txt.iterrows():
