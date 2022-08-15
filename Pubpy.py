@@ -28,10 +28,11 @@ with st.sidebar:
     st.write('The file must be a .csv,.xls or .xlsx file')
     st.download_button('download sample data in English',data=english_example,file_name='sample data in English.csv',mime='csv')
     st.download_button('下载中文示例数据',data=chinese_example,file_name='中文示例数据.csv',mime='csv')
-
+#%%
+#file=pd.read_csv('English example.csv')
 if file != None:
     txt = pd.read_csv(file)
     txt = pd.DataFrame(txt)
     col=txt.columns
-    #txt = txt.set_index(col[1])
+    txt = txt.set_index(col[1])
     st.dataframe(txt)
