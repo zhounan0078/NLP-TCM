@@ -45,16 +45,15 @@ if file != None:
     herb_word_list = sentence.split(sep=',')
     Counter_every_herb = Counter(herb_word_list)
     total_herb_word_list = len(herb_word_list)
-    st.write('The total number')
-    st.write('The total number of herbs is: ',total_herb_word_list)
+    with tab1:
+        st.write('The total number')
+        st.write('The total number of herbs is: ',total_herb_word_list)
 
-    color = st.select_slider(
+        color = st.select_slider(
         'How many drugs do you need to display by frequency?',
         options=range(1,50,1))
-    most_common_herb = Counter_every_herb.most_common(color)
-    most_common_herb = pd.DataFrame(most_common_herb, columns=['herb', 'count'])
-    with tab1:
-
+        most_common_herb = Counter_every_herb.most_common(color)
+        most_common_herb = pd.DataFrame(most_common_herb, columns=['herb', 'count'])
         st.write('The most common herb is: ',most_common_herb)
         st.write()
 #%%
