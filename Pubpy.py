@@ -52,9 +52,18 @@ if file != None:
         color = st.select_slider(
         'How many drugs do you need to display by frequency?',
         options=range(1,50,1))
-        most_common_herb = Counter_every_herb.most_common(color)
-        most_common_herb = pd.DataFrame(most_common_herb, columns=['herb', 'count'])
-        st.write('The most common herb is: ',most_common_herb)
+        most_common_herb1 = Counter_every_herb.most_common(color)
+        most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
+        st.write('The most common herb is: ',most_common_herb1)
+        most_common_herb2 = Counter_every_herb.most_common()
+        most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
+        full_common_data=convert_df(most_common_herb2)
+        st.download_button(
+            label="Download full herb frequency data",
+            data=full_common_data,
+            file_name='full_common_data.csv',
+            mime='csv',
+        )
         st.write()
 #%%
     file_dict = dict()
