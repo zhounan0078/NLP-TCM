@@ -55,7 +55,12 @@ if file != None:
         most_common_herb1 = Counter_every_herb.most_common(color)
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ',most_common_herb1)
-
+        f, ax = plt.subplots(figsize=(6, 15))
+        sns.set_color_codes("pastel")
+        sns.barplot(x="total", y="abbrev", data=most_common_herb1,
+            label="Total", color="b")
+        ax.legend(ncol=2, loc="lower right", frameon=True)
+        st.pyplot()
         st.bar_chart(most_common_herb1)
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
@@ -65,7 +70,6 @@ if file != None:
             data=full_common_data,
             file_name='full_common_data.csv',
             mime='csv',)
-        st.write()
 #%%
     file_dict = dict()
     for index, row in txt.iterrows():
