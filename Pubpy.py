@@ -46,6 +46,7 @@ if file != None:
     Counter_every_herb = Counter(herb_word_list)
     total_herb_word_list = len(herb_word_list)
     most_common_herb = Counter_every_herb.most_common()
+    most_common_herb = pd.DataFrame(most_common_herb, columns=['herb', 'count'])
     with tab1:
         st.write('The total number of herbs is: ',total_herb_word_list)
         st.write('The most common herb is: ',most_common_herb)
