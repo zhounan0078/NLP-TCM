@@ -32,7 +32,7 @@ with st.sidebar:
     st.download_button('download sample data in English',data=english_example,file_name='sample data in English.csv',mime='csv')
     st.download_button('下载中文示例数据',data=chinese_example,file_name='中文示例数据.csv',mime='csv')
 #%%
-#file=pd.read_csv('English example.csv')
+
 if file != None:
     txt = pd.read_csv(file)
     txt = pd.DataFrame(txt)
@@ -55,13 +55,11 @@ if file != None:
         most_common_herb1 = Counter_every_herb.most_common(color)
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ',most_common_herb1)
-        f, ax = plt.subplots(figsize=(6, 15))
-        sns.set_color_codes("pastel")
-        sns.barplot(x="total", y="abbrev", data=most_common_herb1,
+        #f, ax = plt.subplots(figsize=(6, 15))
+        #sns.set_color_codes("pastel")
+        #sns.barplot(x="total", y="abbrev", data=most_common_herb1,
             label="Total", color="b")
-        ax.legend(ncol=2, loc="lower right", frameon=True)
-        st.pyplot()
-        st.bar_chart(most_common_herb1)
+        #st.bar_chart(most_common_herb1)
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
         full_common_data=convert_df(most_common_herb2)
