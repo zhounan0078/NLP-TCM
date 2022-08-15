@@ -38,23 +38,22 @@ if file != None:
     col=txt.columns
     txt = txt.set_index(col[1])
 #%%
-sentence = ""
-for index, row in txt.iterrows():
-    for sen in row:
-        sentence = sentence+sen+','
-herb_word_list = sentence.split(sep=',')
-Counter_every_herb = Counter(herb_word_list)
-total_herb_word_list = len(herb_word_list)
-most_common_herb = Counter_every_herb.most_common()
-
+    sentence = ""
+    for index, row in txt.iterrows():
+        for sen in row:
+            sentence = sentence+sen+','
+    herb_word_list = sentence.split(sep=',')
+    Counter_every_herb = Counter(herb_word_list)
+    total_herb_word_list = len(herb_word_list)
+    most_common_herb = Counter_every_herb.most_common()
 #%%
-file_dict = dict()
-for index, row in txt.iterrows():
-    for sen in row:
-        per_vect = []
-        ws = sen.split(sep=',')
-        for herb in ws:
-            per_vect.append(herb)
-    file_dict[index] = per_vect
+    file_dict = dict()
+    for index, row in txt.iterrows():
+        for sen in row:
+            per_vect = []
+            ws = sen.split(sep=',')
+            for herb in ws:
+                per_vect.append(herb)
+        file_dict[index] = per_vect
 
 
