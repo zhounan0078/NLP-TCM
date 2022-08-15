@@ -18,10 +18,10 @@ import streamlit as st  # For the web app
 sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding"])
-plt.rcParams["font.sans-serif"] = ["SimHei"]
-plt.rcParams["axes.unicode_minus"] = False
-font = FontProperties(fname="SimHei.ttf", size=14)
-plt.style.use('ggplot')
+mpl.rcParams["font.sans-serif"] = ["SimHei"]
+mpl.rcParams["axes.unicode_minus"] = False
+#font = FontProperties(fname="SimHei.ttf", size=14)
+#plt.style.use('ggplot')
 # %%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
@@ -67,6 +67,8 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
         if most_common_herb1.empty == False:
+            plt.style.use('ggplot')
+            font = FontProperties(fname="SimHei.ttf", size=14)
             fig,ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
