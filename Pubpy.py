@@ -58,7 +58,7 @@ if file != None:
         #f, ax = plt.subplots(figsize=(6, 15))
         #sns.set_color_codes("pastel")
         #sns.barplot(x="total", y="abbrev", data=most_common_herb1,
-            label="Total", color="b")
+            #label="Total", color="b")
         #st.bar_chart(most_common_herb1)
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
