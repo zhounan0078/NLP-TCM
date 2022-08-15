@@ -72,8 +72,8 @@ if file != None:
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
             ax.bar(x, y, align='center', color='c', tick_label=list(x))
-            plt.set_xticklabel(x, rotation=45, ha='right',FontProperties=font)
-            plt.set_title('The most common herb', FontProperties=font)
+            ax.set_xticklabel(x, rotation=45, ha='right',FontProperties=font)
+            plt.xticks(rotation=90, FontProperties=font)
             st.pyplot(fig)
 
         most_common_herb2 = Counter_every_herb.most_common()
