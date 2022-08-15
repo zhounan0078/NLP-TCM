@@ -64,7 +64,7 @@ if file != None:
             y=most_common_herb1['count']
             ax.bar(x,y,align='center',color = 'c',tick_label=list(x))
             plt.xticks(rotation=45)
-            st.pyplot()
+            st.pyplot(fig)
 
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
