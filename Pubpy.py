@@ -2,8 +2,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib
-from matplotlib.font_manager import FontProperties
+import matplotlib as mpl
+from matplotlib import font_manager
 import seaborn as sns
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import PCA, TruncatedSVD
@@ -19,13 +19,12 @@ sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding"])
 #Params["font.sans-serif"] = ["SimHei"]
+mpl.rcParams['font.family'] = 'simhei.ttf'
 #mpl.rcParams["axes.unicode_minus"] = False
 #font = FontProperties(fname="SimHei.ttf", size=14)
 #plt.style.use('ggplot')
-font = {'family': 'SimSun',
-        'weight':"bold",
-        'size':'14'}
-matplotlib.rc(font,**font)
+#font=font_manager.FontProperties(fname="simhei.ttf", size=14)
+
 # %%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
@@ -74,7 +73,7 @@ if file != None:
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
             ax.bar(x, y, align='center', color='c', tick_label=list(x))
-            #plt.xlabel('herbs',fontsize=13, fontproperties=font)
+            plt.xlabel('herbs',fontsize=13, fontproperties=font)
             plt.xticks(x,rotation=90)
             st.pyplot(fig)
 
