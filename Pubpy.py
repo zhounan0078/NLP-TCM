@@ -23,7 +23,7 @@ mpl.rcParams['font.family'] = 'simhei.ttf'
 #mpl.rcParams["axes.unicode_minus"] = False
 #font = FontProperties(fname="SimHei.ttf", size=14)
 #plt.style.use('ggplot')
-#font=font_manager.FontProperties(fname="simhei.ttf", size=14)
+font=font_manager.FontProperties(fname="simhei.ttf", size=14)
 
 # %%
 def convert_df(out):
