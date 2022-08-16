@@ -54,9 +54,9 @@ b=tf_idf.fit_transform(ls)
 
 #%%
 # 重新读文件，这里不设方名为index
-file = pd.read_csv('C:\Myfiles\方剂\矩阵.csv')
+file = pd.read_csv('English example.csv')
 file = pd.DataFrame(file)
-file = file.set_index('方名')
+file = file.set_index('Prescription name')
 file_dict = pd.DataFrame(columns=['name', 'vector'])
 #%%
 # 做成以{方名：组成}为键值对的字典
