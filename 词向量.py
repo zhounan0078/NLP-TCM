@@ -34,13 +34,13 @@ for index, row in txt.iterrows():
         sentence = sentence+sen+','
 
 # 把长字符转打散成一个list，这里的ls会在CountVectorizer和TfidfVectorizer中用到，但是TreebankWordTokenizer不用
-ls = sentence.split(sep=' ')
+ls = sentence.split(sep=',')
 co=Counter(ls)
 most_common_herb = co.most_common()
 df = pd.DataFrame.from_dict(co, orient='index')
 #%%
 # TreebankWordTokenizer
-tbww = tbw.tokenize(sentence)
+
 word_bag = Counter(ls)
 word_bag.most_common()
 

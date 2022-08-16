@@ -17,8 +17,8 @@ import streamlit as st  # For the web app
 # %%
 # 全局设置区
 sns.set_theme(style="whitegrid")
-tab1, tab2, tab3, tab4 = st.tabs(
-    ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding"])
+tab1, tab2, tab3, tab4,tab5 = st.tabs(
+    ["Descriptive statistics", "Matrix display and download","Prescription similarity", "Topic distribution", "word embedding"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
@@ -104,12 +104,26 @@ if file != None:
             file_name='full_common_data.csv',
             mime='csv', )
     # %%
-    # 做成字典
-    file_dict = dict()
-    for index, row in txt.iterrows():
-        for sen in row:
-            per_vect = []
-            ws = sen.split(sep=',')
-            for herb in ws:
-                per_vect.append(herb)
-        file_dict[index] = per_vect
+    # 做成矩阵
+    with tab2:
+        herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
+        for pres_name in file_dict:
+        herb_list = file_dict.get(pres_name)
+        pres_name = [pres_name]
+        pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
+        herb_dense_dataframe = pd.concat([herb_dense_dataframe, pres_name], axis=0, join='outer')
+        for herb in herb_list:
+            herb_df = pd.DataFrame(columns=['herb_name'])
+            herb = [herb]
+            herb = pd.DataFrame(herb, columns=['herb_name'])
+            herb_df = pd.concat([herb_df, herb], axis=0, join='outer')
+            herb_dense_dataframe = pd.concat([herb_dense_dataframe, herb_df], axis=0, join='outer')
+        herb_dense_dataframe['count'] = 1
+        herb_dense_dataframe['pres_name'] = herb_dense_dataframe['pres_name'].fillna(method='ffill')
+        herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
+        herb_dense_dataframe = herb_dense_dataframe.pivot_table(
+        'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
+        st.table(herb_dense_dataframe)
+        herb_dense_dataframe = convert_df(herb_dense_dataframe)
+        st.download_button('download dense matrix', data=herb_dense_dataframe, file_name='sample data in English.csv',
+                           mime='csv')

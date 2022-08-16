@@ -34,10 +34,10 @@ word_bag.most_common()
 len(word_bag)
 # 重新读文件，这里不设方名为index
 # %%
-file = pd.read_csv('矩阵2.csv')
+file = pd.read_csv('English example.csv')
 file = pd.DataFrame(file)
 # %%
-file = file.set_index('方名')
+file = file.set_index('Prescription name')
 
 # %%
 # 做成以{方名：组成}为键值对的字典
