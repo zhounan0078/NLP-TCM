@@ -2,7 +2,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib as mpl
+import matplotlib
 from matplotlib.font_manager import FontProperties
 import seaborn as sns
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
@@ -25,7 +25,7 @@ tab1, tab2, tab3, tab4 = st.tabs(
 font = {'family': 'SimSun',
         'weight':"bold",
         'size':'14'}
-mpl.rc(font,**font)
+matplotlib.rc(font,**font)
 # %%
 def convert_df(out):
     return out.to_csv().encode('utf-8')
