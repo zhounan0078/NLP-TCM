@@ -18,11 +18,9 @@ import streamlit as st  # For the web app
 sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding"])
-#Params["font.sans-serif"] = ["SimHei"]
+
 mpl.rcParams['font.family'] = 'simhei.ttf'
-#mpl.rcParams["axes.unicode_minus"] = False
-#font = FontProperties(fname="SimHei.ttf", size=14)
-#plt.style.use('ggplot')
+plt.style.use('ggplot')
 font=font_manager.FontProperties(fname="simhei.ttf", size=14)
 
 # %%
@@ -68,7 +66,6 @@ if file != None:
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
         if most_common_herb1.empty == False:
-
             fig,ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
@@ -76,7 +73,6 @@ if file != None:
             plt.xlabel('herbs',fontsize=13, fontproperties=font)
             plt.yticks(x,fontproperties=font)
             st.pyplot(fig)
-
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
         full_common_data = convert_df(most_common_herb2)
