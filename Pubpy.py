@@ -108,16 +108,16 @@ if file != None:
     with tab2:
         herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
         for pres_name in file_dict:
-        herb_list = file_dict.get(pres_name)
-        pres_name = [pres_name]
-        pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
-        herb_dense_dataframe = pd.concat([herb_dense_dataframe, pres_name], axis=0, join='outer')
-        for herb in herb_list:
-            herb_df = pd.DataFrame(columns=['herb_name'])
-            herb = [herb]
-            herb = pd.DataFrame(herb, columns=['herb_name'])
-            herb_df = pd.concat([herb_df, herb], axis=0, join='outer')
-            herb_dense_dataframe = pd.concat([herb_dense_dataframe, herb_df], axis=0, join='outer')
+            herb_list = file_dict.get(pres_name)
+            pres_name = [pres_name]
+            pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
+            herb_dense_dataframe = pd.concat([herb_dense_dataframe, pres_name], axis=0, join='outer')
+            for herb in herb_list:
+                herb_df = pd.DataFrame(columns=['herb_name'])
+                herb = [herb]
+                herb = pd.DataFrame(herb, columns=['herb_name'])
+                herb_df = pd.concat([herb_df, herb], axis=0, join='outer')
+                herb_dense_dataframe = pd.concat([herb_dense_dataframe, herb_df], axis=0, join='outer')
         herb_dense_dataframe['count'] = 1
         herb_dense_dataframe['pres_name'] = herb_dense_dataframe['pres_name'].fillna(method='ffill')
         herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
