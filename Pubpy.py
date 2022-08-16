@@ -165,5 +165,5 @@ if file != None:
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
         tf_idf_matrix = tf_idf_matrix.round(5)
         tf_idf_matrix = convert_df(tf_idf_dict)
-        st.download_button('Download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
+        st.download_button('Download tf_idf_matrix', data=tf_idf_dict, file_name='tf_idf_matrix.csv',
                            mime='csv')
