@@ -78,7 +78,7 @@ if file != None:
     #显示统计结果
     with tab1:
         st.write('1.The total number of herbs is: ', total_herb_word_list)
-        st.write('2.The average length of prescription: ', round(avg_len,0)
+        st.write('2.The average length of prescription: ', round(avg_len,0))
         st.write('3.The most common herb')
         color = st.select_slider(
             'How many drugs do you need to display by frequency?',
