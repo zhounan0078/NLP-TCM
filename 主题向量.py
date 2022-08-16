@@ -184,6 +184,8 @@ for tf_pres_name in file_dict:
             idf = 0
         ini_tf_vect[index] = tf * idf
     tf_idf_dict[tf_pres_name] = ini_tf_vect
+# %%
+tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict)
 
 # %%
 # 使用TfidfVectorizer()的tf-idf
