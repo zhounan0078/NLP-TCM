@@ -128,20 +128,20 @@ if file != None:
         herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
         herb_dense_dataframe = herb_dense_dataframe.pivot_table(
         'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
-        #st.table(herb_dense_dataframe)
         herb_dense_dataframe = convert_df(herb_dense_dataframe)
-        st.download_button('download dense matrix', data=herb_dense_dataframe, file_name='dense matrix.csv',
+        st.download_button('Download dense matrix', data=herb_dense_dataframe, file_name='dense matrix.csv',
                            mime='csv')
         #tf-idf矩阵
         list_vect = []
         for index, row in txt.iterrows():
             for sen in row:
                 sen_row = []
-                sent = sen.split(sep=' ')
+                sent = sen.split(sep=',')
                 ','.join(sent)
                 for herb in sent:
                     sen_row.append(herb)
         list_vect.append(sen_row)
+        # 手动计算tf-idf
         lexicon = sorted(set(herb_word_list))
         tf_idf_dict = dict()
         for tf_pres_name in file_dict:
@@ -161,7 +161,6 @@ if file != None:
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
-        #st.table(tf_idf_matrix)
         tf_idf_matrix = convert_df(tf_idf_matrix)
-        st.download_button('download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
+        st.download_button('Download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
                            mime='csv')

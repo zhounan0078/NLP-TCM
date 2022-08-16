@@ -153,10 +153,10 @@ for index1, row1 in herb_dense_dataframe.iterrows():
 # %%
 # 遍历txt，一个方一个字符串
 list_vect = []
-for index, row in txt.iterrows():
+for index, row in file.iterrows():
     for sen in row:
         sen_row = []
-        sent = sen.split(sep=' ')
+        sent = sen.split(sep=',')
         ','.join(sent)
         for herb in sent:
             sen_row.append(herb)
@@ -190,7 +190,7 @@ tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict)
 # %%
 # 使用TfidfVectorizer()的tf-idf
 tf_idf_vectorizer = TfidfVectorizer()
-tf_idf_vectorizer = (tf_idf_vectorizer.fit_transform(txt['text'])).todense()
+tf_idf_vectorizer = (tf_idf_vectorizer.fit_transform(txt['herbal name'])).todense()
 tf_idf_vectorizer = pd.DataFrame(tf_idf_vectorizer)
 # %%
 # 把每一个方剂的tf-idf提取出来，并且找出最小的，就是公约，找出最大的，就是代表
