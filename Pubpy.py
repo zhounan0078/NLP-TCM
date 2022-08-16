@@ -22,7 +22,7 @@ tab1, tab2, tab3, tab4 = st.tabs(
 #mpl.rcParams["axes.unicode_minus"] = False
 #font = FontProperties(fname="SimHei.ttf", size=14)
 #plt.style.use('ggplot')
-font = {'family': 'SimHei',
+font = {'family': 'SimSun',
         'weight':"bold",
         'size':'14'}
 mpl.rc(font,**font)
