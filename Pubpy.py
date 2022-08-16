@@ -100,12 +100,6 @@ if file != None:
             st.pyplot(fig)
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
-        full_common_data = convert_df(most_common_herb2)
-        st.download_button(
-            label="Download full herb frequency data",
-            data=full_common_data,
-            file_name='full_common_data.csv',
-            mime='csv', )
     # %%
     # 做成矩阵
     with tab5:
