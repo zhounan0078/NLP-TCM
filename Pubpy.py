@@ -157,7 +157,7 @@ if file != None:
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict)
-        st.dataframe(herb_dense_dataframe)
+        st.dataframe(tf_idf_matrix)
         tf_idf_matrix = convert_df(tf_idf_matrix)
         st.download_button('download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
                            mime='csv')
