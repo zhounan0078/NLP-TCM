@@ -18,7 +18,7 @@ import streamlit as st  # For the web app
 # 全局设置区
 sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4,tab5 = st.tabs(
-    ["Descriptive statistics", "Matrix display and download","Prescription similarity", "Topic distribution", "word embedding"])
+    ["Descriptive statistics","Prescription similarity", "Topic distribution", "word embedding","Matrix download"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
@@ -42,7 +42,7 @@ with st.sidebar:
     st.download_button('download sample data in English', data=english_example, file_name='sample data in English.csv',
                        mime='csv')
     st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
-    st.write('Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops')
+    st.write('Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
 # %%
 # 描述性统计处理
 if file != None:
@@ -108,7 +108,14 @@ if file != None:
             mime='csv', )
     # %%
     # 做成矩阵
-    with tab2:
+    with tab5:
+        #频次矩阵
+        full_common_data = convert_df(most_common_herb2)
+        st.download_button(
+            label="Download full herb frequency data",
+            data=full_common_data,
+            file_name='full_common_data.csv',
+            mime='csv', )
         #密集矩阵
         herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
         for pres_name in file_dict:
