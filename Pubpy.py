@@ -72,7 +72,7 @@ if file != None:
             fig,ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
-            ax.bar(x, y, align='center', color='c', tick_label=list(x))
+            ax.barh(x, y, align='center', color='c', tick_label=list(x))
             plt.xlabel('herbs',fontsize=13, fontproperties=font)
             plt.xticks(x,rotation=90,fontproperties=font)
             st.pyplot(fig)
