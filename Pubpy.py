@@ -75,12 +75,14 @@ if file != None:
     avg_len=len_herb_list/total_len
     # 词数统计
     Counter_every_herb = Counter(herb_word_list)
-    total_herb_word_list = len(Counter_every_herb)
+    total_herb_list = len(Counter_every_herb)
+    total_herb_word_list = len(herb_word_list)
     #显示统计结果
     with tab1:
-        st.write('1.The total number of herbs is: ', total_herb_word_list)
-        st.write('2.The average length of prescription: ', round(avg_len,0))
-        st.write('3.The most common herb')
+        st.write('1.The total number of different herbs: ', total_herb_list)
+        st.write('2.The total number of herbs is:', total_herb_word_list)
+        st.write('3.The average length of prescription: ', round(avg_len,0))
+        st.write('4.The most common herb')
         color = st.select_slider(
             'How many drugs do you need to display by frequency?',
             options=range(1, 50, 1))

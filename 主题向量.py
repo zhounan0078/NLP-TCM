@@ -29,10 +29,11 @@ word = sentence.split(',')
 
 # 把长字符转打散成一个list，这里的ls会在CountVectorized和TfidfVectorizer中用到，但是TreebankWordTokenizer不用
 # %%
-ls = sentence.split(sep=',')
+
 word_bag = Counter(ls)
 word_bag.most_common()
-len(word_bag)
+print(len(word_bag))
+print(len(ls))
 # 重新读文件，这里不设方名为index
 # %%
 file = pd.read_csv('English example.csv')
