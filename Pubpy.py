@@ -91,8 +91,9 @@ if file != None:
             fig, ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
+            y.sort(reverse=True)
             ax.barh(x, y, align='center', color='c', tick_label=list(x))
-            plt.xlabel('herbs', fontsize=13, fontproperties=font)
+            plt.ylabel('herbs', fontsize=13, fontproperties=font)
             plt.yticks(x, fontproperties=font)
             st.pyplot(fig)
         most_common_herb2 = Counter_every_herb.most_common()
@@ -124,7 +125,7 @@ if file != None:
         herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
         herb_dense_dataframe = herb_dense_dataframe.pivot_table(
         'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
-        st.table(herb_dense_dataframe)
+        #st.table(herb_dense_dataframe)
         herb_dense_dataframe = convert_df(herb_dense_dataframe)
         st.download_button('download dense matrix', data=herb_dense_dataframe, file_name='dense matrix.csv',
                            mime='csv')
@@ -157,7 +158,7 @@ if file != None:
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
-        st.table(tf_idf_matrix)
+        #st.table(tf_idf_matrix)
         tf_idf_matrix = convert_df(tf_idf_matrix)
         st.download_button('download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
                            mime='csv')
