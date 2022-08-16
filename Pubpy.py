@@ -91,6 +91,7 @@ if file != None:
             fig, ax = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
+            y = list(y)
             y.sort(reverse=True)
             ax.barh(x, y, align='center', color='c', tick_label=list(x))
             plt.ylabel('herbs', fontsize=13, fontproperties=font)
