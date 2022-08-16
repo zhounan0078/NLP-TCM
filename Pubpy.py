@@ -141,21 +141,21 @@ if file != None:
         lexicon = sorted(set(herb_word_list))
         tf_idf_dict = dict()
         for tf_pres_name in file_dict:
-        ini_tf_vect = dict()
-        herbs = file_dict.get(tf_pres_name)
-        herbs_counts = Counter(herbs)
-        for index, value in herbs_counts.items():
-            docs_contain_key = 0
-            for herb_row in list_vect:
-                if (index in herb_row) == True:
-                    docs_contain_key = docs_contain_key + 1
-            tf = value / len(lexicon)
-            if docs_contain_key != 0:
-                idf = len(txt.index) / docs_contain_key
-            else:
-                idf = 0
-            ini_tf_vect[index] = tf * idf
-        tf_idf_dict[tf_pres_name] = ini_tf_vect
+            ini_tf_vect = dict()
+            herbs = file_dict.get(tf_pres_name)
+            herbs_counts = Counter(herbs)
+            for index, value in herbs_counts.items():
+                docs_contain_key = 0
+                for herb_row in list_vect:
+                    if (index in herb_row) == True:
+                        docs_contain_key = docs_contain_key + 1
+                tf = value / len(lexicon)
+                if docs_contain_key != 0:
+                    idf = len(txt.index) / docs_contain_key
+                else:
+                    idf = 0
+                ini_tf_vect[index] = tf * idf
+            tf_idf_dict[tf_pres_name] = ini_tf_vect
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict)
         tf_idf_matrix = convert_df(tf_idf_matrix)
         st.download_button('download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
