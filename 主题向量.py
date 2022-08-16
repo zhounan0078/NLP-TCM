@@ -188,11 +188,14 @@ for tf_pres_name in file_dict:
     tf_idf_dict[tf_pres_name] = ini_tf_vect
 # %%
 tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
-
+def convert_df(out):
+    return out.to_csv().encode('utf-8')
+#%%
+tf_idf_matrix = convert_df(tf_idf_matrix)
 # %%
 # 使用TfidfVectorizer()的tf-idf
 tf_idf_vectorizer = TfidfVectorizer()
-tf_idf_vectorizer = (tf_idf_vectorizer.fit_transform(txt['herbal name'])).todense()
+tf_idf_vectorizer = (tf_idf_vectorizer.fit_transform(list_vect)).todense()
 tf_idf_vectorizer = pd.DataFrame(tf_idf_vectorizer)
 # %%
 # 把每一个方剂的tf-idf提取出来，并且找出最小的，就是公约，找出最大的，就是代表
