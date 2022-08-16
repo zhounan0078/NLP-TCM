@@ -22,13 +22,14 @@ sentence = ""
 for index, row in txt.iterrows():
     for sen in row:
         sentence = sentence + sen + ','
+ls = sentence.split(sep=',')
 # %%
 word = sentence.split(',')
 #' '.join(word)
 
 # 把长字符转打散成一个list，这里的ls会在CountVectorized和TfidfVectorizer中用到，但是TreebankWordTokenizer不用
 # %%
-ls = sentence.split(sep=' ')
+ls = sentence.split(sep=',')
 word_bag = Counter(ls)
 word_bag.most_common()
 len(word_bag)
@@ -185,7 +186,7 @@ for tf_pres_name in file_dict:
         ini_tf_vect[index] = tf * idf
     tf_idf_dict[tf_pres_name] = ini_tf_vect
 # %%
-tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict)
+tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
 
 # %%
 # 使用TfidfVectorizer()的tf-idf

@@ -78,7 +78,7 @@ if file != None:
     total_herb_word_list = len(herb_word_list)
     #显示统计结果
     with tab1:
-        st.write('1.The total number of herbs is: ', total_herb_word_list)
+        st.write('1.The total number of herbs is: ', Counter_every_herb)
         st.write('2.The average length of prescription: ', round(avg_len,0))
         st.write('3.The most common herb')
         color = st.select_slider(
@@ -144,9 +144,9 @@ if file != None:
         # 手动计算tf-idf
         lexicon = sorted(set(herb_word_list))
         tf_idf_dict = dict()
-        for tf_pres_name in file_dict:
+        for pres_name in file_dict:
             ini_tf_vect = dict()
-            herbs = file_dict.get(tf_pres_name)
+            herbs = file_dict.get(pres_name)
             herbs_counts = Counter(herbs)
             for index, value in herbs_counts.items():
                 docs_contain_key = 0
@@ -159,7 +159,7 @@ if file != None:
                 else:
                     idf = 0
                 ini_tf_vect[index] = tf * idf
-            tf_idf_dict[tf_pres_name] = ini_tf_vect
+            tf_idf_dict[pres_name] = ini_tf_vect
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
         tf_idf_matrix = convert_df(tf_idf_matrix)
         st.download_button('Download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
