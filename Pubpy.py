@@ -132,7 +132,7 @@ if file != None:
         herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
         herb_dense_dataframe = herb_dense_dataframe.pivot_table(
             'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
-        herb_dense_dataframe = convert_df(herb_dense_dataframe)
+
         #tf-idf矩阵
         list_vect = []
         for index, row in txt.iterrows():
@@ -221,11 +221,13 @@ if file != None:
             file_name='full_common_data.csv',
             mime='csv', )
         #密集矩阵下载
-        st.download_button(
-            label='Download dense matrix',
-            data=herb_dense_dataframe,
-            file_name='dense matrix.csv',
-            mime='csv')
+        if herb_dense_dataframe.empty == False:
+            herb_dense_dataframe = convert_df(herb_dense_dataframe)
+            st.download_button(
+                label='Download dense matrix',
+                data=herb_dense_dataframe,
+                file_name='dense matrix.csv',
+                mime='csv')
         #tf-idf矩阵下载
         st.download_button(
             label='Download tf_idf_matrix',
