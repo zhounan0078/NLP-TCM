@@ -185,25 +185,7 @@ if file != None:
         idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
-            #%%
-            for herb in herb_list:
-                herb_df = pd.DataFrame(columns=['herb_name'])
-                herb = [herb]
-                herb = pd.DataFrame(herb, columns=['herb_name'])
-                herb_df = pd.concat([herb_df, herb], axis=0, join='outer')
-                herb_dense_dataframe = pd.concat([herb_dense_dataframe, herb_df], axis=0, join='outer')
-        # %%
-        herb_dense_dataframe['count'] = 1
-        # %%
-        herb_dense_dataframe['pres_name'] = herb_dense_dataframe['pres_name'].fillna(method='ffill')
-        # %%
-        herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
-        # %%
-        herb_dense_dataframe = herb_dense_dataframe.pivot_table(
-            'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
-
-        tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
-        tf_idf_matrix = tf_idf_matrix.round(5)
-        #tf_idf_matrix = convert_df(tf_idf_dict)
-        st.download_button('Download tf_idf_matrix', data=tf_idf_dict, file_name='tf_idf_matrix.csv',
+        idf_df = idf_df.round(5)
+        tf_idf_matrix = convert_df(idf_df)
+        st.download_button('Download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
                            mime='csv')
