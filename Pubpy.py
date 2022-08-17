@@ -208,6 +208,8 @@ if file != None:
                 dic_index=str(index1)+'×'+str(index2)
                 value_dict[dic_index]=value
         value_df = pd.DataFrame.from_dict(value_dict,orient="index")
+        value_df = pd.DataFrame(value_df, columns=['Dot product term','value'])
+        value_df = value_df.sort_values(by=['value'], ascending=False)
         st.table(value_df)
 
         
