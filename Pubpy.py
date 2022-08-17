@@ -15,7 +15,7 @@ from PIL import Image
 import streamlit as st  # For the web app
 
 # %%
-# 全局设置区
+# 全局设置
 sns.set_theme(style="whitegrid")
 tab1, tab2, tab3, tab4,tab5 = st.tabs(
     ["Descriptive statistics","Prescription similarity", "Topic distribution", "word embedding","Matrix download"])
@@ -162,6 +162,46 @@ if file != None:
                     idf = 0
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
+        tf_idf_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
+        #%%
+        for pres_name in tf_idf_dict:
+            herb_tf_idf_dict = tf_idf_dict.get(pres_name)
+            pres_name = [pres_name]
+            pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
+            tf_idf_dataframe = pd.concat([tf_idf_dataframe, pres_name], axis=0, join='outer')
+            for herb_name in herb_tf_idf_dict:
+                herb_df = pd.DataFrame(columns=['herb_name', 'herb_tf_idf_value'])
+                herb_tf_value = herb_tf_idf_dict.get(herb_name)
+                herb_name = [herb_name]
+                herb_name = pd.DataFrame(herb_name, columns=['herb_name'])
+                herb_df = pd.concat([herb_df, herb_name], axis=0, join='outer')
+                herb_tf_value = round(herb_tf_value, 3)
+                herb_tf_value = [herb_tf_value]
+                herb_tf_value = pd.DataFrame(herb_tf_value, columns=['herb_tf_idf_value'])
+                herb_df = pd.concat([herb_df, herb_tf_value], axis=0, join='outer')
+                tf_idf_dataframe = pd.concat([tf_idf_dataframe, herb_df], axis=0, join='outer')
+        idf_df = cp.copy(tf_idf_dataframe)
+        idf_df['pres_name'] = idf_df['pres_name'].fillna(method='ffill')
+        idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
+        idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
+        idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
+            #%%
+            for herb in herb_list:
+                herb_df = pd.DataFrame(columns=['herb_name'])
+                herb = [herb]
+                herb = pd.DataFrame(herb, columns=['herb_name'])
+                herb_df = pd.concat([herb_df, herb], axis=0, join='outer')
+                herb_dense_dataframe = pd.concat([herb_dense_dataframe, herb_df], axis=0, join='outer')
+        # %%
+        herb_dense_dataframe['count'] = 1
+        # %%
+        herb_dense_dataframe['pres_name'] = herb_dense_dataframe['pres_name'].fillna(method='ffill')
+        # %%
+        herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
+        # %%
+        herb_dense_dataframe = herb_dense_dataframe.pivot_table(
+            'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
+
         tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
         tf_idf_matrix = tf_idf_matrix.round(5)
         #tf_idf_matrix = convert_df(tf_idf_dict)

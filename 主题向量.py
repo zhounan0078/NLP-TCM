@@ -187,6 +187,56 @@ for tf_pres_name in file_dict:
         ini_tf_vect[index] = tf * idf
     tf_idf_dict[tf_pres_name] = ini_tf_vect
 # %%
+#
+tf_idf_dataframe = pd.DataFrame()
+#%%
+for pres_name in tf_idf_dict:
+    herb_tf_idf_dict = tf_idf_dict.get(pres_name)
+    pres_name = [pres_name]
+    pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
+    tf_idf_dataframe = pd.concat([tf_idf_dataframe, pres_name], axis=0, join='outer')
+    for herb_name in herb_tf_idf_dict:
+        herb_df = pd.DataFrame(columns=['herb_name', 'herb_tf_idf_value'])
+        herb_tf_value = herb_tf_idf_dict.get(herb_name)
+        herb_name = [herb_name]
+        herb_name = pd.DataFrame(herb_name, columns=['herb_name'])
+        herb_df = pd.concat([herb_df, herb_name], axis=0, join='outer')
+        herb_tf_value = round(herb_tf_value, 3)
+        herb_tf_value = [herb_tf_value]
+        herb_tf_value = pd.DataFrame(herb_tf_value, columns=['herb_tf_idf_value'])
+        herb_df = pd.concat([herb_df, herb_tf_value], axis=0, join='outer')
+        tf_idf_dataframe = pd.concat([tf_idf_dataframe, herb_df], axis=0, join='outer')
+#%%
+idf_df = cp.copy(tf_idf_dataframe)
+idf_df['pres_name'] = idf_df['pres_name'].fillna(method='ffill')
+idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
+idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
+
+idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
+
+
+#%%
+#%%
+
+#%%
+    for herb_name in herb_dict:
+    herb_value = herb_dict.get(herb_name)
+    herb_value = pd.DataFrame([herb_value], columns=[herb_name], index=[pres_name])
+    matrix = matrix.join(herb_value, how='right')
+tf_idf_dataframe = pd.concat([tf_idf_dataframe, matrix], axis=0, join="outer")
+# %%
+
+
+# %%
+herb_dense_dataframe['count'] = 1
+# %%
+herb_dense_dataframe['pres_name'] = herb_dense_dataframe['pres_name'].fillna(method='ffill')
+# %%
+herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
+# %%
+herb_dense_dataframe = herb_dense_dataframe.pivot_table(
+    'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
+# %%
 tf_idf_matrix = pd.DataFrame.from_dict(tf_idf_dict,orient='index')
 def convert_df(out):
     return out.to_csv().encode('utf-8')
@@ -212,13 +262,13 @@ h_list_sorted = sorted(zip(h_list.keys(), h_list.values()))[0:4]
 
 # %%
 # 把tf_idf_dict中的值遍历出来，做成密集矩阵
-tf_idf_df = pd.DataFrame(columns=['pres_name', 'herb_name', 'herb_tf_idf_value'])
+tf_idf_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name', 'herb_tf_idf_value'])
 # %%
 for pres_name in tf_idf_dict:
     herb_tf_idf_dict = tf_idf_dict.get(pres_name)
     pres_name = [pres_name]
     pres_name = pd.DataFrame(pres_name, columns=['pres_name'])
-    tf_idf_df = pd.concat([tf_idf_df, pres_name], axis=0, join='outer')
+    tf_idf_dataframe = pd.concat([tf_idf_dataframe, pres_name], axis=0, join='outer')
     for herb_name in herb_tf_idf_dict:
         herb_df = pd.DataFrame(columns=['herb_name', 'herb_tf_idf_value'])
         herb_tf_value = herb_tf_idf_dict.get(herb_name)
@@ -229,9 +279,9 @@ for pres_name in tf_idf_dict:
         herb_tf_value = [herb_tf_value]
         herb_tf_value = pd.DataFrame(herb_tf_value, columns=['herb_tf_idf_value'])
         herb_df = pd.concat([herb_df, herb_tf_value], axis=0, join='outer')
-        tf_idf_df = pd.concat([tf_idf_df, herb_df], axis=0, join='outer')
+        tf_idf_dataframe = pd.concat([tf_idf_dataframe, herb_df], axis=0, join='outer')
 # %%
-idf_df = cp.copy(tf_idf_df)
+idf_df = cp.copy(tf_idf_dataframe)
 idf_df['pres_name'] = idf_df['pres_name'].fillna(method='ffill')
 idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
 idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
