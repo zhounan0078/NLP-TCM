@@ -252,8 +252,8 @@ if file != None:
                 mime='csv')
 
 with tab6:
-    st.write('author information:')
-    st.write('Name:Zhou Nan')
+    st.write('Author information:')
+    st.write('Name: Zhou Nan')
     st.write('Current situation: PhD student,Universiti Tunku Abdul Rahman(UTAR)')
     st.write('Mail_1:zhounan@1utar.my')
     st.write('Mail_2:zhounan2020@foxmail.com')
