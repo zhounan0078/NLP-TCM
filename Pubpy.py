@@ -211,7 +211,7 @@ if file != None:
                     value_dict[dic_index]=value
             value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['Quantity of the same herb'])
             value_df = pd.DataFrame(value_df)
-            value_df = value_df.sort_values(by=['value'], ascending=False)
+            value_df = value_df.sort_values(by=['Quantity of the same herb'], ascending=False)
             st.table(value_df.head(num2))
 
         
