@@ -209,7 +209,7 @@ if file != None:
                     index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
                     dic_index=str(index1)+'×'+str(index2)
                     value_dict[dic_index]=value
-            value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['value'])
+            value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['Quantity of the same herb'])
             value_df = pd.DataFrame(value_df)
             value_df = value_df.sort_values(by=['value'], ascending=False)
             st.table(value_df.head(num2))
