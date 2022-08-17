@@ -50,7 +50,7 @@ with st.sidebar:
 # 描述性统计处理
 #if file.empty == False:
 if file != None:
-    #txt = pd.read_csv(file)
+    txt = pd.read_csv(file)
     txt = pd.DataFrame(file)
     col = txt.columns
     txt = txt.set_index(col[0])
