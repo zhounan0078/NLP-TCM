@@ -106,8 +106,8 @@ if file != None:
                 plt.ylabel('herbs', fontsize=13, fontproperties=font)
                 plt.yticks(x, fontproperties=font)
                 st.pyplot(fig)
-        else:
-            st.write('Goodbye')
+        
+        
 
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
