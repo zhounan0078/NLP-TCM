@@ -186,7 +186,7 @@ if file != None:
 
     with tab2:
     #Dot product calculation
-        st.write('1.Similarity calculation based on dot product')
+        st.write('1.Dot product')
         st.write('The dot product value reflects how many of the same herbs are present between the two prescriptions.')
         dense_dot = pd.DataFrame()
         for index1, row1 in herb_dense_dataframe.iterrows():
@@ -214,7 +214,9 @@ if file != None:
             value_df = pd.DataFrame(value_df)
             value_df = value_df.sort_values(by=['Quantity of the same herb'], ascending=False)
             st.table(value_df.head(num2))
-
+        #cosine similarity
+        st.write('2.Cosine similarity')
+        st.write('Cosine similarity reflects how similar two prescriptions use herbs.')
         
 
 
