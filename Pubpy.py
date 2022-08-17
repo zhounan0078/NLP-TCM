@@ -198,8 +198,8 @@ if file != None:
                 series1_2_dot = series1.dot(series2)
                 series1_2_dot = pd.DataFrame([series1_2_dot], columns=[
                     index2], index=[index1])
-            matrix = matrix.join(series1_2_dot, how='right')
-        dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
+                matrix = matrix.join(series1_2_dot, how='right')
+            dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
         value_dict = dict()
         for index,row in dense_dot.iterrows():
             for value in row:
