@@ -44,10 +44,14 @@ with st.sidebar:
     st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
     st.write('Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
 # %%
+#测试区
+#file=pd.read_csv("English example.csv")
+#%%
 # 描述性统计处理
+#if file.empty == False:
 if file != None:
-    txt = pd.read_csv(file)
-    txt = pd.DataFrame(txt)
+    #txt = pd.read_csv(file)
+    txt = pd.DataFrame(file)
     col = txt.columns
     txt = txt.set_index(col[0])
     sentence = ""
@@ -77,6 +81,7 @@ if file != None:
     Counter_every_herb = Counter(herb_word_list)
     total_herb_list = len(Counter_every_herb)
     total_herb_word_list = len(herb_word_list)
+    #%%
     #显示统计结果
     with tab1:
         st.write('1.The total number of different herbs: ', total_herb_list)
@@ -142,7 +147,7 @@ if file != None:
                 ','.join(sent)
                 for herb in sent:
                     sen_row.append(herb)
-        list_vect.append(sen_row)
+                list_vect.append(sen_row)
         # 手动计算tf-idf
         lexicon = sorted(set(herb_word_list))
         tf_idf_dict = dict()
@@ -162,8 +167,8 @@ if file != None:
                     idf = 0
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
+
         tf_idf_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
-        #%%
         for pres_name in tf_idf_dict:
             herb_tf_idf_dict = tf_idf_dict.get(pres_name)
             pres_name = [pres_name]
@@ -185,7 +190,7 @@ if file != None:
         idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
-        idf_df = idf_df.round(5)
+
         tf_idf_matrix = convert_df(idf_df)
         st.download_button('Download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
                            mime='csv')

@@ -216,14 +216,12 @@ idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['
 
 
 #%%
+def convert_df(out):
+    return out.to_csv().encode('utf-8')
+#%%
+tf_idf_matrix = convert_df(idf_df)
 #%%
 
-#%%
-    for herb_name in herb_dict:
-    herb_value = herb_dict.get(herb_name)
-    herb_value = pd.DataFrame([herb_value], columns=[herb_name], index=[pres_name])
-    matrix = matrix.join(herb_value, how='right')
-tf_idf_dataframe = pd.concat([tf_idf_dataframe, matrix], axis=0, join="outer")
 # %%
 
 
