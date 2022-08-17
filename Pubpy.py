@@ -22,6 +22,12 @@ tab1, tab2, tab3, tab4,tab5,tab6 = st.tabs(
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
+def autolabel(rects):
+    for rect in rects:
+        height = rect.get_height()
+        #设置图例字体、位置、数值等等
+        plt.text(rect.get_x(), 1.01*height, '%s' %
+                 float(height), size=11, family="Times new roman")
 # %%
 # 定义文件转换csv函数
 def convert_df(out):
@@ -104,6 +110,7 @@ if file != None:
                 y = list(y)
                 y.reverse() # 倒序
                 ax.barh(x, y, align='center', color='c', tick_label=list(x))
+                autolabel(ax)
                 plt.ylabel('herbs', fontsize=13, fontproperties=font)
                 plt.yticks(x, fontproperties=font)
                 st.pyplot(fig)
