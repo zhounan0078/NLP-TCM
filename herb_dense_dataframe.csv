@@ -1,16 +1,4 @@
-,pres_name,herb_name
-0,Prescription name 1,membranous milkvetch root
-0,Prescription name 1,chinese angelica root
-0,Prescription name 1,peony root
-0,Prescription name 1,earth-worm
-0,Prescription name 1,chuanxiong rhizome
-0,Prescription name 1,olibanum
-0,Prescription name 2,membranous milkvetch root
-0,Prescription name 2,safflower
-0,Prescription name 2,corydalis ambigua
-0,Prescription name 2,olibanum
-0,Prescription name 2,root of herbaceous peony
-0,Prescription name 3,oriental waterplantain rhizome
-0,Prescription name 3,olibanum
-0,Prescription name 3,chinese angelica root
-0,Prescription name 3,balloonflower
+pres_name,balloonflower,chinese angelica root,chuanxiong rhizome,corydalis ambigua,earth-worm,membranous milkvetch root,olibanum,oriental waterplantain rhizome,peony root,root of herbaceous peony,safflower
+Prescription name 1,0.0,1.0,1.0,0.0,1.0,1.0,1.0,0.0,1.0,0.0,0.0
+Prescription name 2,0.0,0.0,0.0,1.0,0.0,1.0,1.0,0.0,0.0,1.0,1.0
+Prescription name 3,1.0,1.0,0.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0

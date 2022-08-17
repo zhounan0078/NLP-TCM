@@ -151,6 +151,14 @@ for index1, row1 in herb_dense_dataframe.iterrows():
             index2], index=[index1])
         matrix = matrix.join(series1_2_dot, how='right')
     dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
+# %%
+value_dict = dict()
+for index,row in dense_dot.iterrows():
+    for value in row:
+        index1= index
+        index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+        dic_index=str(index1)+'×'+str(index2)
+        value_dict[dic_index]=value
 
 # %%
 # 遍历txt，一个方一个字符串

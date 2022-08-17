@@ -91,32 +91,29 @@ if file != None:
         color = st.select_slider(
             'How many drugs do you need to display by frequency?',
             options=range(1, 50, 1))
-        most_common_herb1 = Counter_every_herb.most_common(color)
-        most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
-        st.write('The most common herb is: ', most_common_herb1)
-        #作图
-        if most_common_herb1.empty == False:
-            fig, ax = plt.subplots()
-            x = most_common_herb1['herb']
-            y = most_common_herb1['count']
-            y = list(y)
-            y.reverse() # 倒序
-            ax.barh(x, y, align='center', color='c', tick_label=list(x))
-            plt.ylabel('herbs', fontsize=13, fontproperties=font)
-            plt.yticks(x, fontproperties=font)
-            st.pyplot(fig)
+        if st.button('Launch'):
+            most_common_herb1 = Counter_every_herb.most_common(color)
+            most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
+            st.write('The most common herb is: ', most_common_herb1)
+            #作图
+            if most_common_herb1.empty == False:
+                fig, ax = plt.subplots()
+                x = most_common_herb1['herb']
+                y = most_common_herb1['count']
+                y = list(y)
+                y.reverse() # 倒序
+                ax.barh(x, y, align='center', color='c', tick_label=list(x))
+                plt.ylabel('herbs', fontsize=13, fontproperties=font)
+                plt.yticks(x, fontproperties=font)
+                st.pyplot(fig)
+        else:
+            st.write('Goodbye')
+
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
-    # %%
-    # 做成矩阵
-    with tab5:
+        #矩阵制作
         #频次矩阵
         full_common_data = convert_df(most_common_herb2)
-        st.download_button(
-            label="Download full herb frequency data",
-            data=full_common_data,
-            file_name='full_common_data.csv',
-            mime='csv', )
         #密集矩阵
         herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
         for pres_name in file_dict:
@@ -134,10 +131,8 @@ if file != None:
         herb_dense_dataframe['pres_name'] = herb_dense_dataframe['pres_name'].fillna(method='ffill')
         herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
         herb_dense_dataframe = herb_dense_dataframe.pivot_table(
-        'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
+            'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
         herb_dense_dataframe = convert_df(herb_dense_dataframe)
-        st.download_button('Download dense matrix', data=herb_dense_dataframe, file_name='dense matrix.csv',
-                           mime='csv')
         #tf-idf矩阵
         list_vect = []
         for index, row in txt.iterrows():
@@ -167,7 +162,7 @@ if file != None:
                     idf = 0
                 ini_tf_vect[index] = tf * idf
             tf_idf_dict[tf_pres_name] = ini_tf_vect
-
+        #遍历成dataframe
         tf_idf_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
         for pres_name in tf_idf_dict:
             herb_tf_idf_dict = tf_idf_dict.get(pres_name)
@@ -190,7 +185,50 @@ if file != None:
         idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
-
         tf_idf_matrix = convert_df(idf_df)
-        st.download_button('Download tf_idf_matrix', data=tf_idf_matrix, file_name='tf_idf_matrix.csv',
-                           mime='csv')
+
+
+    with tab2:
+    #Dot product calculation
+        st.write('1.Similarity calculation based on dot product')
+        dense_dot = pd.DataFrame()
+        for index1, row1 in herb_dense_dataframe.iterrows():
+            matrix = pd.DataFrame()
+            series1 = np.array(herb_dense_dataframe.loc[index1])
+            for index2, row2 in herb_dense_dataframe.iterrows():
+                series2 = np.array(herb_dense_dataframe.loc[index2])
+                series1_2_dot = series1.dot(series2)
+                series1_2_dot = pd.DataFrame([series1_2_dot], columns=[
+                    index2], index=[index1])
+                matrix = matrix.join(series1_2_dot, how='right')
+        dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
+        value_dict = dict()
+        for index,row in dense_dot.iterrows():
+            for value in row:
+                index1= index
+                index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+                dic_index=str(index1)+'×'+str(index2)
+                value_dict[dic_index]=value
+
+
+    # %%
+    # 矩阵下载
+    with tab5:
+        #频次矩阵下载
+        st.download_button(
+            label="Download full herb frequency data",
+            data=full_common_data,
+            file_name='full_common_data.csv',
+            mime='csv', )
+        #密集矩阵下载
+        st.download_button(
+            label='Download dense matrix',
+            data=herb_dense_dataframe,
+            file_name='dense matrix.csv',
+            mime='csv')
+        #tf-idf矩阵下载
+        st.download_button(
+            label='Download tf_idf_matrix',
+            data=tf_idf_matrix,
+            file_name='tf_idf_matrix.csv',
+            mime='csv')
