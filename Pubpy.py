@@ -107,9 +107,6 @@ if file != None:
                 plt.ylabel('herbs', fontsize=13, fontproperties=font)
                 plt.yticks(x, fontproperties=font)
                 st.pyplot(fig)
-        
-        
-
         most_common_herb2 = Counter_every_herb.most_common()
         most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
         #矩阵制作
@@ -186,7 +183,7 @@ if file != None:
         idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
-        tf_idf_matrix = convert_df(idf_df)
+
 
 
     with tab2:
@@ -210,6 +207,10 @@ if file != None:
                 index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
                 dic_index=str(index1)+'×'+str(index2)
                 value_dict[dic_index]=value
+        value_df = pd.DataFrame.from_dict(value_dict,orient="index")
+        st.table(value_df)
+
+        
 
 
     # %%
@@ -230,8 +231,10 @@ if file != None:
                 file_name='dense matrix.csv',
                 mime='csv')
         #tf-idf矩阵下载
-        st.download_button(
-            label='Download tf_idf_matrix',
-            data=tf_idf_matrix,
-            file_name='tf_idf_matrix.csv',
-            mime='csv')
+        if tf_idf_dataframe.empty == False:
+            tf_idf_matrix = convert_df(idf_df)
+            st.download_button(
+                label='Download tf_idf_matrix',
+                data=tf_idf_matrix,
+                file_name='tf_idf_matrix.csv',
+                mime='csv')
