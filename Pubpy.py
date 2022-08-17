@@ -67,7 +67,7 @@ if file != None:
             ws = sen.split(sep=',')
             for herb in ws:
                 per_vect.append(herb)
-        file_dict[index] = per_vect
+            file_dict[index] = per_vect
     # 平均长度
     len_herb_list=0
     for index in file_dict:
