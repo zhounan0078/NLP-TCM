@@ -17,8 +17,8 @@ import streamlit as st  # For the web app
 # %%
 # 全局设置
 sns.set_theme(style="whitegrid")
-tab1, tab2, tab3, tab4,tab5 = st.tabs(
-    ["Descriptive statistics","Prescription similarity", "Topic distribution", "word embedding","Matrix download"])
+tab1, tab2, tab3, tab4,tab5,tab6 = st.tabs(
+    ["Descriptive statistics","Prescription similarity", "Topic distribution", "word embedding","Matrix download","About the program"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
@@ -130,7 +130,6 @@ if file != None:
         herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
         herb_dense_dataframe = herb_dense_dataframe.pivot_table(
             'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
-
         #tf-idf矩阵
         list_vect = []
         for index, row in txt.iterrows():
@@ -183,8 +182,6 @@ if file != None:
         idf_df['herb_name'] = idf_df['herb_name'].fillna(method='ffill')
         idf_df.dropna(subset=['herb_tf_idf_value'], axis=0, inplace=True, how="any")
         idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
-
-
 
     with tab2:
     #Dot product calculation
