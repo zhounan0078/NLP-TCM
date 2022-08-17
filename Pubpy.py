@@ -42,6 +42,7 @@ with st.sidebar:
     st.download_button('download sample data in English', data=english_example, file_name='sample data in English.csv',
                        mime='csv')
     st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
+    st.write('You can understand the workflow of this program by uploading sample data.')
     st.write('Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
 # %%
 #测试区
