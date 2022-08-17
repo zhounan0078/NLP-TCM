@@ -89,11 +89,11 @@ if file != None:
         st.write('2.The total number of herbs is:', total_herb_word_list)
         st.write('3.The average length of prescription: ', round(avg_len,0))
         st.write('4.The most common herb')
-        color = st.select_slider(
-            'How many drugs do you need to display by frequency?',
+        num1 = st.select_slider(
+            'How many herbs do you need to display by frequency?',
             options=range(1, 50, 1))
         if st.button('Launch'):
-            most_common_herb1 = Counter_every_herb.most_common(color)
+            most_common_herb1 = Counter_every_herb.most_common(num1)
             most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
             st.write('The most common herb is: ', most_common_herb1)
             #作图
@@ -189,6 +189,7 @@ if file != None:
     with tab2:
     #Dot product calculation
         st.write('1.Similarity calculation based on dot product')
+        st.write('The dot product value reflects how many of the same herbs are present between the two prescriptions.')
         dense_dot = pd.DataFrame()
         for index1, row1 in herb_dense_dataframe.iterrows():
             matrix = pd.DataFrame()
@@ -201,16 +202,20 @@ if file != None:
                 matrix = matrix.join(series1_2_dot, how='right')
             dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
         value_dict = dict()
-        for index,row in dense_dot.iterrows():
-            for value in row:
-                index1= index
-                index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
-                dic_index=str(index1)+'×'+str(index2)
-                value_dict[dic_index]=value
-        value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['value'])
-        value_df = pd.DataFrame(value_df)
-        value_df = value_df.sort_values(by=['value'], ascending=False)
-        st.table(value_df)
+        num2 = st.select_slider(
+            'Please select the dot product value of the top herbs you want to view (in descending order)',
+            options=range(1, 50, 1))
+        if st.button('Launch'):
+            for index,row in dense_dot.iterrows():
+                for value in row:
+                    index1= index
+                    index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+                    dic_index=str(index1)+'×'+str(index2)
+                    value_dict[dic_index]=value
+            value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['value'])
+            value_df = pd.DataFrame(value_df)
+            value_df = value_df.sort_values(by=['value'], ascending=False)
+            st.table(value_df.head(num2))
 
         
 
@@ -233,10 +238,18 @@ if file != None:
                 file_name='dense matrix.csv',
                 mime='csv')
         #tf-idf矩阵下载
-        if tf_idf_dataframe.empty == False:
+        if idf_df.empty == False:
             tf_idf_matrix = convert_df(idf_df)
             st.download_button(
                 label='Download tf_idf_matrix',
                 data=tf_idf_matrix,
                 file_name='tf_idf_matrix.csv',
+                mime='csv')
+        #dot product矩阵下载
+        if dense_dot.empty == False:
+            dense_dot = convert_df(dense_dot)
+            st.download_button(
+                label='Download dot_product_matrix',
+                data=dense_dot,
+                file_name='dense dot product.csv',
                 mime='csv')
