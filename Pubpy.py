@@ -228,7 +228,7 @@ if file != None:
                 cos1_2_dot = pd.DataFrame([cos1_2_dot], columns=[
                     index2], index=[index1])
                 matrix = matrix.join(cos1_2_dot, how='right')
-        cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
+            cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
         cos_dict = dict()
         num3 = st.select_slider(
             'Please you want to view (in descending order)',
