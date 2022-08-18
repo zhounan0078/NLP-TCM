@@ -251,7 +251,7 @@ if file != None:
         cos_df["Prescription"] =cos_df["index1"].map(str) + '×' + cos_df["index2"].map(str)
         cos_df=cos_df.drop(['index1','index2'],axis=1)
         cos_df=cos_df.set_index("Prescription")
-        cos_df = cos_df.sort_values(by=['Quantity of the same herb'], ascending=False)
+        cos_df = cos_df.sort_values(by=['Cosine similarity'], ascending=False)
         num3 = st.select_slider(
             'Please select the cosine similarity of the top prescription you want to view (in descending order)',
             options=range(1, 50, 1),key=5)
