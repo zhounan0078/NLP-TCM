@@ -236,24 +236,28 @@ if file != None:
                     index2], index=[index1])
                 matrix = matrix.join(cos1_2_dot, how='right')
             cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
-        cos_dict = dict()
-        for index,row in cos_dot.iterrows():
+        cos_df = pd.DataFrame(columns=['index1', 'index2', 'Cosine similarity'])
+        for index,row in dense_dot.iterrows():
             for value in row:
                 index1= index
-                index2= cos_dot.columns[cos_dot.loc[index]==value].values[0]
+                index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
                 if index1==index2:
                     continue
                 else:
-                    dic_index=str(index1)+'×'+str(index2)
-                    cos_dict[dic_index]=value
-        cos_dot_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine similarity'])
-        cos_dot_df = cos_dot_df.sort_values(by=['Cosine similarity'], ascending=False)
+                    if (index1 in list(cos_df['index2']))==True and (index2 in list(cos_df['index1']))==True:
+                        continue
+                    else:
+                        cos_df = cos_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
+        cos_df["Prescription"] =cos_df["index1"].map(str) + '×' + cos_df["index2"].map(str)
+        cos_df=cos_df.drop(['index1','index2'],axis=1)
+        cos_df=cos_df.set_index("Prescription")
+        cos_df = cos_df.sort_values(by=['Quantity of the same herb'], ascending=False)
         num3 = st.select_slider(
             'Please select the cosine similarity of the top prescription you want to view (in descending order)',
             options=range(1, 50, 1),key=5)
         if st.button('Launch',key=6):
-            if cos_dot_df.empty==False:
-                st.table(cos_dot_df.head(num3))
+            if cos_df.empty==False:
+                st.table(cos_df.head(num3))
         #Freedom of choice
         st.write('3.Focus on dot product and cosine similarity for a specific prescription')
         options=list(txt.index)
