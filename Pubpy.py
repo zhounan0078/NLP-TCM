@@ -251,6 +251,11 @@ if file != None:
         cos_dot_df = cos_dot_df.sort_values(by=['Cosine similarity'], ascending=False)
         if cos_dot_df.empty==False:
             st.table(cos_dot_df.head(num3))
+        #Freedom of choice
+        st.write('3.Focus on dot product and cosine similarity for a specific prescription')
+        options=list(txt.index)
+        st.multiselect(
+            'Please select the name of the prescription you wish to follow',options=options,key=7)
 
 
 
