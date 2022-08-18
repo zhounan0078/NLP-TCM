@@ -204,12 +204,12 @@ if file != None:
             'Please select the dot product value of the top herbs you want to view (in descending order)',
             options=range(1, 50, 1),key=3)
         if st.button('Launch',key=4):
-            for index,row in dense_dot.iterrows():
-                for value in row:
-                    index1= index
-                    index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
-                    dic_index=str(index1)+'×'+str(index2)
-                    value_dict[dic_index]=value
+                for index,row in dense_dot.iterrows():
+                    for value in row:
+                        index1= index
+                        index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+                        dic_index=str(index1)+'×'+str(index2)
+                        value_dict[dic_index]=value
             value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['Quantity of the same herb'])
             value_df = pd.DataFrame(value_df)
             value_df = value_df.sort_values(by=['Quantity of the same herb'], ascending=False)
@@ -234,12 +234,12 @@ if file != None:
             'Please you want to view (in descending order)',
             options=range(1, 50, 1),key=5)
         if st.button('Launch',key=6):
-            for index,row in cos_dot.iterrows():
-                for value in row:
-                    index1= index
-                    index2= cos_dot.columns[cos_dot.loc[index]==value].values[0]
-                    dic_index=str(index1)+'×'+str(index2)
-                    cos_dict[dic_index]=value
+                for index,row in cos_dot.iterrows():
+                    for value in row:
+                        index1= index
+                        index2= cos_dot.columns[cos_dot.loc[index]==value].values[0]
+                        dic_index=str(index1)+'×'+str(index2)
+                        cos_dict[dic_index]=value
             cos_dot_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine similarity'])
             ##cos_dot_df = cos_dot_df.drop(cos_dot_df[cos_dot_df['Cosine similarity']==1].index)
             cos_dot_df = cos_dot_df.sort_values(by=['Cosine similarity'], ascending=False)
