@@ -181,7 +181,7 @@ for index,row in cos_dot.iterrows():
 value_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine'])
 
 # %%
-value_dic = pd.DataFrame(columns=['index1', 'index2', 'Quantity of the same herb'])
+dot_df = pd.DataFrame(columns=['index1', 'index2', 'Quantity of the same herb'])
 for index,row in dense_dot.iterrows():
     for value in row:
         index1= index
@@ -189,11 +189,10 @@ for index,row in dense_dot.iterrows():
         if index1==index2:
             continue
         else:
-            if (index1 in list(value_dic['index2']))==True and (index2 in list(value_dic['index1']))==True:
+            if (index1 in list(dot_df['index2']))==True and (index2 in list(dot_df['index1']))==True:
                 continue
             else:
-                value_dic = value_dic.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
-            #%%
+                dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
 
 
 

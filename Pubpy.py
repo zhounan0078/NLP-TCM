@@ -210,15 +210,7 @@ if file != None:
                     if (index1 in list(dot_df['index2']))==True and (index2 in list(dot_df['index1']))==True:
                         continue
                     else:
-                        #dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
-
-
-                        index1 = pd.DataFrame(index1,columns=['index1'])
-                        index2 = pd.DataFrame(index2,columns=['index2'])
-                        dot_df = pd.concat([dot_df, index1], axis=0, join='outer')
-                        dot_df = pd.concat([dot_df, index2], axis=0, join='outer')
-                        value = pd.DataFrame([value],columns=['value'])
-                        dot_df = pd.concat([dot_df, value], axis=0, join='outer')
+                        dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
         dot_df["Prescription"] =dot_df["index1"].map(str) + '×' + dot_df["index2"].map(str)
         out=dot_df.drop(['index1','index2'],axis=1)
         dot_df = dot_df.sort_values(by=['Quantity of the same herb'], ascending=False)
