@@ -247,7 +247,7 @@ if file != None:
                     if (index1 in list(cos_df['index2']))==True and (index2 in list(cos_df['index1']))==True:
                         continue
                     else:
-                        cos_df = cos_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
+                        cos_df = cos_df.append({'index1':index1,'index2':index2,'Cosine similarity':value},ignore_index=True)
         cos_df["Prescription"] =cos_df["index1"].map(str) + '×' + cos_df["index2"].map(str)
         cos_df=cos_df.drop(['index1','index2'],axis=1)
         cos_df=cos_df.set_index("Prescription")
