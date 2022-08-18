@@ -288,6 +288,14 @@ if file != None:
                 data=dense_dot,
                 file_name='dense dot product.csv',
                 mime='csv')
+        #cosine similarity矩阵下载
+        if cos_dot.empty == False:
+            cos_dot = convert_df(cos_dot)
+            st.download_button(
+                label='Download cosine similarity matrix',
+                data=cos_dot,
+                file_name='cosine similarity.csv',
+                mime='csv')
 
 with tab6:
     st.write('Author information:')
