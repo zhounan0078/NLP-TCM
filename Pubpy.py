@@ -208,12 +208,16 @@ if file != None:
                 for value in row:
                     index1= index
                     index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
-                    dic_index=str(index1)+'×'+str(index2)
-                    value_dict[dic_index]=value
+                    if index1==index2:
+                        continue
+                    else:
+                        dic_index=str(index1)+'×'+str(index2)
+                        value_dict[dic_index]=value
         value_df = pd.DataFrame.from_dict(value_dict,orient="index",columns=['Quantity of the same herb'])
         value_df = pd.DataFrame(value_df)
         value_df = value_df.sort_values(by=['Quantity of the same herb'], ascending=False)
-        st.table(value_df.head(num2))
+        if value_df.empty==False:
+            st.table(value_df.head(num2))
         #cosine similarity
         st.write('2.Cosine similarity')
         st.write('Cosine similarity reflects how similar two prescriptions use herbs.')
@@ -240,13 +244,13 @@ if file != None:
                     index2= cos_dot.columns[cos_dot.loc[index]==value].values[0]
                     if index1==index2:
                         continue
-                    if index1!=index2:
+                    else:
                         dic_index=str(index1)+'×'+str(index2)
                         cos_dict[dic_index]=value
         cos_dot_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine similarity'])
-        ##cos_dot_df = cos_dot_df.drop(cos_dot_df[cos_dot_df['Cosine similarity']==1].index)
         cos_dot_df = cos_dot_df.sort_values(by=['Cosine similarity'], ascending=False)
-        st.table(cos_dot_df.head(num3))
+        if cos_dot_df.empty==False:
+            st.table(cos_dot_df.head(num3))
 
 
 
