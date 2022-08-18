@@ -119,7 +119,7 @@ for prescr_name in file_dict:
 # 基于TF的余弦相似度
 tf_cos_sim = pd.DataFrame()
 # %%
-#for h1 in tf_vector_Orderdict:
+for h1 in tf_vector_Orderdict:
     matrix = pd.DataFrame()
     h_list = tf_vector_Orderdict.get(h1)
     h1_vec = []
@@ -146,19 +146,50 @@ for index1, row1 in herb_dense_dataframe.iterrows():
     series1 = np.array(herb_dense_dataframe.loc[index1])
     for index2, row2 in herb_dense_dataframe.iterrows():
         series2 = np.array(herb_dense_dataframe.loc[index2])
-        series1_2_dot = series1.dot(series2)
+        series1_2_dot = np.dot(series1, series2) / \
+                   (np.linalg.norm(series1) * np.linalg.norm(series2))
         series1_2_dot = pd.DataFrame([series1_2_dot], columns=[
             index2], index=[index1])
         matrix = matrix.join(series1_2_dot, how='right')
     dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
 # %%
-value_dict = dict()
-for index,row in dense_dot.iterrows():
+cos_dot = pd.DataFrame()
+for index1, row1 in herb_dense_dataframe.iterrows():
+    matrix = pd.DataFrame()
+    cos_dot1 = np.array(herb_dense_dataframe.loc[index1])
+    for index2, row2 in herb_dense_dataframe.iterrows():
+        cos_dot2 = np.array(herb_dense_dataframe.loc[index2])
+        cos1_2_dot = np.dot(cos_dot1, cos_dot2) / \
+                     (np.linalg.norm(cos_dot1) * np.linalg.norm(cos_dot2))
+        cos1_2_dot = pd.DataFrame([cos1_2_dot], columns=[
+            index2], index=[index1])
+        matrix = matrix.join(cos1_2_dot, how='right')
+    cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
+# %%
+cos_dict = dict()
+num2 = st.select_slider(
+    'Please select the dot product value of the top herbs you want to view (in descending order)',
+    options=range(1, 50, 1))
+
+for index,row in cos_dot.iterrows():
     for value in row:
         index1= index
-        index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+        index2= cos_dot.columns[cos_dot.loc[index]==value].values[0]
         dic_index=str(index1)+'×'+str(index2)
-        value_dict[dic_index]=value
+        value=float(value)
+        cos_dict[dic_index]=value
+value_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine'])
+
+# %%
+for index,row in value_df.iterrows():
+    if row==1:
+        value_df.drop(value_df[value_df['Cosine']==1.000000].index)
+
+value_df = value_df.drop(value_df[value_df['Cosine']==1.000000].index)
+#%%
+
+
+
 
 # %%
 # 遍历txt，一个方一个字符串

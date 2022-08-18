@@ -217,7 +217,35 @@ if file != None:
         #cosine similarity
         st.write('2.Cosine similarity')
         st.write('Cosine similarity reflects how similar two prescriptions use herbs.')
-        
+        cos_dot = pd.DataFrame()
+        for index1, row1 in herb_dense_dataframe.iterrows():
+            matrix = pd.DataFrame()
+            cos_dot1 = np.array(herb_dense_dataframe.loc[index1])
+            for index2, row2 in herb_dense_dataframe.iterrows():
+                cos_dot2 = np.array(herb_dense_dataframe.loc[index2])
+                cos1_2_dot = np.dot(cos_dot1, cos_dot2) / \
+                                (np.linalg.norm(cos_dot1) * np.linalg.norm(cos_dot2))
+                cos1_2_dot = pd.DataFrame([cos1_2_dot], columns=[
+                    index2], index=[index1])
+                matrix = matrix.join(cos1_2_dot, how='right')
+            cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
+            cos_dict = dict()
+            num3 = st.select_slider(
+                'Please select the dot product value of the top herbs you want to view (in descending order)',
+                options=range(1, 50, 1))
+            if st.button('Launch',key=3):
+                for index,row in cos_dot.iterrows():
+                    for value in row:
+                        index1= index
+                        index2= cos_dot.columns[cos_dot.loc[index]==value].values[0]
+                        dic_index=str(index1)+'×'+str(index2)
+                        cos_dict[dic_index]=value
+                cos_dot_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine similarity'])
+                cos_dot_df = cos_dot_df.drop(cos_dot_df[cos_dot_df['Cosine similarity']==1.000000].index)
+                cos_dot_df = cos_dot_df.sort_values(by=['Cosine similarity'], ascending=False)
+                st.table(value_df.head(num3))
+
+
 
 
     # %%
