@@ -232,7 +232,7 @@ if file != None:
             cos_dict = dict()
             num3 = st.select_slider(
                 'Please you want to view (in descending order)',
-                options=range(1, 50, 1),key=5)
+                options=range(1, 50, 1),key='5')
             if st.button('Launch',key=6):
                 for index,row in cos_dot.iterrows():
                     for value in row:
