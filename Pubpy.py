@@ -201,16 +201,16 @@ if file != None:
             dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
         dot_df = pd.DataFrame(columns=['index1', 'index2', 'Quantity of the same herb'])
         for index,row in dense_dot.iterrows():
-            for value in row:
+            for value1 in row:
                 index1= index
-                index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+                index2= dense_dot.columns[dense_dot.loc[index]==value1].values[0]
                 if index1==index2:
                     continue
                 else:
                     if (index1 in list(dot_df['index2']))==True and (index2 in list(dot_df['index1']))==True:
                         continue
                     else:
-                        dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
+                        dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value1},ignore_index=True)
         dot_df["Prescription"] =dot_df["index1"].map(str) + '×' + dot_df["index2"].map(str)
         dot_df=dot_df.drop(['index1','index2'],axis=1)
         dot_df=dot_df.set_index("Prescription")
@@ -238,16 +238,16 @@ if file != None:
             cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
         cos_df = pd.DataFrame(columns=['index1', 'index2', 'Cosine similarity'])
         for index,row in dense_dot.iterrows():
-            for value in row:
+            for value2 in row:
                 index1= index
-                index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+                index2= dense_dot.columns[dense_dot.loc[index]==value2].values[0]
                 if index1==index2:
                     continue
                 else:
                     if (index1 in list(cos_df['index2']))==True and (index2 in list(cos_df['index1']))==True:
                         continue
                     else:
-                        cos_df = cos_df.append({'index1':index1,'index2':index2,'Cosine similarity':value},ignore_index=True)
+                        cos_df = cos_df.append({'index1':index1,'index2':index2,'Cosine similarity':value2},ignore_index=True)
         cos_df["Prescription"] =cos_df["index1"].map(str) + '×' + cos_df["index2"].map(str)
         cos_df=cos_df.drop(['index1','index2'],axis=1)
         cos_df=cos_df.set_index("Prescription")
