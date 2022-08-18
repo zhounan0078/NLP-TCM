@@ -212,7 +212,8 @@ if file != None:
                     else:
                         dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
         dot_df["Prescription"] =dot_df["index1"].map(str) + '×' + dot_df["index2"].map(str)
-        out=dot_df.drop(['index1','index2'],axis=1)
+        dot_df=dot_df.drop(['index1','index2'],axis=1)
+        dot_df=dot_df.set_index("Prescription")
         dot_df = dot_df.sort_values(by=['Quantity of the same herb'], ascending=False)
         num2 = st.select_slider(
             'Please select the dot product value of the top prescription you want to view (in descending order)',
