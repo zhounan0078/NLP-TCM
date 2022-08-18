@@ -237,10 +237,10 @@ if file != None:
                 matrix = matrix.join(cos1_2_dot, how='right')
             cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
         cos_df = pd.DataFrame(columns=['index1', 'index2', 'Cosine similarity'])
-        for index,row in dense_dot.iterrows():
+        for index,row in cos_dot.iterrows():
             for value2 in row:
                 index1= index
-                index2= dense_dot.columns[dense_dot.loc[index]==value2].values[0]
+                index2= cos_dot.columns[cos_dot.loc[index]==value2].values[0]
                 if index1==index2:
                     continue
                 else:
