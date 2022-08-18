@@ -241,7 +241,7 @@ if file != None:
                     dic_index=str(index1)+'×'+str(index2)
                     cos_dict[dic_index]=value
             cos_dot_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine similarity'])
-            cos_dot_df = cos_dot_df.drop(cos_dot_df[cos_dot_df['Cosine similarity']==1].index)
+            ##cos_dot_df = cos_dot_df.drop(cos_dot_df[cos_dot_df['Cosine similarity']==1].index)
             cos_dot_df = cos_dot_df.sort_values(by=['Cosine similarity'], ascending=False)
             st.table(cos_dot_df.head(num3))
 
