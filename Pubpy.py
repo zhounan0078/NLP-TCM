@@ -231,7 +231,7 @@ if file != None:
             cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
             cos_dict = dict()
             num3 = st.select_slider(
-                'Please select the dot product value of the top herbs you want to view (in descending order)',
+                'Please you want to view (in descending order)',
                 options=range(1, 50, 1),key=5)
             if st.button('Launch',key=6):
                 for index,row in cos_dot.iterrows():
