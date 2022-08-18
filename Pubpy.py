@@ -207,7 +207,7 @@ if file != None:
                 if index1==index2:
                     continue
                 else:
-                    if (index1 in value_df['index2'])==True and (index2 in value_df['index1'])==True:
+                    if (index1 in list(value_df['index2']))==True and (index2 in list(value_df['index1']))==True:
                         continue
                     else:
                         value_df = value_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)

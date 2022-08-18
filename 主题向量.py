@@ -181,12 +181,19 @@ for index,row in cos_dot.iterrows():
 value_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine'])
 
 # %%
-for index,row in value_df.iterrows():
-    if row==1:
-        value_df.drop(value_df[value_df['Cosine']==1.000000].index)
-
-value_df = value_df.drop(value_df[value_df['Cosine']==1.000000].index)
-#%%
+value_dic = pd.DataFrame(columns=['index1', 'index2', 'Quantity of the same herb'])
+for index,row in dense_dot.iterrows():
+    for value in row:
+        index1= index
+        index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
+        if index1==index2:
+            continue
+        else:
+            if (index1 in list(value_dic['index2']))==True and (index2 in list(value_dic['index1']))==True:
+                continue
+            else:
+                value_dic = value_dic.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
+            #%%
 
 
 
