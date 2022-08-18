@@ -92,7 +92,7 @@ if file != None:
         st.write('4.The most common herb')
         num1 = st.select_slider(
             'How many herbs do you need to display by frequency?',
-            options=range(1, 50, 1))
+            options=range(1, 50, 1),key=1)
         if st.button('Launch',key=1):
             most_common_herb1 = Counter_every_herb.most_common(num1)
             most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
@@ -202,7 +202,7 @@ if file != None:
         value_dict = dict()
         num2 = st.select_slider(
             'Please select the dot product value of the top herbs you want to view (in descending order)',
-            options=range(1, 50, 1))
+            options=range(1, 50, 1),key=2)
         if st.button('Launch',key=2):
             for index,row in dense_dot.iterrows():
                 for value in row:
@@ -232,7 +232,7 @@ if file != None:
             cos_dict = dict()
             num3 = st.select_slider(
                 'Please select the dot product value of the top herbs you want to view (in descending order)',
-                options=range(1, 50, 1))
+                options=range(1, 50, 1),key=3)
             if st.button('Launch',key=3):
                 for index,row in cos_dot.iterrows():
                     for value in row:
