@@ -279,11 +279,11 @@ if file != None:
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
         if st.button('Launch',key=8):
             fig2, ax2 = plt.subplots()
-            sns.heatmap(dense_dot_df, annot=True, fmt="d", linewidths=.5, cmap='RdYlGn')
+            sns.heatmap(dense_dot_df, annot=True, linewidths=.5, cmap='RdYlGn')
             ax2.set_title('Dot product')
             st.pyplot(fig2)
             fig3, ax3 = plt.subplots()
-            sns.heatmap(cos_dot_df, annot=True, fmt="d", linewidths=.5, cmap='RdYlGn')
+            sns.heatmap(cos_dot_df, annot=True, linewidths=.5, cmap='RdYlGn')
             ax3.set_title('Cosine similarity')
             st.pyplot(fig3)
 
