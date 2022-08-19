@@ -261,8 +261,24 @@ if file != None:
         #Freedom of choice
         st.write('3.Focus on dot product and cosine similarity for a specific prescription')
         options=list(txt.index)
-        st.multiselect(
+        select_result=st.multiselect(
             'Please select the name of the prescription you wish to follow',options=options,key=7)
+        dense_dot_df=pd.DataFrame()
+        cos_dot_df=pd.DataFrame()
+        for item in select_result:
+            dense_dot_result = dense_dot.loc[[item],[item]]
+            cos_dot_result = cos_dot.loc[[item],[item]]
+            dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item], index=[item])
+            cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item], index=[item])
+            dense_dot_df = pd.concat([dense_dot_df, dense_dot_result], axis=0, join="outer")
+            cos_dot_df = pd.concat([cos_dot_df, cos_dot_result], axis=0, join="outer")
+
+
+
+
+        if st.button('Launch',key=8):
+            st.table(dense_dot_df)
+            st.table(cos_dot_df)
 
 
 
