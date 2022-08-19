@@ -280,9 +280,8 @@ if file != None:
         dense_dot_heatmap=sns.heatmap(dense_dot_df, annot=True, fmt='.2f', cmap='RdYlGn')
         cos_dot_heatmap=sns.heatmap(cos_dot_df, annot=True, fmt='.2f', cmap='RdYlGn')
         if st.button('Launch',key=8):
-            st.pyplot(dense_dot_heatmap)
-            st.pyplot(cos_dot_heatmap)
-
+            dense_dot_heatmap
+            cos_dot_heatmap
 
 
 
