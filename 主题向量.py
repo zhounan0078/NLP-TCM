@@ -181,18 +181,23 @@ for index,row in cos_dot.iterrows():
 value_df = pd.DataFrame.from_dict(cos_dict,orient="index",columns=['Cosine'])
 
 # %%
-dot_df = pd.DataFrame(columns=['index1', 'index2', 'Quantity of the same herb'])
-for index,row in dense_dot.iterrows():
-    for value in row:
-        index1= index
-        index2= dense_dot.columns[dense_dot.loc[index]==value].values[0]
-        if index1==index2:
-            continue
-        else:
-            if (index1 in list(dot_df['index2']))==True and (index2 in list(dot_df['index1']))==True:
-                continue
-            else:
-                dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value},ignore_index=True)
+select_result = list(txt.index)
+#%%
+dense_dot_df=pd.DataFrame()
+cos_dot_df=pd.DataFrame()
+for item1 in select_result:
+    dense_dot_matrix=pd.DataFrame()
+    cos_dot_matrix=pd.DataFrame()
+    for item2 in select_result:
+        dense_dot_result = dense_dot.loc[[item1],[item2]]
+        dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item2], index=[item1])
+        cos_dot_result = cos_dot.loc[[item1],[item2]]
+        cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item2], index=[item1])
+        dense_dot_matrix = dense_dot_matrix.join(dense_dot_result, how='right')
+        cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
+    dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
+    cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
+
 
 
 

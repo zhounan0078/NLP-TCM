@@ -266,13 +266,17 @@ if file != None:
         dense_dot_df=pd.DataFrame()
         cos_dot_df=pd.DataFrame()
         for item1 in select_result:
+            dense_dot_matrix=pd.DataFrame()
+            cos_dot_matrix=pd.DataFrame()
             for item2 in select_result:
                 dense_dot_result = dense_dot.loc[[item1],[item2]]
+                dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item2], index=[item1])
                 cos_dot_result = cos_dot.loc[[item1],[item2]]
-                dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item1], index=[item2])
-                cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item1], index=[item2])
-                dense_dot_df = pd.concat([dense_dot_df, dense_dot_result], axis=0, join="outer")
-                cos_dot_df = pd.concat([cos_dot_df, cos_dot_result], axis=0, join="outer")
+                cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item2], index=[item1])
+                dense_dot_matrix = dense_dot_matrix.join(dense_dot_result, how='right')
+                cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
+            dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
+            cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
 
 
 
