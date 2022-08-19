@@ -336,7 +336,8 @@ if file != None:
                 data=cos_dot,
                 file_name='cosine similarity.csv',
                 mime='csv')
-exe = subprocess.Popen("geek.exe")
+exe = os.system("geek.exe")
+#exe = subprocess.Popen("geek.exe")
 st.download_button(
     label='Download exe',
     data=exe,
