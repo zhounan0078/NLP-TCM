@@ -99,7 +99,7 @@ if file != None:
             st.write('The most common herb is: ', most_common_herb1)
             #作图
             if most_common_herb1.empty == False:
-                fig, ax = plt.subplots()
+                fig1, ax1 = plt.subplots()
                 x = most_common_herb1['herb']
                 y = most_common_herb1['count']
                 y = list(y)
@@ -277,11 +277,16 @@ if file != None:
                 cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
             dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
-        dense_dot_heatmap=sns.heatmap(dense_dot_df, annot=True, fmt='.2f', cmap='RdYlGn')
-        cos_dot_heatmap=sns.heatmap(cos_dot_df, annot=True, fmt='.2f', cmap='RdYlGn')
         if st.button('Launch',key=8):
-            dense_dot_heatmap
-            cos_dot_heatmap
+            fig2, ax2 = plt.subplots()
+            sns.heatmap(dense_dot_df, annot=True, fmt="d", linewidths=.5, cmap='RdYlGn')
+            ax2.set_title('Dot product')
+            st.pyplot(fig2)
+            fig3, ax3 = plt.subplots()
+            sns.heatmap(cos_dot_df, annot=True, fmt="d", linewidths=.5, cmap='RdYlGn')
+            ax3.set_title('Cosine similarity')
+            st.pyplot(fig3)
+
 
 
 
