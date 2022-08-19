@@ -265,13 +265,14 @@ if file != None:
             'Please select the name of the prescription you wish to follow',options=options,key=7)
         dense_dot_df=pd.DataFrame()
         cos_dot_df=pd.DataFrame()
-        for item in select_result:
-            dense_dot_result = dense_dot.loc[[item],[item]]
-            cos_dot_result = cos_dot.loc[[item],[item]]
-            dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item], index=[item])
-            cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item], index=[item])
-            dense_dot_df = pd.concat([dense_dot_df, dense_dot_result], axis=0, join="outer")
-            cos_dot_df = pd.concat([cos_dot_df, cos_dot_result], axis=0, join="outer")
+        for item1 in select_result:
+            for item2 in select_result:
+                dense_dot_result = dense_dot.loc[[item1],[item2]]
+                cos_dot_result = cos_dot.loc[[item1],[item2]]
+                dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item1], index=[item2])
+                cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item1], index=[item2])
+                dense_dot_df = pd.concat([dense_dot_df, dense_dot_result], axis=0, join="outer")
+                cos_dot_df = pd.concat([cos_dot_df, cos_dot_result], axis=0, join="outer")
 
 
 
