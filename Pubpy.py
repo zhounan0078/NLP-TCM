@@ -266,26 +266,27 @@ if file != None:
         dense_dot_df=pd.DataFrame()
         cos_dot_df=pd.DataFrame()
         if st.button('Launch',key=8):
-            for item1 in select_result:
-                dense_dot_matrix=pd.DataFrame()
-                cos_dot_matrix=pd.DataFrame()
-                for item2 in select_result:
-                    dense_dot_result = dense_dot.loc[[item1],[item2]]
-                    dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item2], index=[item1])
-                    cos_dot_result = cos_dot.loc[[item1],[item2]]
-                    cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item2], index=[item1])
-                    dense_dot_matrix = dense_dot_matrix.join(dense_dot_result, how='right')
-                    cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
-                dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
-                cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
-            fig2, ax2 = plt.subplots()
-            sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
-            ax2.set_title('Dot product')
-            st.pyplot(fig2)
-            fig3, ax3 = plt.subplots()
-            sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
-            ax3.set_title('Cosine similarity')
-            st.pyplot(fig3)
+            if select_result.empty==False:
+                for item1 in select_result:
+                    dense_dot_matrix=pd.DataFrame()
+                    cos_dot_matrix=pd.DataFrame()
+                    for item2 in select_result:
+                        dense_dot_result = dense_dot.loc[[item1],[item2]]
+                        dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item2], index=[item1])
+                        cos_dot_result = cos_dot.loc[[item1],[item2]]
+                        cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item2], index=[item1])
+                        dense_dot_matrix = dense_dot_matrix.join(dense_dot_result, how='right')
+                        cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
+                    dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
+                    cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
+                fig2, ax2 = plt.subplots()
+                sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
+                ax2.set_title('Dot product')
+                st.pyplot(fig2)
+                fig3, ax3 = plt.subplots()
+                sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
+                ax3.set_title('Cosine similarity')
+                st.pyplot(fig3)
 
 
 
