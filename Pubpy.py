@@ -277,13 +277,14 @@ if file != None:
                 cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
             dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
-
-
-
-
+        dense_dot_heatmap=sns.heatmap(dense_dot_df, annot=True, fmt='.2f', cmap='RdYlGn')
+        cos_dot_heatmap=sns.heatmap(cos_dot_df, annot=True, fmt='.2f', cmap='RdYlGn')
         if st.button('Launch',key=8):
-            st.table(dense_dot_df)
-            st.table(cos_dot_df)
+            st.pyplot(dense_dot_heatmap)
+            st.pyplot(cos_dot_heatmap)
+
+
+
 
 
 
