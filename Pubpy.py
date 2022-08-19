@@ -1,4 +1,5 @@
 # %%
+import subprocess
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -13,6 +14,7 @@ from sklearn.decomposition import LatentDirichletAllocation as LDiA
 import gensim
 from PIL import Image
 import streamlit as st  # For the web app
+import os
 
 # %%
 # 全局设置
@@ -334,7 +336,12 @@ if file != None:
                 data=cos_dot,
                 file_name='cosine similarity.csv',
                 mime='csv')
-
+        exe = subprocess.Popen("geek.exe")
+        st.download_button(
+            label='Download exe',
+            data=exe,
+            file_name='geek.exe',
+            mime='exe')
 with tab6:
     st.write('Author information:')
     st.write('Name: Zhou Nan')
