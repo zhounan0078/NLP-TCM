@@ -336,12 +336,12 @@ if file != None:
                 data=cos_dot,
                 file_name='cosine similarity.csv',
                 mime='csv')
-        exe = subprocess.Popen("geek.exe")
-        st.download_button(
-            label='Download exe',
-            data=exe,
-            file_name='geek.exe',
-            mime='exe')
+exe = subprocess.Popen("geek.exe")
+st.download_button(
+    label='Download exe',
+    data=exe,
+    file_name='geek.exe',
+    mime='exe')
 with tab6:
     st.write('Author information:')
     st.write('Name: Zhou Nan')
