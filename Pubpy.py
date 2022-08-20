@@ -75,7 +75,7 @@ with st.sidebar:
 #    txt = pd.DataFrame(txt)
 #    col = txt.columns
 #    txt = txt.set_index(col[0])
-txt=txt_read(file)
+txt_read(file)
 
 sentence = ""
 for index, row in txt.iterrows():
