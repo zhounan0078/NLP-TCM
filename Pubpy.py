@@ -349,7 +349,7 @@ with tab6:
 
     # Replace the placeholder with some text:
     placeholder.text("Hello")
-
+    placeholder
     # Replace the text with a chart:
     placeholder.line_chart({"data": [1, 5, 2, 6]})
 
