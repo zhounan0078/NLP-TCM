@@ -41,7 +41,7 @@ chinese_example = convert_df(out2)
 def txt_read(file):
     if file is not None:
         #txt = pd.read_csv(file)
-        txt = pd.DataFrame(txt)
+        txt = pd.DataFrame(file)
         col = txt.columns
         txt = txt.set_index(col[0])
         return txt
