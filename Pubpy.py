@@ -342,7 +342,7 @@ if file != None:
 
 with tab4:
     placeholder=st.empty()
-    file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
+    file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
     if file is not None:
         txt = pd.read_csv(placeholder.file)
         txt = pd.DataFrame(txt)
