@@ -348,10 +348,11 @@ def txt_read(file):
 
 
 with tab4:
-    placeholder=st.empty()
-    file = placeholder.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
+    placeholder1=st.empty()
+    file = placeholder1.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
     txt=txt_read(file)
-    st.table(txt)
+    placeholder2=st.empty()
+    placeholder2.table(txt)
 
     with st.container():
         st.write("This is inside the container")
