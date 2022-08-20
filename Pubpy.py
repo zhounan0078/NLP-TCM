@@ -39,9 +39,15 @@ english_example = convert_df(out1)
 chinese_example = convert_df(out2)
 #定义文件读取函数
 def txt_read(file):
-    if file is not None:
+    try:
         txt = pd.read_csv(file)
         txt = pd.DataFrame(txt)
+        col = txt.columns
+        txt = txt.set_index(col[0])
+        return txt
+    except AttributeError:
+        st.write("Please upload a file")
+        txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
         return txt
