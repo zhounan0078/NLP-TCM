@@ -375,22 +375,24 @@ with tab5:
             mime='csv')
     #svd矩阵下载
     #pres_svd_topic
-    if pres_svd_topic.empty == False:
-        pres_svd_topic = convert_df(pres_svd_topic)
-        st.download_button(
-            label='Download svd topic matrix',
-            data=pres_svd_topic,
-            file_name='svd topic.csv',
-            mime='csv')
+    if svd_topic.empty == False:
+        if pres_svd_topic.empty == False:
+            pres_svd_topic = convert_df(pres_svd_topic)
+            st.download_button(
+                label='Download svd topic matrix',
+                data=pres_svd_topic,
+                file_name='svd topic.csv',
+                mime='csv')
     #herb_svd_weight
-    if herb_svd_weight.empty == False:
-        herb_svd_weight = convert_df(herb_svd_weight)
-        st.download_button(
-            label='Download svd weight matrix',
-            data=herb_svd_weight,
-            file_name='svd herb weight.csv',
-            mime='csv')
-
+    if svd.components_.empty == False:
+        if herb_svd_weight.empty == False:
+            herb_svd_weight = convert_df(herb_svd_weight)
+            st.download_button(
+                label='Download svd weight matrix',
+                data=herb_svd_weight,
+                file_name='svd herb weight.csv',
+                mime='csv')
+        
 
 
 
