@@ -73,7 +73,7 @@ def txt_read(files):
     else:
         out1 = pd.read_csv('English example.csv')
         with tab1:
-            st.write("What you see so far is the result of running the English example data,please refer to the example upload data")
+            st.header("What you see so far is the result of running the English example data,please refer to the example upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
