@@ -342,9 +342,13 @@ if file != None:
 
 
 
-
+import time
 with tab6:
-    st.empty()
+    with st.empty():
+        for seconds in range(60):
+            st.write(f"⏳ {seconds} seconds have passed")
+            time.sleep(1)
+    st.write("✔️ 1 minute over!")
     st.write('Author information:')
     st.write('Name: Zhou Nan')
     st.write('Current situation: PhD student,Universiti Tunku Abdul Rahman(UTAR)')
