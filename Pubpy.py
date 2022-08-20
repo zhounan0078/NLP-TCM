@@ -342,11 +342,13 @@ if file != None:
 
 with tab4:
     placeholder=st.empty()
-    txt = pd.read_csv(placeholder.file_uploader("Upload your data", type=["csv", "txt"]))
-    txt = pd.DataFrame(txt)
-    col = txt.columns
-    txt = txt.set_index(col[0])
-    st.table(txt)
+    file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
+    if file is not None:
+        txt = pd.read_csv(placeholder.file)
+        txt = pd.DataFrame(txt)
+        col = txt.columns
+        txt = txt.set_index(col[0])
+        st.table(txt)
 
     with st.container():
         st.write("This is inside the container")
