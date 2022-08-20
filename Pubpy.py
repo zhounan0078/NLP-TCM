@@ -40,11 +40,12 @@ chinese_example = convert_df(out2)
 #定义文件读取函数
 def txt_read(file):
     try:
-        txt = pd.read_csv(file)
-        txt = pd.DataFrame(txt)
-        col = txt.columns
-        txt = txt.set_index(col[0])
-        return txt
+        if file != None:
+            txt = pd.read_csv(file)
+            txt = pd.DataFrame(txt)
+            col = txt.columns
+            txt = txt.set_index(col[0])
+            return txt
     except AttributeError:
         st.write("Please upload a file")
         txt = pd.DataFrame(out1)
@@ -54,7 +55,7 @@ def txt_read(file):
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
-    
+
     file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
