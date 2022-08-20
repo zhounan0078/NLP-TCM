@@ -338,15 +338,19 @@ if file != None:
                 mime='csv')
 
 
+def txt_read(file):
+    if file is not None:
+        with open(file, 'r', encoding='utf-8') as f:
+            txt = f.read()
+            return txt
 
 
 with tab4:
     placeholder=st.empty()
     file = placeholder.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
-    if file is not None:
-        txt = pd.read_csv(file)
-        txt = pd.DataFrame(txt)
-        st.table(txt)
+    txt=txt_read(file)
+    txt = pd.DataFrame(txt)
+    st.table(txt)
     col = txt.columns
     txt = txt.set_index(col[0])
     with st.container():
