@@ -342,6 +342,9 @@ def txt_read(file):
     if file is not None:
         with open(file, 'r', encoding='utf-8') as f:
             txt = f.read()
+            txt = pd.DataFrame(txt)
+            col = txt.columns
+            txt = txt.set_index(col[0])
             return txt
 
 
@@ -349,10 +352,8 @@ with tab4:
     placeholder=st.empty()
     file = placeholder.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
     txt=txt_read(file)
-    txt = pd.DataFrame(txt)
     st.table(txt)
-    col = txt.columns
-    txt = txt.set_index(col[0])
+
     with st.container():
         st.write("This is inside the container")
 
