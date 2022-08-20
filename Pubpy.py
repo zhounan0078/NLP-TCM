@@ -340,7 +340,7 @@ if file != None:
 
 
 
-with tab5:
+with tab4:
     placeholder=st.empty()
     placeholder.line_chart({"data": [1, 5, 2, 6]})
 
