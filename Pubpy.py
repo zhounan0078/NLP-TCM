@@ -77,7 +77,7 @@ def txt_read(files):
         col = txt.columns
         txt = txt.set_index(col[0])
         return txt
-txt_read(files=file)
+txt=txt_read(files=file)
 
 sentence = ""
 for index, row in txt.iterrows():
