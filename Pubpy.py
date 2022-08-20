@@ -340,12 +340,11 @@ if file != None:
 
 def txt_read(file):
     if file is not None:
-        with open(file, 'r', encoding='utf-8') as f:
-            txt = f.read()
-            txt = pd.DataFrame(txt)
-            col = txt.columns
-            txt = txt.set_index(col[0])
-            return txt
+        txt = pd.read_csv(file)
+        txt = pd.DataFrame(txt)
+        col = txt.columns
+        txt = txt.set_index(col[0])
+        return txt
 
 
 with tab4:
