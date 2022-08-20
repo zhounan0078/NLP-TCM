@@ -344,6 +344,7 @@ if file != None:
 
 import time
 with tab6:
+    st.empty()
     placeholder = st.empty()
 
     # Replace the placeholder with some text:
@@ -360,7 +361,7 @@ with tab6:
     # Clear all those elements:
     placeholder.empty()
 
-    
+
     st.write("✔️ 1 minute over!")
     st.write('Author information:')
     st.write('Name: Zhou Nan')
