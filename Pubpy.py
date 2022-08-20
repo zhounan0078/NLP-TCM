@@ -340,29 +340,13 @@ if file != None:
 
 
 
-
-
-import time
-with tab6:
-    st.empty()
-    placeholder = st.empty()
-
-    # Replace the placeholder with some text:
-    placeholder.text("Hello")
-    placeholder
-    # Replace the text with a chart:
+with tab5:
+    placeholder=st.empty()
     placeholder.line_chart({"data": [1, 5, 2, 6]})
 
-    # Replace the chart with several elements:
-    with placeholder.container():
-        st.write("This is one element")
-        st.write("This is another")
 
-    # Clear all those elements:
-    placeholder.empty()
+with tab6:
 
-
-    st.write("✔️ 1 minute over!")
     st.write('Author information:')
     st.write('Name: Zhou Nan')
     st.write('Current situation: PhD student,Universiti Tunku Abdul Rahman(UTAR)')
