@@ -50,7 +50,7 @@ def txt_read(file):
 with st.sidebar:
     placeholder1=st.empty()
     file = placeholder1.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=2)
-    txt=txt_read(file)
+
 
     #file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
     st.write('Please upload a file no larger than 200MB')
@@ -71,6 +71,28 @@ with st.sidebar:
 #    txt = pd.DataFrame(txt)
 #    col = txt.columns
 #    txt = txt.set_index(col[0])
+txt=txt_read(file)
+placeholder2=st.empty()
+if tab1:
+    if placeholder2.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=2) != None:
+        txt = pd.read_csv(placeholder2.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=2))
+        txt = pd.DataFrame(txt)
+        col = txt.columns
+        txt = txt.set_index(col[0])
+        st.write('The number of prescriptions:',txt.shape[0])
+        st.write('The number of drugs:',txt.shape[1])
+        st.write('The number of unique drugs:',txt.shape[1]-txt.isnull().sum().sum())
+        st.write('The number of unique prescriptions:',txt.shape[0]-txt.isnull().sum().sum())
+        st.write('The number of missing values:',txt.isnull().sum().sum())
+        st.write('The number of missing values per prescription:',txt.isnull().sum())
+        st.write('The number of missing values per drug:',txt.isnull().sum(axis=1))
+        st.write('The number of missing values per prescription per drug:',txt.isnull().sum().sum())
+        st.write('The number of prescriptions per drug:',txt.shape[0]/txt.shape[1])
+        st.write('The number of drugs per prescription:',txt.shape[1]/txt.shape[0])
+        st.write('The number of unique drugs per prescription:',txt.shape[1]-txt.isnull().sum().sum()/txt.shape[0])
+        st.write('The number of unique drugs per prescription:',txt.shape[1]-txt.isnull().sum().sum()/txt.shape[0])
+        st.write('The number of unique prescriptions per drug:',txt.shape[0]-txt.isnull().sum().sum()/txt.shape[1])
+
 sentence = ""
 for index, row in txt.iterrows():
     for sen in row:
