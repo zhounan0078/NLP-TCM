@@ -72,7 +72,7 @@ def txt_read(files):
         return txt
     else:
         out1 = pd.read_csv('English example.csv')
-        st.write("Please refer to the sample upload data")
+        st.write("What you see so far is the result of running the English example data,please refer to the example upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
@@ -127,7 +127,7 @@ with tab1:
             y = most_common_herb1['count']
             y = list(y)
             y.reverse() # 倒序
-            ax.barh(x, y, align='center', color='c', tick_label=list(x))
+            ax1.barh(x, y, align='center', color='c', tick_label=list(x))
             plt.ylabel('herbs', fontsize=13, fontproperties=font)
             plt.yticks(x, fontproperties=font)
             st.pyplot(fig)
