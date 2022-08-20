@@ -24,8 +24,6 @@ tab1, tab2, tab3, tab4,tab5,tab6 = st.tabs(
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
-
-
 # %%
 # 定义文件转换csv函数
 def convert_df(out):
@@ -37,12 +35,9 @@ out1 = out1.set_index('Prescription name')
 out2 = out2.set_index('方剂名称')
 english_example = convert_df(out1)
 chinese_example = convert_df(out2)
-
-
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
-
     file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
@@ -56,12 +51,6 @@ with st.sidebar:
 #file=pd.read_csv("English example.csv")
 #%%
 # 描述性统计处理
-#if file.empty == False:
-#if file != None:
-#    txt = pd.read_csv(file)
-#    txt = pd.DataFrame(txt)
-#    col = txt.columns
-#    txt = txt.set_index(col[0])
 #定义文件读取函数
 def txt_read(files):
     if file != None:
@@ -73,13 +62,13 @@ def txt_read(files):
     else:
         out1 = pd.read_csv('English example.csv')
         with tab1:
-            st.header("What you see so far is the result of running the English example data,please refer to the example upload data")
+            st.subheader("What you see so far is the result of running the English example data,please refer to the example upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
         return txt
-txt=txt_read(files=file)
 
+txt=txt_read(files=file)
 sentence = ""
 for index, row in txt.iterrows():
     for sen in row:
@@ -364,17 +353,7 @@ with tab5:
 
 
 with tab4:
-    placeholder1=st.empty()
-    file = placeholder1.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
-    txt=txt_read(file)
-    placeholder2=st.empty()
-    placeholder2.table(txt)
 
-    with st.container():
-        st.write("This is inside the container")
-
-    # You can call any Streamlit command, including custom components:
-        st.bar_chart(np.random.randn(50, 3))
 
 
 with tab6:
