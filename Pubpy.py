@@ -346,9 +346,8 @@ with tab4:
     if file is not None:
         txt = pd.read_csv(file)
         txt = pd.DataFrame(txt)
-        col = txt.columns
-
         st.table(txt)
+    col = txt.columns
     txt = txt.set_index(col[0])
     with st.container():
         st.write("This is inside the container")
