@@ -352,12 +352,11 @@ with tab5:
 
 
 
-with tab4:
+
 
 
 
 with tab6:
-
     st.write('Author information:')
     st.write('Name: Zhou Nan')
     st.write('Current situation: PhD student,Universiti Tunku Abdul Rahman(UTAR)')
