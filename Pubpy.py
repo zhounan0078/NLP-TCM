@@ -343,6 +343,12 @@ if file != None:
 with tab4:
     placeholder=st.empty()
     placeholder.list(1, 5, 2, 6)
+    
+    with st.container():
+        st.write("This is inside the container")
+
+    # You can call any Streamlit command, including custom components:
+    st.bar_chart(np.random.randn(50, 3))
 
 
 with tab6:
