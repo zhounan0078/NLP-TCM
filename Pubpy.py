@@ -342,6 +342,11 @@ if file != None:
 
 with tab4:
     placeholder=st.empty()
+    placeholder = pd.read_csv(placeholder)
+    placeholder = pd.DataFrame(placeholder)
+    col = placeholder.columns
+    placeholder = placeholder.set_index(col[0])
+    
     placeholder.dataframe(txt)
 
     with st.container():
