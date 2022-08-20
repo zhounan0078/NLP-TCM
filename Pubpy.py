@@ -359,11 +359,8 @@ with tab6:
 
     # Clear all those elements:
     placeholder.empty()
+
     
-    with st.empty():
-        for seconds in range(10):
-            st.write(f"⏳ {seconds} seconds have passed")
-            time.sleep(1)
     st.write("✔️ 1 minute over!")
     st.write('Author information:')
     st.write('Name: Zhou Nan')
