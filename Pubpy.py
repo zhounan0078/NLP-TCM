@@ -111,18 +111,30 @@ total_herb_word_list = len(herb_word_list)
 #显示统计结果
 with tab1:
     st.write('The number of prescriptions:',txt.shape[0])
-    st.write('The number of drugs:',txt.shape[1])                                                              st.write('1.The total number of different herbs: ', total_herb_list)
-    st.write('The number of unique drugs:',txt.shape[1]-txt.isnull().sum().sum())                              st.write('2.The total number of herbs is:', total_herb_word_list)
-    st.write('The number of unique prescriptions:',txt.shape[0]-txt.isnull().sum().sum())                      st.write('3.The average length of prescription: ', round(avg_len,0))
-    st.write('The number of missing values:',txt.isnull().sum().sum())                                         st.write('4.The most common herb')
-    st.write('The number of missing values per prescription:',txt.isnull().sum())                              num1 = st.select_slider(
-    st.write('The number of missing values per drug:',txt.isnull().sum(axis=1))                                    'How many herbs do you need to display by frequency?',
-    st.write('The number of missing values per prescription per drug:',txt.isnull().sum().sum())                   options=range(1, 50, 1),key=1)
-    st.write('The number of prescriptions per drug:',txt.shape[0]/txt.shape[1])                                if st.button('Launch',key=2):
-    st.write('The number of drugs per prescription:',txt.shape[1]/txt.shape[0])                                    most_common_herb1 = Counter_every_herb.most_common(num1)
-    st.write('The number of unique drugs per prescription:',txt.shape[1]-txt.isnull().sum().sum()/txt.shape[0])    most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
-    st.write('The number of unique drugs per prescription:',txt.shape[1]-txt.isnull().sum().sum()/txt.shape[0])    st.write('The most common herb is: ', most_common_herb1)
-    st.write('The number of unique prescriptions per drug:',txt.shape[0]-txt.isnull().sum().sum()/txt.shape[1])    #作图
+    st.write('The number of drugs:',txt.shape[1])
+    st.write('The number of unique drugs:',txt.shape[1]-txt.isnull().sum().sum())
+    st.write('The number of unique prescriptions:',txt.shape[0]-txt.isnull().sum().sum())
+    st.write('The number of missing values:',txt.isnull().sum().sum())
+    st.write('The number of missing values per prescription:',txt.isnull().sum())
+    st.write('The number of missing values per drug:',txt.isnull().sum(axis=1))
+    st.write('The number of missing values per prescription per drug:',txt.isnull().sum().sum())
+    st.write('The number of prescriptions per drug:',txt.shape[0]/txt.shape[1])
+    st.write('The number of drugs per prescription:',txt.shape[1]/txt.shape[0])
+    st.write('The number of unique drugs per prescription:',txt.shape[1]-txt.isnull().sum().sum()/txt.shape[0])
+    st.write('The number of unique drugs per prescription:',txt.shape[1]-txt.isnull().sum().sum()/txt.shape[0])
+    st.write('The number of unique prescriptions per drug:',txt.shape[0]-txt.isnull().sum().sum()/txt.shape[1])
+    st.write('1.The total number of different herbs: ', total_herb_list)
+    st.write('2.The total number of herbs is:', total_herb_word_list)
+    st.write('3.The average length of prescription: ', round(avg_len,0))
+    st.write('4.The most common herb')
+    num1 = st.select_slider(
+        'How many herbs do you need to display by frequency?',
+        options=range(1, 50, 1),key=1)
+    if st.button('Launch',key=2):
+        most_common_herb1 = Counter_every_herb.most_common(num1)
+        most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
+        st.write('The most common herb is: ', most_common_herb1)
+        #作图
         if most_common_herb1.empty == False:
             fig1, ax1 = plt.subplots()
             x = most_common_herb1['herb']
