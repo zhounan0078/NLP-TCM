@@ -72,7 +72,7 @@ def txt_read(files):
         return txt
     else:
         out1 = pd.read_csv('English example.csv')
-        with tab1,tab2,tab3,tab4,tab5:
+        with tab1:
             st.write("What you see so far is the result of running the English example data,please refer to the example upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
