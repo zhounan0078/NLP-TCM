@@ -130,7 +130,7 @@ with tab1:
             ax1.barh(x, y, align='center', color='c', tick_label=list(x))
             plt.ylabel('herbs', fontsize=13, fontproperties=font)
             plt.yticks(x, fontproperties=font)
-            st.pyplot(fig)
+            st.pyplot(fig1)
     most_common_herb2 = Counter_every_herb.most_common()
     most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
     #矩阵制作
