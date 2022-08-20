@@ -37,21 +37,8 @@ out1 = out1.set_index('Prescription name')
 out2 = out2.set_index('方剂名称')
 english_example = convert_df(out1)
 chinese_example = convert_df(out2)
-#定义文件读取函数
-def txt_read(file):
-    if file != None:
-        txt = pd.read_csv(file)
-        txt = pd.DataFrame(txt)
-        col = txt.columns
-        txt = txt.set_index(col[0])
-        return txt
-    else:
-        out1 = pd.read_csv('English example.csv')
-        st.write("Please upload a file")
-        txt = pd.DataFrame(out1)
-        col = txt.columns
-        txt = txt.set_index(col[0])
-        return txt
+
+
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
@@ -75,7 +62,22 @@ with st.sidebar:
 #    txt = pd.DataFrame(txt)
 #    col = txt.columns
 #    txt = txt.set_index(col[0])
-txt_read(file)
+#定义文件读取函数
+def txt_read(files):
+    if file != None:
+        txt = pd.read_csv(files)
+        txt = pd.DataFrame(txt)
+        col = txt.columns
+        txt = txt.set_index(col[0])
+        return txt
+    else:
+        out1 = pd.read_csv('English example.csv')
+        st.write("Please upload a file")
+        txt = pd.DataFrame(out1)
+        col = txt.columns
+        txt = txt.set_index(col[0])
+        return txt
+txt_read(files=file)
 
 sentence = ""
 for index, row in txt.iterrows():
