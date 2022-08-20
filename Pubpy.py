@@ -347,9 +347,9 @@ with tab4:
         txt = pd.read_csv(file)
         txt = pd.DataFrame(txt)
         col = txt.columns
-        txt = txt.set_index(col[0])
-        st.table(txt)
 
+        st.table(txt)
+    txt = txt.set_index(col[0])
     with st.container():
         st.write("This is inside the container")
 
