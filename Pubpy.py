@@ -46,6 +46,7 @@ def txt_read(file):
         txt = txt.set_index(col[0])
         return txt
     else:
+        out1 = pd.read_csv('English example.csv')
         st.write("Please upload a file")
         txt = pd.DataFrame(out1)
         col = txt.columns
