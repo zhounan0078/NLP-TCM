@@ -62,7 +62,7 @@ def txt_read(files):
     else:
         out1 = pd.read_csv('English example.csv')
         with tab1:
-            st.subheader("What you see so far is the result of running the English example data,please refer to the example upload data")
+            st.header("What you see so far is the result of running the English example data,please refer to the example upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
@@ -99,10 +99,10 @@ total_herb_word_list = len(herb_word_list)
 #%%
 #显示统计结果
 with tab1:
-    st.write('1.The total number of different herbs: ', total_herb_list)
-    st.write('2.The total number of herbs is:', total_herb_word_list)
-    st.write('3.The average length of prescription: ', round(avg_len,0))
-    st.write('4.The most common herb')
+    st.subheader('1.The total number of different herbs: ', total_herb_list)
+    st.subheader('2.The total number of herbs is:', total_herb_word_list)
+    st.subheader('3.The average length of prescription: ', round(avg_len,0))
+    st.subheader('4.The most common herb')
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1),key=1)
@@ -199,7 +199,7 @@ with tab1:
 
 with tab2:
 #Dot product calculation
-    st.write('1.Dot product')
+    st.subheader('1.Dot product')
     st.write('The dot product value reflects how many of the same herbs are present between the two prescriptions.')
     dense_dot = pd.DataFrame()
     for index1, row1 in herb_dense_dataframe.iterrows():
@@ -235,7 +235,7 @@ with tab2:
         if dot_df.empty==False:
             st.table(dot_df.head(num2))
     #cosine similarity
-    st.write('2.Cosine similarity')
+    st.subheader('2.Cosine similarity')
     st.write('Cosine similarity reflects how similar two prescriptions use herbs.')
     cos_dot = pd.DataFrame()
     for index1, row1 in herb_dense_dataframe.iterrows():
@@ -300,6 +300,30 @@ with tab2:
         ax3.set_title('Cosine similarity')
         st.pyplot(fig3)
 
+with tab3:
+    st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
+    num4 = st.select_slider(
+        'Please select the cosine similarity of the top prescription you want to view (in descending order)',
+        options=range(1, 100, 1),key=5)
+    if st.button('Launch',key=9):
+        svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
+        svd_model = svd.fit(idf_df)
+        svd_topic = svd.transform(idf_df)
+        explvara_list = list(svd.explained_variance_ratio_)
+        sing = svd.singular_values_
+        expl_cum = np.cumsum(explvara_list)
+        plt.plot(explvara_list)
+        plt.plot(expl_cum)
+        plt.plot(sing)
+    st.write('If you have adjusted the number of topics, click "Continue"')
+    if st.button('Continue',key=10):
+        columns = ['topic{}'.format(i) for i in range(svd.n_components)]
+        pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
+        herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
+        herb_svd_weight = herb_svd_weight.T
+
+
+
 
 
 
@@ -346,6 +370,23 @@ with tab5:
             label='Download cosine similarity matrix',
             data=cos_dot,
             file_name='cosine similarity.csv',
+            mime='csv')
+    #svd矩阵下载
+    #pres_svd_topic
+    if pres_svd_topic.empty == False:
+        pres_svd_topic = convert_df(pres_svd_topic)
+        st.download_button(
+            label='Download svd topic matrix',
+            data=pres_svd_topic,
+            file_name='svd topic.csv',
+            mime='csv')
+    #herb_svd_weight
+    if herb_svd_weight.empty == False:
+        herb_svd_weight = convert_df(herb_svd_weight)
+        st.download_button(
+            label='Download svd weight matrix',
+            data=herb_svd_weight,
+            file_name='svd herb weight.csv',
             mime='csv')
 
 

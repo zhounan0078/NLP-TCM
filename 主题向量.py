@@ -413,7 +413,7 @@ a.to_csv('svd.csv')
 # %%
 columns = ['topic{}'.format(i) for i in range(svd.n_components)]
 weight2 = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
-pd.options.display.max_columns = 8
+
 weight2.round(3)
 weight2 = weight2.T
 weight2.to_csv('svd_weight.csv')
