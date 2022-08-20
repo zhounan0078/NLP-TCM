@@ -40,8 +40,8 @@ chinese_example = convert_df(out2)
 #定义文件读取函数
 def txt_read(file):
     if file is not None:
-        #txt = pd.read_csv(file)
-        txt = pd.DataFrame(file)
+        txt = pd.read_csv(file)
+        txt = pd.DataFrame(txt)
         col = txt.columns
         txt = txt.set_index(col[0])
         return txt
@@ -62,7 +62,7 @@ with st.sidebar:
     st.write('Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
 # %%
 #测试区
-file=pd.read_csv("English example.csv")
+#file=pd.read_csv("English example.csv")
 #%%
 # 描述性统计处理
 #if file.empty == False:
