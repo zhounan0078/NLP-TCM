@@ -72,7 +72,7 @@ file=pd.read_csv("English example.csv")
 #    col = txt.columns
 #    txt = txt.set_index(col[0])
 txt=txt_read(file)
-placeholder2=st.empty(pd.DataFrame)
+placeholder2=st.empty()
 
 
 
