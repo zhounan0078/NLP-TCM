@@ -54,11 +54,8 @@ def txt_read(file):
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
-    placeholder1=st.empty()
-    file = placeholder1.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=2)
-
-
-    #file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
+    
+    file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
     st.download_button('download sample data in English', data=english_example, file_name='sample data in English.csv',
