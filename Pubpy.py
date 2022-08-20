@@ -71,8 +71,8 @@ def txt_read(files):
         txt = txt.set_index(col[0])
         return txt
     else:
-        out1 = pd.read_csv('English example.csv')
-        st.write("Please upload a file")
+        #out1 = pd.read_csv('English example.csv')
+        st.write("Please refer to the sample upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
