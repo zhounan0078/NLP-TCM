@@ -46,7 +46,7 @@ def txt_read(file):
             col = txt.columns
             txt = txt.set_index(col[0])
             return txt
-    except AttributeError:
+    except:
         st.write("Please upload a file")
         txt = pd.DataFrame(out1)
         col = txt.columns
@@ -76,14 +76,7 @@ with st.sidebar:
 #    col = txt.columns
 #    txt = txt.set_index(col[0])
 txt=txt_read(file)
-placeholder2=st.empty()
 
-
-
-
-
-
-    
 sentence = ""
 for index, row in txt.iterrows():
     for sen in row:
