@@ -49,7 +49,7 @@ def txt_read(file):
 # 侧栏上传文件区域
 with st.sidebar:
     placeholder1=st.empty()
-    file = placeholder1.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=3)
+    file = placeholder1.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"],key=2)
     txt=txt_read(file)
 
     #file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
