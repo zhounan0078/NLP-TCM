@@ -298,9 +298,9 @@ with tab2:
         ax2.set_title('Dot product')
         st.pyplot(fig2)
         fig3, ax3 = plt.subplots()
-        sns.set(context='notebook', style='ticks', font='SimHei')
+        sns.set(font=font)
         sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
-        
+
 
 
         ax3.set_title('Cosine similarity')
