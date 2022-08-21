@@ -25,7 +25,7 @@ tab1, tab2, tab3, tab4,tab5,tab6 = st.tabs(
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
-sns.set(font=font.get_name())
+sns.set(font='SimHei')
 # %%
 # 定义文件转换csv函数
 def convert_df(out):
