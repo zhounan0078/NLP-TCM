@@ -299,6 +299,7 @@ with tab2:
         st.pyplot(fig2)
         fig3, ax3 = plt.subplots()
         sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
+        sns.plt.yticks(rotation=0)
 
 
         ax3.set_title('Cosine similarity')
