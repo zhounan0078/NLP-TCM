@@ -19,12 +19,13 @@ import streamlit as st  # For the web app
 # %%
 # 全局设置
 sns.set_theme(style="whitegrid")
-sns.set(font=font.get_name())
+
 tab1, tab2, tab3, tab4,tab5,tab6 = st.tabs(
     ["Descriptive statistics","Prescription similarity", "Topic distribution", "word embedding","Matrix download","About the program"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
+sns.set(font=font.get_name())
 # %%
 # 定义文件转换csv函数
 def convert_df(out):
