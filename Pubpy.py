@@ -333,7 +333,7 @@ with tab3:
             herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
             herb_svd_weight = herb_svd_weight.T
             
-            st.success("The file is complete, please go to the fifth tab to download")
+            st.write("The file is complete, please go to the fifth tab to download")
 
 
 
