@@ -303,9 +303,17 @@ with tab2:
         sns.set(font='SimHei',font_scale=1.0)  # 解决Seaborn中文显示问题并调整字体大小
         sns.set(font="simhei")#遇到标签需要汉字的可以在绘图前加上这句
         fig2, ax2 = plt.subplots(figsize=(10,10))
-        
+        mpl.rcParams['font.family'] = 'sans-serif'
+        mpl.rcParams['font.sans-serif'] = 'NSimSun,Times New Roman'
+        font = {'family': 'sans-serif',
+        'color': 'k',
+        'weight': 'normal',
+        'size': 20,}
+
         sns.heatmap(dense_dot_df, annot=False,fmt=".2g", linewidths=.5, cmap='YlOrRd',ax=ax2)
         ax2.set_title('Dot product')
+        plt.xticks(font=font)
+        plt.yticks(font=font)
         fig2.show()
         fig2
 
