@@ -9,11 +9,11 @@ import seaborn as sns
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import PCA, TruncatedSVD
 from collections import Counter, OrderedDict
-import copy as cp
+import copy as cp 
 from sklearn.decomposition import LatentDirichletAllocation as LDiA
 import gensim
 from PIL import Image
-import streamlit as st  # For the web app
+import streamlit as st
 
 
 # %%
