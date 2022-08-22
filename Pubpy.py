@@ -295,7 +295,7 @@ with tab2:
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
 
         fig2, ax2 = plt.subplots()
-        sns.heatmap(dense_dot_df, annot=False,fmt=".2g", linewidths=.5, cmap='YlOrRd')
+        sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
         plt.xticks(font=font)
         plt.yticks(font=font)
