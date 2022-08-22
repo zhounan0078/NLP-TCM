@@ -332,6 +332,8 @@ with tab3:
             plt.plot(expl_cum)
             plt.plot(sing)
             st.pyplot(plt)
+            global pres_svd_topic
+            global herb_svd_weight
             with st.expander("See explanation"):
                 st.table(pres_svd_topic.head(5))
                 st.table(herb_svd_weight.head(5))
