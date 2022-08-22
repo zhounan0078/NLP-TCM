@@ -296,8 +296,8 @@ with tab2:
         fig2, ax2 = plt.subplots()
         rc = {'font.sans-serif': 'SimHei',
               'axes.unicode_minus': False}
-        sns.set(context='notebook', style='ticks', rc=rc)
-        sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
+        sns.ax2.set(context='notebook', style='ticks', rc=rc)
+        sns.ax2.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
         st.pyplot(sns)
 
