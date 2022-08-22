@@ -324,15 +324,15 @@ with tab3:
         plt.plot(expl_cum)
         plt.plot(sing)
         st.pyplot(plt)
-    st.write('If you have adjusted the number of topics, click "Continue"')
-    svd_button=st.button('Continue',key=10)
-    if svd_button==True:
-        columns = ['topic{}'.format(i) for i in range(svd.n_components)]
-        pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
-        herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
-        herb_svd_weight = herb_svd_weight.T
-        if (pres_svd_topic.empty==False) and (herb_svd_weight.empty==False):
-            st.success("The file is complete, please go to the fifth tab to download")
+        st.write('If you have adjusted the number of topics, click "Continue"')
+        svd_button=st.button('Continue',key=10)
+        if svd_button==True:
+            columns = ['topic{}'.format(i) for i in range(svd.n_components)]
+            pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
+            herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
+            herb_svd_weight = herb_svd_weight.T
+            if (pres_svd_topic.empty==False) and (herb_svd_weight.empty==False):
+                st.success("The file is complete, please go to the fifth tab to download")
 
 
 
