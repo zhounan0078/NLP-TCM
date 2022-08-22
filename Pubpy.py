@@ -313,6 +313,7 @@ with tab3:
     num4 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
         options=range(1, 100, 1),key=5)
+    #svd = TruncatedSVD()
     if st.button('Launch',key=9):
         svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
         svd_model = svd.fit(idf_df)
@@ -385,23 +386,29 @@ with tab5:
             mime='csv')
     #svd矩阵下载
     #pres_svd_topic
-    if svd_button==True:
-        if pres_svd_topic.empty == False:
-            pres_svd_topic = convert_df(pres_svd_topic)
-            st.download_button(
-                label='Download svd topic matrix',
-                data=pres_svd_topic,
-                file_name='svd topic.csv',
-                mime='csv')
+    try:
+        if svd_button==True:
+            if pres_svd_topic.empty == False:
+                pres_svd_topic = convert_df(pres_svd_topic)
+                st.download_button(
+                    label='Download svd topic matrix',
+                    data=pres_svd_topic,
+                    file_name='svd topic.csv',
+                    mime='csv')
+    except NameError:
+        pass
     #herb_svd_weight
-    if svd_button==True:
-        if herb_svd_weight.empty == False:
-            herb_svd_weight = convert_df(herb_svd_weight)
-            st.download_button(
-                label='Download svd weight matrix',
-                data=herb_svd_weight,
-                file_name='svd herb weight.csv',
-                mime='csv')
+    try:
+        if svd_button==True:
+            if herb_svd_weight.empty == False:
+                herb_svd_weight = convert_df(herb_svd_weight)
+                st.download_button(
+                    label='Download svd weight matrix',
+                    data=herb_svd_weight,
+                    file_name='svd herb weight.csv',
+                    mime='csv')
+    except NameError:
+        pass
 
 
 
