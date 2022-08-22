@@ -297,6 +297,7 @@ with tab2:
         rc = {'font.sans-serif': 'SimHei',
               'axes.unicode_minus': False}
         sns.set(context='notebook', style='ticks', rc=rc)
+        sns.set(font="SimHei")
         sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
         plt.yticks(dense_dot_df.index, fontproperties=font)
