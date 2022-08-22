@@ -309,8 +309,7 @@ with tab2:
         st.pyplot(fig3)
 
 with tab3:
-    pres_svd_topic=pd.DataFrame()
-    herb_svd_weight=pd.DataFrame()
+    
     st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
@@ -327,8 +326,7 @@ with tab3:
             sing = svd.singular_values_
             expl_cum = np.cumsum(explvara_list)
             columns = ['topic{}'.format(i) for i in range(svd.n_components)]
-            global pres_svd_topic
-            global herb_svd_weight
+
             pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
             herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(svd.n_components)])
             herb_svd_weight = herb_svd_weight.T
@@ -344,10 +342,10 @@ with tab3:
         else:
             st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
 
-    svd_button_con=st.button('Continue', key=10)
-    if svd_button_con:
+        svd_button_con=st.button('Continue', key=10)
+        if svd_button_con:
 
-        st.success('The topic classification based on LSA is done')
+            st.success('The topic classification based on LSA is done')
 
 
 
