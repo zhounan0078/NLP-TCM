@@ -305,10 +305,7 @@ with tab2:
         fig2, ax2 = plt.subplots(figsize=(10,10))
         mpl.rcParams['font.family'] = 'sans-serif'
         mpl.rcParams['font.sans-serif'] = 'NSimSun,Times New Roman'
-        font = {'family': 'sans-serif',
-        'color': 'k',
-        'weight': 'normal',
-        'size': 20,}
+        
 
         sns.heatmap(dense_dot_df, annot=False,fmt=".2g", linewidths=.5, cmap='YlOrRd',ax=ax2)
         ax2.set_title('Dot product')
