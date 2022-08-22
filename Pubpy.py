@@ -313,15 +313,17 @@ with tab3:
     num4 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
         options=range(1, 100, 1),key=5)
-    #svd = TruncatedSVD()
-    svd_button_pressed = st.button('Launch',key=9)
-    if svd_button_pressed==True:
+    svd_button_option=st.button('selected',key=6)
+    if svd_button_option:
         svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
         svd_model = svd.fit(idf_df)
         svd_topic = svd.transform(idf_df)
         explvara_list = list(svd.explained_variance_ratio_)
         sing = svd.singular_values_
         expl_cum = np.cumsum(explvara_list)
+    #svd = TruncatedSVD()
+    svd_button_pressed = st.button('Evaluate',key=9)
+    if svd_button_pressed==True:
         plt.plot(explvara_list)
         plt.plot(expl_cum)
         plt.plot(sing)
@@ -334,7 +336,7 @@ with tab3:
             herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
             herb_svd_weight = herb_svd_weight.T
             st.success('The topic classification based on LSA is done')
-        st.write("The file is complete, please go to the 5th tab to download")
+            st.write("The file is complete, please go to the 5th tab to download")
 
 
 
