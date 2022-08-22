@@ -293,7 +293,7 @@ with tab2:
                 cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
             dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
-        fig2, ax2 = plt.subplots()
+
         rc = {'font.sans-serif': 'SimHei',
               'axes.unicode_minus': False}
         sns.set(context='notebook', style='ticks', rc=rc)
@@ -301,7 +301,10 @@ with tab2:
         plt.rcParams['font.sans-serif'] = ['SimHei']  # 中文字体设置-黑体
         plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
         sns.set(font='SimHei',font_scale=1.0)  # 解决Seaborn中文显示问题并调整字体大小
-        sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
+        sns.set(font="simhei")#遇到标签需要汉字的可以在绘图前加上这句
+        fig2, ax2 = plt.subplots(figsize=(10,10))
+        
+        sns.heatmap(dense_dot_df, annot=False,fmt=".2g", linewidths=.5, cmap='YlOrRd',ax=ax2)
         ax2.set_title('Dot product')
         fig2.show()
         fig2
