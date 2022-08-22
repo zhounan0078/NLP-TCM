@@ -332,7 +332,7 @@ with tab3:
             pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
             herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
             herb_svd_weight = herb_svd_weight.T
-            
+
             st.write("The file is complete, please go to the fifth tab to download")
 
 
@@ -386,8 +386,8 @@ with tab5:
             mime='csv')
     #svd矩阵下载
     #pres_svd_topic
-    try:
-        if svd_button==True:
+    if svd_button==True:
+        try:
             if pres_svd_topic.empty == False:
                 pres_svd_topic = convert_df(pres_svd_topic)
                 st.download_button(
@@ -395,11 +395,11 @@ with tab5:
                     data=pres_svd_topic,
                     file_name='svd topic.csv',
                     mime='csv')
-    except NameError:
-        pass
+        except NameError:
+            pass
     #herb_svd_weight
-    try:
-        if svd_button==True:
+    if svd_button==True:
+        try:
             if herb_svd_weight.empty == False:
                 herb_svd_weight = convert_df(herb_svd_weight)
                 st.download_button(
@@ -407,8 +407,8 @@ with tab5:
                     data=herb_svd_weight,
                     file_name='svd herb weight.csv',
                     mime='csv')
-    except NameError:
-        pass
+        except NameError:
+            pass
 
 
 
