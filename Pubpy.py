@@ -309,7 +309,7 @@ with tab2:
         st.pyplot(fig3)
 
 with tab3:
-    
+
     st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
@@ -343,9 +343,10 @@ with tab3:
             st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
 
         svd_button_con=st.button('Continue', key=10)
-        if svd_button_con:
+        with tab3:
+            if svd_button_con:
 
-            st.success('The topic classification based on LSA is done')
+                st.success('The topic classification based on LSA is done')
 
 
 
