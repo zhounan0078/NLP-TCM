@@ -299,8 +299,9 @@ with tab2:
         sns.set(context='notebook', style='ticks', rc=rc)
         sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
-        plt.yticks(list(dense_dot_df.index), fontproperties=font)
+        plt.yticks(dense_dot_df.index, fontproperties=font)
         st.pyplot(fig2)
+
 
         fig3, ax3 = plt.subplots()
         sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
