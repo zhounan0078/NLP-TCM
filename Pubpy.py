@@ -333,7 +333,7 @@ with tab3:
             st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
     svd_button_con=st.button('Continue', key=10)
     if svd_button_con==True:
-        try:
+        
             columns = ['topic{}'.format(i) for i in range(svd.n_components)]
             pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
             herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
