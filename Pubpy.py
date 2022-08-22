@@ -329,6 +329,8 @@ with tab3:
             plt.plot(sing)
             st.pyplot(plt)
             st.write('If you have adjusted the number of topics, click "Continue"')
+        else:
+            st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
     svd_button_con=st.button('Continue', key=10)
     if svd_button_con==True:
         try:
@@ -347,8 +349,7 @@ with tab3:
 
 
             st.write("The file is complete, please go to the 5th tab to download")
-        else:
-            st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+
 
 
 
