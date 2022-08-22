@@ -15,22 +15,26 @@ import gensim
 from PIL import Image
 import streamlit as st
 
-
 # %%
 # 全局设置
 sns.set_theme(style="whitegrid")
 
-tab1, tab2, tab3, tab4,tab5,tab6 = st.tabs(
-    ["Descriptive statistics","Prescription similarity", "Topic distribution", "word embedding","Matrix download","About the program"])
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+    ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding", "Matrix download",
+     "About the program"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
 font = font_manager.FontProperties(fname="simhei.ttf", size=14)
 sns.set(font='simhei.ttf')
+
+
 # %%
 # 定义文件转换csv函数
 def convert_df(out):
     return out.to_csv().encode('utf-8')
-#读取并转换示例数据
+
+
+# 读取并转换示例数据
 out1 = pd.read_csv('English example.csv')
 out2 = pd.read_csv('中文示例.csv')
 out1 = out1.set_index('Prescription name')
@@ -47,13 +51,16 @@ with st.sidebar:
                        mime='csv')
     st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
-    st.write('Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
+    st.write(
+        'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
+
+
 # %%
-#测试区
-#file=pd.read_csv("English example.csv")
-#%%
+# 测试区
+# file=pd.read_csv("English example.csv")
+# %%
 # 描述性统计处理
-#定义文件读取函数
+# 定义文件读取函数
 def txt_read(files):
     if file != None:
         txt = pd.read_csv(files)
@@ -64,13 +71,15 @@ def txt_read(files):
     else:
         out1 = pd.read_csv('English example.csv')
         with tab1:
-            st.header("What you see so far is the result of running the English example data,please refer to the example upload data")
+            st.header(
+                "What you see so far is the result of running the English example data,please refer to the example upload data")
         txt = pd.DataFrame(out1)
         col = txt.columns
         txt = txt.set_index(col[0])
         return txt
 
-txt=txt_read(files=file)
+
+txt = txt_read(files=file)
 sentence = ""
 for index, row in txt.iterrows():
     for sen in row:
@@ -86,49 +95,49 @@ for index, row in txt.iterrows():
             per_vect.append(herb)
         file_dict[index] = per_vect
 # 平均长度
-len_herb_list=0
+len_herb_list = 0
 for index in file_dict:
     herb_list = file_dict.get(index)
     herb_list = list(set(herb_list))
-    len_list=len(herb_list)
-    len_herb_list=len_herb_list+len_list
-total_len=len(file_dict.keys())
-avg_len=len_herb_list/total_len
+    len_list = len(herb_list)
+    len_herb_list = len_herb_list + len_list
+total_len = len(file_dict.keys())
+avg_len = len_herb_list / total_len
 # 词数统计
 Counter_every_herb = Counter(herb_word_list)
 total_herb_list = len(Counter_every_herb)
 total_herb_word_list = len(herb_word_list)
-#%%
-#显示统计结果
+# %%
+# 显示统计结果
 with tab1:
     st.subheader('1.The total number of different herbs: ', total_herb_list)
     st.subheader('2.The total number of herbs is:', total_herb_word_list)
-    st.subheader('3.The average length of prescription: ', round(avg_len,0))
+    st.subheader('3.The average length of prescription: ', round(avg_len, 0))
     st.subheader('4.The most common herb')
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
-        options=range(1, 50, 1),key=1)
-    if st.button('Launch',key=2):
+        options=range(1, 50, 1), key=1)
+    if st.button('Launch', key=2):
         most_common_herb1 = Counter_every_herb.most_common(num1)
         most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
         st.write('The most common herb is: ', most_common_herb1)
-        #作图
+        # 作图
         if most_common_herb1.empty == False:
             fig1, ax1 = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
             y = list(y)
-            y.reverse() # 倒序
+            y.reverse()  # 倒序
             ax1.barh(x, y, align='center', color='c', tick_label=list(x))
             plt.ylabel('herbs', fontsize=13, fontproperties=font)
             plt.yticks(x, fontproperties=font)
             st.pyplot(fig1)
     most_common_herb2 = Counter_every_herb.most_common()
     most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
-    #矩阵制作
-    #频次矩阵
+    # 矩阵制作
+    # 频次矩阵
     full_common_data = convert_df(most_common_herb2)
-    #密集矩阵
+    # 密集矩阵
     herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
     for pres_name in file_dict:
         herb_list = file_dict.get(pres_name)
@@ -146,7 +155,7 @@ with tab1:
     herb_dense_dataframe.dropna(subset=['herb_name'], axis=0, inplace=True, how="any")
     herb_dense_dataframe = herb_dense_dataframe.pivot_table(
         'count', index=herb_dense_dataframe['pres_name'], columns=['herb_name']).fillna(0)
-    #tf-idf矩阵
+    # tf-idf矩阵
     list_vect = []
     for index, row in txt.iterrows():
         for sen in row:
@@ -175,7 +184,7 @@ with tab1:
                 idf = 0
             ini_tf_vect[index] = tf * idf
         tf_idf_dict[tf_pres_name] = ini_tf_vect
-    #遍历成dataframe
+    # 遍历成dataframe
     tf_idf_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
     for pres_name in tf_idf_dict:
         herb_tf_idf_dict = tf_idf_dict.get(pres_name)
@@ -200,7 +209,7 @@ with tab1:
     idf_df = idf_df.pivot_table('herb_tf_idf_value', index=['pres_name'], columns=['herb_name']).fillna(round(0, 3))
 
 with tab2:
-#Dot product calculation
+    # Dot product calculation
     st.subheader('1.Dot product')
     st.write('The dot product value reflects how many of the same herbs are present between the two prescriptions.')
     dense_dot = pd.DataFrame()
@@ -215,28 +224,29 @@ with tab2:
             matrix = matrix.join(series1_2_dot, how='right')
         dense_dot = pd.concat([dense_dot, matrix], axis=0, join="outer")
     dot_df = pd.DataFrame(columns=['index1', 'index2', 'Quantity of the same herb'])
-    for index,row in dense_dot.iterrows():
+    for index, row in dense_dot.iterrows():
         for value1 in row:
-            index1= index
-            index2= dense_dot.columns[dense_dot.loc[index]==value1].values[0]
-            if index1==index2:
+            index1 = index
+            index2 = dense_dot.columns[dense_dot.loc[index] == value1].values[0]
+            if index1 == index2:
                 continue
             else:
-                if (index1 in list(dot_df['index2']))==True and (index2 in list(dot_df['index1']))==True:
+                if (index1 in list(dot_df['index2'])) == True and (index2 in list(dot_df['index1'])) == True:
                     continue
                 else:
-                    dot_df = dot_df.append({'index1':index1,'index2':index2,'Quantity of the same herb':value1},ignore_index=True)
-    dot_df["Prescription"] =dot_df["index1"].map(str) + '×' + dot_df["index2"].map(str)
-    dot_df=dot_df.drop(['index1','index2'],axis=1)
-    dot_df=dot_df.set_index("Prescription")
+                    dot_df = dot_df.append({'index1': index1, 'index2': index2, 'Quantity of the same herb': value1},
+                                           ignore_index=True)
+    dot_df["Prescription"] = dot_df["index1"].map(str) + '×' + dot_df["index2"].map(str)
+    dot_df = dot_df.drop(['index1', 'index2'], axis=1)
+    dot_df = dot_df.set_index("Prescription")
     dot_df = dot_df.sort_values(by=['Quantity of the same herb'], ascending=False)
     num2 = st.select_slider(
         'Please select the dot product value of the top prescription you want to view (in descending order)',
-        options=range(1, 50, 1),key=3)
-    if st.button('Launch',key=4):
-        if dot_df.empty==False:
+        options=range(1, 50, 1), key=3)
+    if st.button('Launch', key=4):
+        if dot_df.empty == False:
             st.table(dot_df.head(num2))
-    #cosine similarity
+    # cosine similarity
     st.subheader('2.Cosine similarity')
     st.write('Cosine similarity reflects how similar two prescriptions use herbs.')
     cos_dot = pd.DataFrame()
@@ -246,48 +256,49 @@ with tab2:
         for index2, row2 in herb_dense_dataframe.iterrows():
             cos_dot2 = np.array(herb_dense_dataframe.loc[index2])
             cos1_2_dot = np.dot(cos_dot1, cos_dot2) / \
-                            (np.linalg.norm(cos_dot1) * np.linalg.norm(cos_dot2))
+                         (np.linalg.norm(cos_dot1) * np.linalg.norm(cos_dot2))
             cos1_2_dot = pd.DataFrame([cos1_2_dot], columns=[
                 index2], index=[index1])
             matrix = matrix.join(cos1_2_dot, how='right')
         cos_dot = pd.concat([cos_dot, matrix], axis=0, join="outer")
     cos_df = pd.DataFrame(columns=['index1', 'index2', 'Cosine similarity'])
-    for index,row in cos_dot.iterrows():
+    for index, row in cos_dot.iterrows():
         for value2 in row:
-            index1= index
-            index2= cos_dot.columns[cos_dot.loc[index]==value2].values[0]
-            if index1==index2:
+            index1 = index
+            index2 = cos_dot.columns[cos_dot.loc[index] == value2].values[0]
+            if index1 == index2:
                 continue
             else:
-                if (index1 in list(cos_df['index2']))==True and (index2 in list(cos_df['index1']))==True:
+                if (index1 in list(cos_df['index2'])) == True and (index2 in list(cos_df['index1'])) == True:
                     continue
                 else:
-                    cos_df = cos_df.append({'index1':index1,'index2':index2,'Cosine similarity':value2},ignore_index=True)
-    cos_df["Prescription"] =cos_df["index1"].map(str) + '×' + cos_df["index2"].map(str)
-    cos_df=cos_df.drop(['index1','index2'],axis=1)
-    cos_df=cos_df.set_index("Prescription")
+                    cos_df = cos_df.append({'index1': index1, 'index2': index2, 'Cosine similarity': value2},
+                                           ignore_index=True)
+    cos_df["Prescription"] = cos_df["index1"].map(str) + '×' + cos_df["index2"].map(str)
+    cos_df = cos_df.drop(['index1', 'index2'], axis=1)
+    cos_df = cos_df.set_index("Prescription")
     cos_df = cos_df.sort_values(by=['Cosine similarity'], ascending=False)
     num3 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
-        options=range(1, 50, 1),key=5)
-    if st.button('Launch',key=6):
-        if cos_df.empty==False:
+        options=range(1, 50, 1), key=5)
+    if st.button('Launch', key=6):
+        if cos_df.empty == False:
             st.table(cos_df.head(num3))
-    #Freedom of choice
+    # Freedom of choice
     st.write('3.Focus on dot product and cosine similarity for a specific prescription')
-    options=list(txt.index)
-    select_result=st.multiselect(
-        'Please select the name of the prescription you wish to follow',options=options,key=7)
-    dense_dot_df=pd.DataFrame()
-    cos_dot_df=pd.DataFrame()
-    if st.button('Launch',key=8):
+    options = list(txt.index)
+    select_result = st.multiselect(
+        'Please select the name of the prescription you wish to follow', options=options, key=7)
+    dense_dot_df = pd.DataFrame()
+    cos_dot_df = pd.DataFrame()
+    if st.button('Launch', key=8):
         for item1 in select_result:
-            dense_dot_matrix=pd.DataFrame()
-            cos_dot_matrix=pd.DataFrame()
+            dense_dot_matrix = pd.DataFrame()
+            cos_dot_matrix = pd.DataFrame()
             for item2 in select_result:
-                dense_dot_result = dense_dot.loc[[item1],[item2]]
+                dense_dot_result = dense_dot.loc[[item1], [item2]]
                 dense_dot_result = pd.DataFrame(dense_dot_result, columns=[item2], index=[item1])
-                cos_dot_result = cos_dot.loc[[item1],[item2]]
+                cos_dot_result = cos_dot.loc[[item1], [item2]]
                 cos_dot_result = pd.DataFrame(cos_dot_result, columns=[item2], index=[item1])
                 dense_dot_matrix = dense_dot_matrix.join(dense_dot_result, how='right')
                 cos_dot_matrix = cos_dot_matrix.join(cos_dot_result, how='right')
@@ -295,28 +306,27 @@ with tab2:
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
 
         fig2, ax2 = plt.subplots()
-        sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
+        sns.heatmap(dense_dot_df, annot=True, fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
         plt.xticks(font=font)
         plt.yticks(font=font)
         st.pyplot(fig2)
 
         fig3, ax3 = plt.subplots()
-        sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
+        sns.heatmap(cos_dot_df, annot=True, fmt=".2g", linewidths=.5, cmap='YlGnBu')
         ax3.set_title('Cosine similarity')
         plt.xticks(font=font)
         plt.yticks(font=font)
         st.pyplot(fig3)
 
 with tab3:
-
     st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
-        options=range(1, 100, 1),key=5)
-    svd_button_pressed = st.button('Launch',key=9)
-    #svd = TruncatedSVD()
-    if svd_button_pressed==True:
+        options=range(1, 100, 1), key=5)
+    svd_button_pressed = st.button('Launch', key=9)
+    # svd = TruncatedSVD()
+    if svd_button_pressed == True:
         if num4 < len(txt.index):
             idf_df = idf_df.T
             svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
@@ -328,7 +338,8 @@ with tab3:
             columns = ['topic{}'.format(i) for i in range(svd.n_components)]
 
             pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
-            herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(svd.n_components)])
+            herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns,
+                                           index=['topic{}'.format(i) for i in range(svd.n_components)])
             herb_svd_weight = herb_svd_weight.T
             plt.plot(explvara_list)
             plt.plot(expl_cum)
@@ -340,39 +351,24 @@ with tab3:
                 st.table(herb_svd_weight.head(5))
             st.write('If you have adjusted the number of topics, click "Continue"')
         else:
-            st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+            st.write(
+                'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
 
-        svd_button_con=st.button('Continue', key=10)
-        with tab3:
-            if svd_button_con:
-
-                st.success('The topic classification based on LSA is done')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        svd_button_con = st.button('Continue', key=10)
+    with tab3:
+        if svd_button_con:
+            st.success('The topic classification based on LSA is done')
 
 # %%
 # 矩阵下载
 with tab5:
-    #频次矩阵下载
+    # 频次矩阵下载
     st.download_button(
         label="Download full herb frequency data",
         data=full_common_data,
         file_name='full_common_data.csv',
         mime='csv', )
-    #密集矩阵下载
+    # 密集矩阵下载
     if herb_dense_dataframe.empty == False:
         herb_dense_dataframe = convert_df(herb_dense_dataframe)
         st.download_button(
@@ -380,7 +376,7 @@ with tab5:
             data=herb_dense_dataframe,
             file_name='dense matrix.csv',
             mime='csv')
-    #tf-idf矩阵下载
+    # tf-idf矩阵下载
     if idf_df.empty == False:
         tf_idf_matrix = convert_df(idf_df)
         st.download_button(
@@ -388,7 +384,7 @@ with tab5:
             data=tf_idf_matrix,
             file_name='tf_idf_matrix.csv',
             mime='csv')
-    #dot product矩阵下载
+    # dot product矩阵下载
     if dense_dot.empty == False:
         dense_dot = convert_df(dense_dot)
         st.download_button(
@@ -396,7 +392,7 @@ with tab5:
             data=dense_dot,
             file_name='dense dot product.csv',
             mime='csv')
-    #cosine similarity矩阵下载
+    # cosine similarity矩阵下载
     if cos_dot.empty == False:
         cos_dot = convert_df(cos_dot)
         st.download_button(
@@ -404,10 +400,9 @@ with tab5:
             data=cos_dot,
             file_name='cosine similarity.csv',
             mime='csv')
-    #svd矩阵下载
-    #pres_svd_topic
-    if svd_button_con==True:
-
+    # svd矩阵下载
+    # pres_svd_topic
+    if svd_button_con == True:
         st.download_button(
             label='Download svd topic matrix',
             data=pres_svd_topic,
@@ -419,21 +414,11 @@ with tab5:
             file_name='svd herb weight.csv',
             mime='csv')
 
-
-
-
-
-
-
-
-
-
-
 with tab6:
     st.write('Author information:')
     st.write('Name: Zhou Nan')
     st.write('Current situation: PhD student,Universiti Tunku Abdul Rahman(UTAR)')
     st.write('Mail_1:zhounan@1utar.my')
     st.write('Mail_2:zhounan2020@foxmail.com')
-    st.write('Due to Streamlit\'s IO capability limitations, this program does not perform well when dealing with larger data sets. If you think this program cannot meet your needs or is always stuck in use, you can contact the author directly, you will get help.')
-
+    st.write(
+        'Due to Streamlit\'s IO capability limitations, this program does not perform well when dealing with larger data sets. If you think this program cannot meet your needs or is always stuck in use, you can contact the author directly, you will get help.')
