@@ -331,19 +331,13 @@ with tab3:
             st.write('If you have adjusted the number of topics, click "Continue"')
         else:
             st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
-        svd_button_con=st.button('Continue', key=10)
-        if (svd_button_pressed==False) and (svd_button_con==True):
-            try:
-                columns = ['topic{}'.format(i) for i in range(svd.n_components)]
-                pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
-                herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
-                herb_svd_weight = herb_svd_weight.T
-                st.table(pres_svd_topic.head(5))
-                st.table(herb_svd_weight.head(5))
-                st.success('The topic classification based on LSA is done')
-            except NameError:
-                st.error('Please select the number of topics')
-                st.write("The file is complete, please go to the 5th tab to download")
+    svd_button_con=st.button('Continue', key=10)
+    if svd_button_con:
+
+        st.success('The topic classification based on LSA is done')
+
+
+
 
 
 
@@ -400,29 +394,23 @@ with tab5:
             mime='csv')
     #svd矩阵下载
     #pres_svd_topic
-    if svd_button_pressed==True:
-        try:
-            if pres_svd_topic.empty == False:
-                pres_svd_topic = convert_df(pres_svd_topic)
-                st.download_button(
-                    label='Download svd topic matrix',
-                    data=pres_svd_topic,
-                    file_name='svd topic.csv',
-                    mime='csv')
-        except NameError:
-            pass
-    #herb_svd_weight
-    if svd_button_pressed==True:
-        try:
-            if herb_svd_weight.empty == False:
-                herb_svd_weight = convert_df(herb_svd_weight)
-                st.download_button(
-                    label='Download svd weight matrix',
-                    data=herb_svd_weight,
-                    file_name='svd herb weight.csv',
-                    mime='csv')
-        except NameError:
-            pass
+    if svd_button_con==True:
+        columns = ['topic{}'.format(i) for i in range(svd.n_components)]
+        pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
+        herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
+        herb_svd_weight = herb_svd_weight.T
+        st.download_button(
+            label='Download svd topic matrix',
+            data=pres_svd_topic,
+            file_name='svd topic.csv',
+            mime='csv')
+        st.download_button(
+            label='Download svd weight matrix',
+            data=herb_svd_weight,
+            file_name='svd herb weight.csv',
+            mime='csv')
+
+       
 
 
 
