@@ -309,6 +309,8 @@ with tab2:
         st.pyplot(fig3)
 
 with tab3:
+    pres_svd_topic=pd.DataFrame()
+    herb_svd_weight=pd.DataFrame()
     st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
