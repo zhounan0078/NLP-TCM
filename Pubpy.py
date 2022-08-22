@@ -305,8 +305,8 @@ with tab2:
         fig2, ax2 = plt.subplots(figsize=(10,10))
         mpl.rcParams['font.family'] = 'sans-serif'
         mpl.rcParams['font.sans-serif'] = 'NSimSun,Times New Roman'
-        
 
+        font = font_manager.FontProperties(fname="simhei.ttf", size=14)
         sns.heatmap(dense_dot_df, annot=False,fmt=".2g", linewidths=.5, cmap='YlOrRd',ax=ax2)
         ax2.set_title('Dot product')
         plt.xticks(font=font)
