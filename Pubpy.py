@@ -317,6 +317,7 @@ with tab3:
     #svd = TruncatedSVD()
     if svd_button_pressed==True:
         if num4 <= len(txt.index):
+            idf_df = idf_df.T
             svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
             svd_model = svd.fit(idf_df)
             svd_topic = svd.transform(idf_df)
