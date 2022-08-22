@@ -294,11 +294,14 @@ with tab2:
             dense_dot_df = pd.concat([dense_dot_df, dense_dot_matrix], axis=0, join="outer")
             cos_dot_df = pd.concat([cos_dot_df, cos_dot_matrix], axis=0, join="outer")
         fig2, ax2 = plt.subplots()
+        rc = {'font.sans-serif': 'SimHei',
+              'axes.unicode_minus': False}
+        sns.set(context='notebook', style='ticks', rc=rc)
         sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
         st.pyplot(fig2)
         fig3, ax3 = plt.subplots()
-        
+
         sns.heatmap(cos_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlGnBu')
         ax3.set_title('Cosine similarity')
         st.pyplot(fig3)
