@@ -334,7 +334,7 @@ with tab3:
                 pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
                 herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
                 herb_svd_weight = herb_svd_weight.T
-                while herb_svd_weight
+                while herb_svd_weight:
                     st.success('The topic classification based on LSA is done')
             st.write("The file is complete, please go to the 5th tab to download")
         else:
