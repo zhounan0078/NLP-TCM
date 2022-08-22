@@ -329,17 +329,20 @@ with tab3:
             plt.plot(sing)
             st.pyplot(plt)
             st.write('If you have adjusted the number of topics, click "Continue"')
-            svd_button_con=st.button('Continue', key=10)
-            if svd_button_con==True:
-                columns = ['topic{}'.format(i) for i in range(svd.n_components)]
-                pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
-                herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
-                herb_svd_weight = herb_svd_weight.T
-                st.table(pres_svd_topic.head(5))
-                st.table(herb_svd_weight.head(5))
-                svd_button_confirm=st.button('confirm')
-                if svd_button_confirm==True:
-                    st.success('The topic classification based on LSA is done')
+    svd_button_con=st.button('Continue', key=10)
+    if svd_button_con==True:
+        try:
+            columns = ['topic{}'.format(i) for i in range(svd.n_components)]
+            pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
+            herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
+            herb_svd_weight = herb_svd_weight.T
+            st.table(pres_svd_topic.head(5))
+            st.table(herb_svd_weight.head(5))
+            svd_button_confirm=st.button('confirm')
+            if svd_button_confirm==True:
+                st.success('The topic classification based on LSA is done')
+        except NameError:
+            st.error('Please select the number of topics')
 
 
 
