@@ -9,7 +9,7 @@ import seaborn as sns
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.decomposition import PCA, TruncatedSVD
 from collections import Counter, OrderedDict
-import copy as cp 
+import copy as cp
 from sklearn.decomposition import LatentDirichletAllocation as LDiA
 import gensim
 from PIL import Image
@@ -325,7 +325,8 @@ with tab3:
         plt.plot(sing)
         st.pyplot(plt)
     st.write('If you have adjusted the number of topics, click "Continue"')
-    if st.button('Continue',key=10):
+    svd_button=st.button('Continue',key=10)
+    if svd_button==True:
         columns = ['topic{}'.format(i) for i in range(svd.n_components)]
         pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
         herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
@@ -384,13 +385,14 @@ with tab5:
             mime='csv')
     #svd矩阵下载
     #pres_svd_topic
-    if pres_svd_topic.empty == False:
-        pres_svd_topic = convert_df(pres_svd_topic)
-        st.download_button(
-            label='Download svd topic matrix',
-            data=pres_svd_topic,
-            file_name='svd topic.csv',
-            mime='csv')
+    if svd_button==True:
+        if pres_svd_topic.empty == False:
+            pres_svd_topic = convert_df(pres_svd_topic)
+            st.download_button(
+                label='Download svd topic matrix',
+                data=pres_svd_topic,
+                file_name='svd topic.csv',
+                mime='csv')
     #herb_svd_weight
     if herb_svd_weight.empty == False:
         herb_svd_weight = convert_df(herb_svd_weight)
