@@ -314,7 +314,8 @@ with tab3:
         'Please select the cosine similarity of the top prescription you want to view (in descending order)',
         options=range(1, 100, 1),key=5)
     #svd = TruncatedSVD()
-    if st.button('Launch',key=9):
+    svd_button_pressed = st.button('Launch',key=9)
+    if svd_button_pressed==True:
         svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
         svd_model = svd.fit(idf_df)
         svd_topic = svd.transform(idf_df)
@@ -326,8 +327,8 @@ with tab3:
         plt.plot(sing)
         st.pyplot(plt)
         st.write('If you have adjusted the number of topics, click "Continue"')
-        svd_button=st.button('Continue',key=10)
-        if svd_button==True:
+        svd_button_con=st.button('Continue', key=10)
+        if svd_button_con==True:
             st.write("The file is complete, please go to the fifth tab to download") 
             columns = ['topic{}'.format(i) for i in range(svd.n_components)]
             pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
@@ -387,7 +388,7 @@ with tab5:
             mime='csv')
     #svd矩阵下载
     #pres_svd_topic
-    if svd_button==True:
+    if svd_button_pressed==True:
         try:
             if pres_svd_topic.empty == False:
                 pres_svd_topic = convert_df(pres_svd_topic)
@@ -399,7 +400,7 @@ with tab5:
         except NameError:
             pass
     #herb_svd_weight
-    if svd_button==True:
+    if svd_button_pressed==True:
         try:
             if herb_svd_weight.empty == False:
                 herb_svd_weight = convert_df(herb_svd_weight)
