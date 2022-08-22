@@ -300,8 +300,8 @@ with tab2:
         sns.set(font="SimHei")
         sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
+        fig2.show()
         
-        st.pyplot(fig2)
 
 
         fig3, ax3 = plt.subplots()
