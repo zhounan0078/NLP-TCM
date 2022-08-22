@@ -394,13 +394,14 @@ with tab5:
                 file_name='svd topic.csv',
                 mime='csv')
     #herb_svd_weight
-    if herb_svd_weight.empty == False:
-        herb_svd_weight = convert_df(herb_svd_weight)
-        st.download_button(
-            label='Download svd weight matrix',
-            data=herb_svd_weight,
-            file_name='svd herb weight.csv',
-            mime='csv')
+    if svd_button==True:
+        if herb_svd_weight.empty == False:
+            herb_svd_weight = convert_df(herb_svd_weight)
+            st.download_button(
+                label='Download svd weight matrix',
+                data=herb_svd_weight,
+                file_name='svd herb weight.csv',
+                mime='csv')
 
 
 
