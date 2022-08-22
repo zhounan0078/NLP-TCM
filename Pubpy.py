@@ -340,9 +340,8 @@ with tab3:
             herb_svd_weight = herb_svd_weight.T
             st.table(pres_svd_topic.head(5))
             st.table(herb_svd_weight.head(5))
-            svd_button_confirm=st.button('confirm')
-            if svd_button_confirm==True:
-                st.success('The topic classification based on LSA is done')
+            
+            st.success('The topic classification based on LSA is done')
         except NameError:
             st.error('Please select the number of topics')
 
