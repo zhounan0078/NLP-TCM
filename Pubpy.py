@@ -298,6 +298,9 @@ with tab2:
               'axes.unicode_minus': False}
         sns.set(context='notebook', style='ticks', rc=rc)
         sns.set(font="SimHei")
+        plt.rcParams['font.sans-serif'] = ['SimHei']  # 中文字体设置-黑体
+        plt.rcParams['axes.unicode_minus'] = False  # 解决保存图像是负号'-'显示为方块的问题
+        sns.set(font='SimHei',font_scale=1.5)  # 解决Seaborn中文显示问题并调整字体大小
         sns.heatmap(dense_dot_df, annot=True,fmt=".2g", linewidths=.5, cmap='YlOrRd')
         ax2.set_title('Dot product')
         fig2.show()
