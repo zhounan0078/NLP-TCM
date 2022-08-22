@@ -316,7 +316,7 @@ with tab3:
     svd_button_pressed = st.button('Launch',key=9)
     #svd = TruncatedSVD()
     if svd_button_pressed==True:
-        if num4 <= len(txt.index):
+        if num4 < len(txt.index):
             idf_df = idf_df.T
             svd = TruncatedSVD(n_components=num4, n_iter=100, random_state=123)
             svd_model = svd.fit(idf_df)
