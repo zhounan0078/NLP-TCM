@@ -335,8 +335,14 @@ with tab3:
                 pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
                 herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(3)])
                 herb_svd_weight = herb_svd_weight.T
-                while herb_svd_weight:
+                st.table(pres_svd_topic.head(5))
+                st.table(herb_svd_weight.head(5))
+                svd_button_confirm=st.button('confirm')
+                if svd_button_confirm==True:
                     st.success('The topic classification based on LSA is done')
+
+
+
             st.write("The file is complete, please go to the 5th tab to download")
         else:
             st.write('Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
