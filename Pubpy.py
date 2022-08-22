@@ -325,6 +325,8 @@ with tab3:
             sing = svd.singular_values_
             expl_cum = np.cumsum(explvara_list)
             columns = ['topic{}'.format(i) for i in range(svd.n_components)]
+            global pres_svd_topic
+            global herb_svd_weight
             pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
             herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns, index=['topic{}'.format(i) for i in range(svd.n_components)])
             herb_svd_weight = herb_svd_weight.T
@@ -332,8 +334,7 @@ with tab3:
             plt.plot(expl_cum)
             plt.plot(sing)
             st.pyplot(plt)
-            global pres_svd_topic
-            global herb_svd_weight
+
             with st.expander("See explanation"):
                 st.table(pres_svd_topic.head(5))
                 st.table(herb_svd_weight.head(5))
