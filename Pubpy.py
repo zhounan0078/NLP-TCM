@@ -32,7 +32,7 @@ sns.set(font='simhei.ttf')
 
 # %%
 # 定义文件转换csv函数
-def convert_df(out):
+def convert_df(df):
     output = BytesIO()
     writer = pd.ExcelWriter(output, engine='xlsxwriter')
     df.to_excel(writer, index=False, sheet_name='Sheet1')
