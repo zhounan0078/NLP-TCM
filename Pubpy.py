@@ -32,7 +32,7 @@ sns.set(font='simhei.ttf')
 # %%
 # 定义文件转换csv函数
 def convert_df(out):
-    return out.to_csv().encode('utf-8')
+    return out.to_excel().encode('utf-8')
 
 
 # 读取并转换示例数据
@@ -48,8 +48,8 @@ with st.sidebar:
     file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
-    st.download_button('Download sample data in English', data=english_example, file_name='sample data in English.csv',
-                       mime='csv')
+    st.download_button('Download sample data in English', data=english_example, file_name='sample data in English.xlsx',
+                       mime='xlsx')
     st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
