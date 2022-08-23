@@ -72,7 +72,7 @@ with st.sidebar:
 # 定义文件读取函数
 def txt_read(files):
     if file != None:
-        txt = pd.read_csv(files)
+        txt = pd.read_excel(files)
         txt = pd.DataFrame(txt)
         col = txt.columns
         txt = txt.set_index(col[0])
