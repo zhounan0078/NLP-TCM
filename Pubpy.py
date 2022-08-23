@@ -376,7 +376,7 @@ with tab5:
         'Please select the maximum number of themes you wish to try',
         options=range(1, 100, 1), key=6)
     ldia_button_pressed = st.button('Launch', key=10)
-    st.info('This may take a long time', icon="ℹ️")
+    st.info('This may take a long time')
     if svd_button_pressed == True:
         if num5 < len(txt.index):
             x = []
@@ -463,7 +463,7 @@ with tab5:
             st.table(pres_topic3.head(3))
             st.table(herbs_topic3.head(3))
 
-       
+
 
         st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
 
