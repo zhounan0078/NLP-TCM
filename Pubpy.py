@@ -343,7 +343,9 @@ with tab3:
             plt.legend()
             st.pyplot(plt)
             with st.expander("See explanation"):
-                1
+                st.write('Explained variance ratio: The amount of information extracted by the topic can be understood as the weight of different topics. The higher the weight, the more information the topic can extract from the document. The lower the weight, the less information the topic can extract from the document. The weight of a topic is the square root of the sum of the square of the singular values of the topic. The weight of a topic is the square root of the sum of the square of the singular values of the topic.')
+                st.write('Cumulative explained variance ratio: Under the current number of topics, the total amount of information extracted by all topics, this indicator needs to be at least greater than 50%')
+                st.write('Singular values: The singular values of the topic are the square root of the sum of the square of the singular values of the topic,determines the number of topics when the downtrend in this value begins to flatten')
         else:
             st.write(
                 'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
