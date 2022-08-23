@@ -415,6 +415,8 @@ with tab5:
     # svd矩阵下载
     # pres_svd_topic
     if svd_button_con == True:
+        pres_svd_topic = convert_df(pres_svd_topic)
+        herb_svd_weight = convert_df(herb_svd_weight)
         st.download_button(
             label='Download svd topic matrix',
             data=pres_svd_topic,
