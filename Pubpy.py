@@ -412,54 +412,56 @@ with tab5:
         components_herb = pd.DataFrame(ldia.components_.T, index=herb_dense_dataframe.columns, columns=columns)
         components_pres = ldia.transform(herb_dense_dataframe)
         components_pres = pd.DataFrame(components_pres, index=herb_dense_dataframe.index, columns=columns)
-        col2 = components_pres.columns
-        components_pres = components_pres.set_index(col2[0])
-        components_pres.rename(columns={'topic0':'topic1','topic1':'topic2','topic2':'topic3'},inplace=True)
-        pres_topic1=pd.DataFrame(columns=['topic1'])
-        pres_topic2=pd.DataFrame(columns=['topic2'])
-        pres_topic3=pd.DataFrame(columns=['topic3'])
-        for index, row in components_pres.iterrows():
-            i_list = []
-            for i in row:
-                i_list.append(i)
-            k=max(i_list)
-            d=components_pres.columns[components_pres.loc[index]==k].values.tolist()
-            index=str(index)
-            index=[index]
-            index=pd.DataFrame(index,columns=d)
-            if ('topic1' in d) == True:
-                pres_topic1=pd.concat([pres_topic1,index],axis=0,join='outer')
-            if ('topic2' in d) == True:
-                pres_topic2=pd.concat([pres_topic2,index],axis=0,join='outer')
-            if ('topic3' in d) == True:
-                pres_topic3=pd.concat([pres_topic3,index],axis=0,join='outer')
-        herbs_topic1=pd.DataFrame(columns=['topic1'])
-        herbs_topic2=pd.DataFrame(columns=['topic2'])
-        herbs_topic3=pd.DataFrame(columns=['topic3'])
-        for index, row in components_herb.iterrows():
-            i_list = []
-            for i in row:
-                i_list.append(i)
-            k=max(i_list)
-            d=components_herb.columns[components_herb.loc[index]==k].values.tolist()
-            index=str(index)
-            index=[index]
-            index=pd.DataFrame(index,columns=d)
-            if ('topic1' in d) == True:
-                herbs_topic1=pd.concat([herbs_topic1,index],axis=0,join='outer')
-            if ('topic2' in d) == True:
-                herbs_topic2=pd.concat([herbs_topic2,index],axis=0,join='outer')
-            if ('topic3' in d) == True:
-                herbs_topic3=pd.concat([herbs_topic3,index],axis=0,join='outer')
-        with tab5_col1:
-            st.table(pres_topic1.head(3))
-            st.table(herbs_topic1.head(3))
-        with tab5_col2:
-            st.table(pres_topic2.head(3))
-            st.table(herbs_topic2.head(3))
-        with tab5_col3:
-            st.table(pres_topic3.head(3))
-            st.table(herbs_topic3.head(3))
+        st.table(components_pres.head(5))
+        st.table(components_herb.head(5))
+        #col2 = components_pres.columns
+        #components_pres = components_pres.set_index(col2[0])
+        #components_pres.rename(columns={'topic0':'topic1','topic1':'topic2','topic2':'topic3'},inplace=True)
+        #pres_topic1=pd.DataFrame(columns=['topic1'])
+        #pres_topic2=pd.DataFrame(columns=['topic2'])
+        #pres_topic3=pd.DataFrame(columns=['topic3'])
+        #for index, row in components_pres.iterrows():
+        #    i_list = []
+        #    for i in row:
+        #        i_list.append(i)
+        #    k=max(i_list)
+        #    d=components_pres.columns[components_pres.loc[index]==k].values.tolist()
+        #    index=str(index)
+        #    index=[index]
+        #    index=pd.DataFrame(index,columns=d)
+        #    if ('topic1' in d) == True:
+        #        pres_topic1=pd.concat([pres_topic1,index],axis=0,join='outer')
+        #    if ('topic2' in d) == True:
+        #        pres_topic2=pd.concat([pres_topic2,index],axis=0,join='outer')
+        #    if ('topic3' in d) == True:
+        #        pres_topic3=pd.concat([pres_topic3,index],axis=0,join='outer')
+        #herbs_topic1=pd.DataFrame(columns=['topic1'])
+        #herbs_topic2=pd.DataFrame(columns=['topic2'])
+        #herbs_topic3=pd.DataFrame(columns=['topic3'])
+        #for index, row in components_herb.iterrows():
+        #    i_list = []
+        #    for i in row:
+        #        i_list.append(i)
+        #    k=max(i_list)
+        #    d=components_herb.columns[components_herb.loc[index]==k].values.tolist()
+        #    index=str(index)
+        #    index=[index]
+        #    index=pd.DataFrame(index,columns=d)
+        #    if ('topic1' in d) == True:
+        #        herbs_topic1=pd.concat([herbs_topic1,index],axis=0,join='outer')
+        #    if ('topic2' in d) == True:
+        #        herbs_topic2=pd.concat([herbs_topic2,index],axis=0,join='outer')
+        #    if ('topic3' in d) == True:
+        #        herbs_topic3=pd.concat([herbs_topic3,index],axis=0,join='outer')
+        #with tab5_col1:
+        #    st.table(pres_topic1.head(3))
+        #    st.table(herbs_topic1.head(3))
+        #with tab5_col2:
+        #    st.table(pres_topic2.head(3))
+        #    st.table(herbs_topic2.head(3))
+        #with tab5_col3:
+        #    st.table(pres_topic3.head(3))
+        #    st.table(herbs_topic3.head(3))
 
 
 
