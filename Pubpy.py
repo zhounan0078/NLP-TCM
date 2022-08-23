@@ -349,7 +349,7 @@ with tab3:
 
 
     st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
-    num4_con = st.number_input('Enter the number of topics you have confirmed', key=10)')
+    num4_con = st.number_input('Enter the number of topics you have confirmed', key=10)
     svd_button_con = st.button('Continue', key=10)
     if svd_button_con:
         df = idf_df.T
