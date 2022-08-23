@@ -376,7 +376,7 @@ with tab5:
         'Please select the maximum number of themes you wish to try',
         options=range(1, 100, 1), key=6)
     ldia_button_pressed = st.button('Launch', key=10)
-    st.info('This may take a long time')
+    #st.info('This may take a long time')
     if svd_button_pressed == True:
         #if num5 < len(txt.index):
         x = []
@@ -397,7 +397,7 @@ with tab5:
         plt.set_yticks = np.arange(1, max(y), 100)
         plt.axhline(y=min(y), c='r', ls='--', lw=2)
         plt.axvline(x=x[y.index(min(y))], c='r', ls='--', lw=2)
-        plt.show()
+        #plt.show()
         st.pyplot(fig4)
         with st.expander("See explanation"):
             st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When the downward trend of perplexity begins to flatten, it is the number of topics we need to keep')
