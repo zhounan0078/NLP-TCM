@@ -353,7 +353,7 @@ with tab3:
     if svd_button_pressed == True:
         svd_trans(df=idf_df)
         st.write('If you have adjusted the number of topics, click "Continue"')
-        svd_button_con = st.button('Continue', key=10)
+    svd_button_con = st.button('Continue', key=10)
     if svd_button_con:
         columns = ['topic{}'.format(i) for i in range(svd_model.n_components)]
         pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
