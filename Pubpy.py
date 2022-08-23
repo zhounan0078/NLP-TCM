@@ -362,7 +362,7 @@ with tab3:
                                    index=columns)
         herb_svd_weight = herb_svd_weight.T
         plt.scatter(herb_svd_weight['topic0'], herb_svd_weight['topic1'])
-        plt.scatter(pres_svd_topic['topic0'], pres_svd_topic['topic2'])
+        plt.scatter(pres_svd_topic['topic0'], pres_svd_topic['topic1'])
         st.table(pres_svd_topic.head(5))
         st.table(herb_svd_weight.head(5))
 
