@@ -337,9 +337,9 @@ with tab3:
             explvara_list = list(svd.explained_variance_ratio_)
             sing = svd_model.singular_values_
             expl_cum = np.cumsum(explvara_list)
-            plt.plot(explvara_list)
-            plt.plot(expl_cum)
-            plt.plot(sing)
+            plt.plot(explvara_list,label='Explained variance ratio')
+            plt.plot(expl_cum,label='Cumulative explained variance ratio')
+            plt.plot(sing,label='singular values')
             st.pyplot(plt)
             with st.expander("See explanation"):
                 1
@@ -361,12 +361,11 @@ with tab3:
         herb_svd_weight = pd.DataFrame(svd.components_, columns=df.columns,
                                    index=columns)
         herb_svd_weight = herb_svd_weight.T
-        plt.scatter(herb_svd_weight['topic0'], herb_svd_weight['topic1'])
-        plt.scatter(pres_svd_topic['topic0'], pres_svd_topic['topic1'])
-        st.pyplot(plt)
+        #plt.scatter(herb_svd_weight['topic0'], herb_svd_weight['topic1'])
+        #plt.scatter(pres_svd_topic['topic0'], pres_svd_topic['topic1'])
+        #st.pyplot(plt)
         st.table(pres_svd_topic.head(5))
         st.table(herb_svd_weight.head(5))
-
         st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
 
 
