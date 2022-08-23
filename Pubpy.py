@@ -399,6 +399,7 @@ with tab5:
         plt.axvline(x=x[y.index(min(y))], c='r', ls='--', lw=2)
         #plt.show()
         st.pyplot(fig4)
+        st.write('hhahahahah')
         with st.expander("See explanation"):
             st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When the downward trend of perplexity begins to flatten, it is the number of topics we need to keep')
         #else:
