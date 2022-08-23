@@ -19,14 +19,13 @@ import streamlit as st
 # 全局设置
 sns.set_theme(style="whitegrid")
 
-tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(
-    ["Descriptive statistics", "Prescription similarity", "Featured and generic herbs",
-     "LSA topic distribution", "LDiA topic distribution","word embedding", "Matrix download",
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(
+    ["Descriptive statistics", "Prescription similarity", "Topic distribution", "word embedding", "Matrix download",
      "About the program"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
-font = font_manager.FontProperties(fname="simhei.ttf", size=14)
-sns.set(font='simhei.ttf')
+font = font_manager.FontProperties(fname="SimHei", size=14)
+sns.set(font='SimHei')
 
 
 # %%
@@ -36,21 +35,21 @@ def convert_df(out):
 
 
 # 读取并转换示例数据
-out1 = pd.read_csv('English example.csv')
-out2 = pd.read_csv('中文示例.csv')
-out1 = out1.set_index('Prescription name')
-out2 = out2.set_index('方剂名称')
-english_example = convert_df(out1)
-chinese_example = convert_df(out2)
+#out1 = pd.read_csv('English example.csv')
+#out2 = pd.read_csv('中文示例.csv')
+#out1 = out1.set_index('Prescription name')
+#out2 = out2.set_index('方剂名称')
+#english_example = convert_df(out1)
+#chinese_example = convert_df(out2)
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
     file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
     st.write('Please upload a file no larger than 200MB')
     st.write('The file must be a .csv,.xls or .xlsx file')
-    st.download_button('Download sample data in English', data=english_example, file_name='sample data in English.csv',
-                       mime='csv')
-    st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
+    #st.download_button('Download sample data in English', data=english_example, file_name='sample data in English.csv',
+                       #mime='csv')
+    #st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
@@ -70,7 +69,8 @@ def txt_read(files):
         txt = txt.set_index(col[0])
         return txt
     else:
-        out1 = pd.read_csv('English example.csv')
+        out1 = [[1,2,3],[4,5,6],[7,8,9]]
+        out1 = pd.DataFrame(out1)
         with tab1:
             st.header(
                 "What you see so far is the result of running the English example data,please refer to the example upload data")
@@ -322,10 +322,10 @@ with tab2:
 
 
 
-with tab4:
-    st.subheader('Topic classification based on Latent Semantic Analysis (LSA)')
+with tab3:
+    st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
-        'Please select the number of themes you wish to try',
+        'Please select the cosine similarity of the top prescription you want to view (in descending order)',
         options=range(1, 100, 1), key=5)
     svd_button_pressed = st.button('Launch', key=9)
     # svd = TruncatedSVD()
@@ -350,6 +350,7 @@ with tab4:
         else:
             st.write(
                 'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+
     st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
     num4_con = st.number_input('Enter the number of topics you have confirmed',step=1,format='%d',key=10)
     svd_button_con = st.button('Continue', key=10)
@@ -370,104 +371,6 @@ with tab4:
         st.table(herb_svd_weight.head(5))
         st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
 
-with tab5:
-    st.subheader('Topic classification based on Latent Dirichlet Distribution (LDiA)')
-    num5 = st.select_slider(
-        'Please select the maximum number of themes you wish to try',
-        options=range(1, 100, 1), key=6)
-    ldia_button_pressed = st.button('Launch', key=10)
-    st.info('This may take a long time', icon="ℹ️")
-    if svd_button_pressed == True:
-        if num5 < len(txt.index):
-            x = []
-            y = []
-            for i in range(1, num5):
-                ldia = LDiA(n_components=i, learning_method='batch', evaluate_every=1, verbose=1, max_iter=50,random_state=123)
-                ldia = ldia.fit(herb_dense_dataframe)
-                plex = ldia.perplexity(herb_dense_dataframe)
-                x.append(i)
-                y.append(plex)
-            fig = plt.figure()
-            fig.set_figheight(10)
-            fig.set_figwidth(10)
-            plt.plot(x, y, linewidth=2.0)
-            plt.xlim = (1, 50)
-            plt.ylim = (min(y), max(y))
-            plt.set_xticks = np.arange(1, 50)
-            plt.set_yticks = np.arange(1, max(y), 100)
-            plt.axhline(y=min(y), c='r', ls='--', lw=2)
-            plt.axvline(x=x[y.index(min(y))], c='r', ls='--', lw=2)
-            plt.show()
-            st.pyplot(fig)
-            with st.expander("See explanation"):
-                st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When the downward trend of perplexity begins to flatten, it is the number of topics we need to keep')
-        else:
-            st.write(
-                'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
-    st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
-    num5_con = st.number_input('Enter the number of topics you have confirmed',step=1,format='%d',key=10)
-    ldia_button_con = st.button('Continue', key=11)
-    tab5_col1, tab5_col2, tab5_col3 = st.columns(3)
-    if ldia_button_con:
-        ldia = LDiA(n_components=num5_con,learning_method='batch', evaluate_every=1, verbose=1, max_iter=50,random_state=123)
-        ldia = ldia.fit(herb_dense_dataframe)
-        columns = ['topic{}'.format(i) for i in range(ldia.n_components)]
-        components_herb = pd.DataFrame(ldia.components_.T, index=herb_dense_dataframe.columns, columns=columns)
-        components_pres = ldia.transform(herb_dense_dataframe)
-        components_pres = pd.DataFrame(components_pres, index=herb_dense_dataframe.index, columns=columns)
-        components_pres = components_pres.set_index('pres_name')
-        components_pres.rename(columns={'topic0':'topic1','topic1':'topic2','topic2':'topic3'},inplace=True)
-        pres_topic1=pd.DataFrame(columns=['topic1'])
-        pres_topic2=pd.DataFrame(columns=['topic2'])
-        pres_topic3=pd.DataFrame(columns=['topic3'])
-        for index, row in components_pres.iterrows():
-            i_list = []
-            for i in row:
-                i_list.append(i)
-            k=max(i_list)
-            d=components_pres.columns[components_pres.loc[index]==k].values.tolist()
-            index=str(index)
-            index=[index]
-            index=pd.DataFrame(index,columns=d)
-            if ('topic1' in d) == True:
-                pres_topic1=pd.concat([pres_topic1,index],axis=0,join='outer')
-            if ('topic2' in d) == True:
-                pres_topic2=pd.concat([pres_topic2,index],axis=0,join='outer')
-            if ('topic3' in d) == True:
-                pres_topic3=pd.concat([pres_topic3,index],axis=0,join='outer')
-        herbs_topic1=pd.DataFrame(columns=['topic1'])
-        herbs_topic2=pd.DataFrame(columns=['topic2'])
-        herbs_topic3=pd.DataFrame(columns=['topic3'])
-        for index, row in components_herb.iterrows():
-            i_list = []
-            for i in row:
-                i_list.append(i)
-            k=max(i_list)
-            d=components_herb.columns[components_herb.loc[index]==k].values.tolist()
-            index=str(index)
-            index=[index]
-            index=pd.DataFrame(index,columns=d)
-            if ('topic1' in d) == True:
-                herbs_topic1=pd.concat([herbs_topic1,index],axis=0,join='outer')
-            if ('topic2' in d) == True:
-                herbs_topic2=pd.concat([herbs_topic2,index],axis=0,join='outer')
-            if ('topic3' in d) == True:
-                herbs_topic3=pd.concat([herbs_topic3,index],axis=0,join='outer')
-        with tab5_col1:
-            st.table(pres_topic1.head(3))
-            st.table(herbs_topic1.head(3))
-        with tab5_col2:
-            st.table(pres_topic2.head(3))
-            st.table(herbs_topic2.head(3))
-        with tab5_col3:
-            st.table(pres_topic3.head(3))
-            st.table(herbs_topic3.head(3))
-
-       
-
-        st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
-
-
 
 
 
@@ -478,7 +381,7 @@ with tab5:
 
 # %%
 # 矩阵下载
-with tab7:
+with tab5:
     # 频次矩阵下载
     st.download_button(
         label="Download full herb frequency data",
@@ -533,7 +436,7 @@ with tab7:
             file_name='svd herb weight.csv',
             mime='csv')
 
-with tab8:
+with tab6:
     st.write('Author information:')
     st.write('Name: Zhou Nan')
     st.write('Current situation: PhD student,Universiti Tunku Abdul Rahman(UTAR)')
