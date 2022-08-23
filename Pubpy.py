@@ -357,7 +357,7 @@ with tab3:
         svd_model = svd.fit(df)
         svd_topic = svd_model.transform(df)
         columns = ['topic{}'.format(i) for i in range(svd_model.n_components)]
-        pres_svd_topic = pd.DataFrame(svd_topic, columns=idf_df.index, index=columns)
+        pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
         herb_svd_weight = pd.DataFrame(svd_model.components_, columns=idf_df.columns,
                                    index=columns)
         herb_svd_weight = herb_svd_weight.T
