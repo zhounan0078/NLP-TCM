@@ -78,7 +78,7 @@ def txt_read(files):
         txt = txt.set_index(col[0])
         return txt
     else:
-        out1 = pd.read_csv('English example.csv')
+        out1 = pd.read_excel('English example.xlsx')
         with tab1:
             st.header(
                 "What you see so far is the result of running the English example data,please refer to the example upload data")
@@ -119,10 +119,10 @@ total_herb_word_list = len(herb_word_list)
 # %%
 # 显示统计结果
 with tab1:
-    st.subheader('1.The total number of different herbs: ', total_herb_list)
-    st.subheader('2.The total number of herbs is:', total_herb_word_list)
-    st.subheader('3.The average length of prescription: ', round(avg_len, 0))
-    st.subheader('4.The most common herb')
+    st.write('1.The total number of different herbs: ', total_herb_list)
+    st.write('2.The total number of herbs is:', total_herb_word_list)
+    st.write('3.The average length of prescription: ', round(avg_len, 0))
+    st.write('4.The most common herb')
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1), key=1)
