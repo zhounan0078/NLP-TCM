@@ -326,21 +326,20 @@ with tab3:
         options=range(1, 100, 1), key=5)
     svd_button_pressed = st.button('Launch', key=9)
     # svd = TruncatedSVD()
-    if svd_button_pressed == True:
+    def svd_trans(df):
         if num4 < len(txt.index):
-            idf_df = idf_df.T
+            df = df.T
             svd = TruncatedSVD(n_components=num4, n_iter=10, random_state=123)
-            svd_model = svd.fit(idf_df)
-            svd_topic = svd.transform(idf_df)
-            explvara_list = list(svd.explained_variance_ratio_)
-            sing = svd.singular_values_
+            global svd_model
+            svd_model = svd.fit(df)
+            global svd_topic
+            svd_topic = svd_model.transform(df)
+            global explvara_list
+            explvara_list = list(svd_model.explained_variance_ratio_)
+            global sing
+            sing = svd_model.singular_values_
+            global expl_cum
             expl_cum = np.cumsum(explvara_list)
-            columns = ['topic{}'.format(i) for i in range(svd.n_components)]
-
-            pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
-            herb_svd_weight = pd.DataFrame(svd.components_, columns=idf_df.columns,
-                                           index=['topic{}'.format(i) for i in range(svd.n_components)])
-            herb_svd_weight = herb_svd_weight.T
             plt.plot(explvara_list)
             plt.plot(expl_cum)
             plt.plot(sing)
@@ -348,13 +347,28 @@ with tab3:
             with st.expander("See explanation"):
                 st.table(pres_svd_topic.head(5))
                 st.table(herb_svd_weight.head(5))
-            st.write('If you have adjusted the number of topics, click "Continue"')
+
         else:
             st.write(
                 'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+
+    if svd_button_pressed == True:
+        svd_trans(df=idf_df)
+        st.write('If you have adjusted the number of topics, click "Continue"')
         svd_button_con = st.button('Continue', key=10)
-    if svd_button_con:
-        st.success('The topic classification based on LSA is done')
+        if svd_button_con:
+            pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
+            herb_svd_weight = pd.DataFrame(svd_model.components_, columns=idf_df.columns,
+                                       index=['topic{}'.format(i) for i in range(svd_model.n_components)])
+            herb_svd_weight = herb_svd_weight.T
+            st.success('The topic classification based on LSA is done') columns = ['topic{}'.format(i) for i in range(svd_model.n_components)]
+
+
+
+
+
+
+
 
 # %%
 # 矩阵下载
