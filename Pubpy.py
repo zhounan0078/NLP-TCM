@@ -45,7 +45,7 @@ def convert_df(df):
 
 # 读取并转换示例数据
 out1 = pd.read_excel('English example.xlsx')
-out2 = pd.read_csv('中文示例.xlsx')
+out2 = pd.read_excel('中文示例.xlsx')
 out1 = out1.set_index('Prescription name')
 out2 = out2.set_index('方剂名称')
 english_example = convert_df(out1)
