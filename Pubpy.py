@@ -412,7 +412,8 @@ with tab5:
         components_herb = pd.DataFrame(ldia.components_.T, index=herb_dense_dataframe.columns, columns=columns)
         components_pres = ldia.transform(herb_dense_dataframe)
         components_pres = pd.DataFrame(components_pres, index=herb_dense_dataframe.index, columns=columns)
-        components_pres = components_pres.set_index('pres_name')
+        col2 = components_pres.columns
+        components_pres = components_pres.set_index(col2[0])
         components_pres.rename(columns={'topic0':'topic1','topic1':'topic2','topic2':'topic3'},inplace=True)
         pres_topic1=pd.DataFrame(columns=['topic1'])
         pres_topic2=pd.DataFrame(columns=['topic2'])
