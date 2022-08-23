@@ -340,6 +340,7 @@ with tab3:
             plt.plot(explvara_list,label='Explained variance ratio')
             plt.plot(expl_cum,label='Cumulative explained variance ratio')
             plt.plot(sing,label='singular values')
+            plt.legend()
             st.pyplot(plt)
             with st.expander("See explanation"):
                 1
