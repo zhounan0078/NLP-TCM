@@ -35,13 +35,13 @@ sns.set(font='simhei.ttf')
 # 定义文件转换csv函数
 def convert_df(df):
     output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, index=False, sheet_name='Sheet1')
-    #workbook = writer.book
-    #worksheet = writer.sheets['Sheet1']
-    #format1 = workbook.add_format({'num_format': '0.00'})
-    #worksheet.set_column('A:A', None, format1)
-    writer.save()
+    workbook = Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet()
+    for i, row in enumerate(df.iterrows()):
+        row = row[1]
+        for j, col in enumerate(row.iteritems()):
+            worksheet.write(i, j, col[1])
+    workbook.close()
     processed_data = output.getvalue()
     return processed_data
 
