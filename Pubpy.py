@@ -378,7 +378,6 @@ with tab5:
     ldia_button_pressed = st.button('Launch', key=10)
     #st.info('This may take a long time')
     if ldia_button_pressed == True:
-        #if num5 < len(txt.index):
         x = []
         y = []
         for i in range(1, num5):
@@ -390,7 +389,7 @@ with tab5:
         fig = plt.figure()
         fig.set_figheight(10)
         fig.set_figwidth(10)
-        plt.plot(x, y, linewidth=2.0)
+        plt.plot(x, y, linewidth=2.0,label='Perplexity')
         plt.xlim = (1, 50)
         plt.ylim = (min(y), max(y))
         plt.set_xticks = np.arange(1, 50)
@@ -401,10 +400,7 @@ with tab5:
         st.pyplot(plt)
         st.write('hhahahahah')
         with st.expander("See explanation"):
-            st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When the downward trend of perplexity begins to flatten, it is the number of topics we need to keep')
-        #else:
-            #st.write(
-                #'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+            st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When perplexity is at its lowest point, we can take the value here as the number of reserved topics')
     st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
     num5_con = st.number_input('Enter the number of topics you have confirmed',step=1,format='%d',key=11)
     ldia_button_con = st.button('Continue', key=11)
