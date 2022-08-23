@@ -319,6 +319,8 @@ with tab2:
         plt.yticks(font=font)
         st.pyplot(fig3)
 
+svd_model= TruncatedSVD()
+
 with tab3:
     st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
