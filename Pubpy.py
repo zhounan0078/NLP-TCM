@@ -45,7 +45,7 @@ def convert_df(df):
 
 # 读取并转换示例数据
 out1 = pd.read_excel('English example.xlsx')
-out2 = pd.read_csv('中文示例.csv')
+out2 = pd.read_csv('中文示例.xlsx')
 out1 = out1.set_index('Prescription name')
 out2 = out2.set_index('方剂名称')
 english_example = convert_df(out1)
@@ -53,12 +53,12 @@ chinese_example = convert_df(out2)
 # %%
 # 侧栏上传文件区域
 with st.sidebar:
-    file = st.file_uploader("Click “Browse files” to upload files", type=["csv", "xlsx", "xls"])
+    file = st.file_uploader("Click “Browse files” to upload files", type=["xlsx"])
     st.write('Please upload a file no larger than 200MB')
-    st.write('The file must be a .csv,.xls or .xlsx file')
+    st.write('The file must be a .xlsx file')
     st.download_button('Download sample data in English', data=english_example, file_name='sample data in English.xlsx',
                        )
-    st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.csv', mime='csv')
+    st.download_button('下载中文示例数据', data=chinese_example, file_name='中文示例数据.xlsx')
     st.write('Note: You can understand the workflow of this program by uploading sample data.')
     st.write(
         'Note: When the program is running, there will be a little man doing sports in the upper right corner of the web page,don\`t refresh this page or do anything else until he stops.')
@@ -145,7 +145,7 @@ with tab1:
     most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
     # 矩阵制作
     # 频次矩阵
-    full_common_data = convert_df(most_common_herb2)
+    full_common_data = most_common_herb2.copy()
     # 密集矩阵
     herb_dense_dataframe = pd.DataFrame(columns=['pres_name', 'herb_name'])
     for pres_name in file_dict:
@@ -329,7 +329,6 @@ with tab2:
         st.pyplot(fig3)
 
 
-
 with tab4:
     st.subheader('Topic classification based on Latent Semantic Analysis (LSA)')
     num4 = st.select_slider(
@@ -437,43 +436,43 @@ with tab5:
 # 矩阵下载
 with tab7:
     # 频次矩阵下载
-    st.download_button(
-        label="Download full herb frequency data",
-        data=full_common_data,
-        file_name='full_common_data.csv',
-        mime='csv', )
+    if full_common_data.empty == False:
+        full_common_data = convert_df(full_common_data)
+        st.download_button(
+            label="Download full herb frequency data",
+            data=full_common_data,
+            file_name='full_common_data.xlsx',
+            mime='xlsx')
     # 密集矩阵下载
     if herb_dense_dataframe.empty == False:
         herb_dense_dataframe = convert_df(herb_dense_dataframe)
         st.download_button(
             label='Download dense matrix',
             data=herb_dense_dataframe,
-            file_name='dense matrix.csv',
-            mime='csv')
+            file_name='dense matrix.xlsx')
     # tf-idf矩阵下载
     if idf_df.empty == False:
         tf_idf_matrix = convert_df(idf_df)
         st.download_button(
             label='Download tf_idf_matrix',
             data=tf_idf_matrix,
-            file_name='tf_idf_matrix.csv',
-            mime='csv')
+            file_name='tf_idf_matrix.xlsx')
     # dot product矩阵下载
     if dense_dot.empty == False:
         dense_dot = convert_df(dense_dot)
         st.download_button(
             label='Download dot_product_matrix',
             data=dense_dot,
-            file_name='dense dot product.csv',
-            mime='csv')
+            file_name='dense dot product.xlsx')
+
     # cosine similarity矩阵下载
     if cos_dot.empty == False:
         cos_dot = convert_df(cos_dot)
         st.download_button(
             label='Download cosine similarity matrix',
             data=cos_dot,
-            file_name='cosine similarity.csv',
-            mime='csv')
+            file_name='cosine similarity.xlsx')
+
     # svd矩阵下载
 
     if svd_button_con == True:
@@ -482,13 +481,13 @@ with tab7:
         st.download_button(
             label='Download svd topic matrix',
             data=pres_svd_topic,
-            file_name='svd topic.csv',
-            mime='csv')
+            file_name='svd topic.xlsx')
+
         st.download_button(
             label='Download svd weight matrix',
             data=herb_svd_weight,
-            file_name='svd herb weight.csv',
-            mime='csv')
+            file_name='svd herb weight.xlsx')
+
     # ldia矩阵下载
     if ldia_button_con == True:
         components_herb = convert_df(components_herb)
@@ -496,13 +495,13 @@ with tab7:
         st.download_button(
             label='Download ldia topic matrix',
             data=components_pres,
-            file_name='ldia topic.csv',
-            mime='csv')
+            file_name='ldia topic.xlsx')
+
         st.download_button(
             label='Download ldia herb weight matrix',
             data=components_herb,
-            file_name='ldia herb weight.csv',
-            mime='csv')
+            file_name='ldia herb weight.xlsx')
+
 
 
 
