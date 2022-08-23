@@ -414,58 +414,7 @@ with tab5:
         components_pres = pd.DataFrame(components_pres, index=herb_dense_dataframe.index, columns=columns)
         st.table(components_pres.head(5))
         st.table(components_herb.head(5))
-        #col2 = components_pres.columns
-        #components_pres = components_pres.set_index(col2[0])
-        #components_pres.rename(columns={'topic0':'topic1','topic1':'topic2','topic2':'topic3'},inplace=True)
-        #pres_topic1=pd.DataFrame(columns=['topic1'])
-        #pres_topic2=pd.DataFrame(columns=['topic2'])
-        #pres_topic3=pd.DataFrame(columns=['topic3'])
-        #for index, row in components_pres.iterrows():
-        #    i_list = []
-        #    for i in row:
-        #        i_list.append(i)
-        #    k=max(i_list)
-        #    d=components_pres.columns[components_pres.loc[index]==k].values.tolist()
-        #    index=str(index)
-        #    index=[index]
-        #    index=pd.DataFrame(index,columns=d)
-        #    if ('topic1' in d) == True:
-        #        pres_topic1=pd.concat([pres_topic1,index],axis=0,join='outer')
-        #    if ('topic2' in d) == True:
-        #        pres_topic2=pd.concat([pres_topic2,index],axis=0,join='outer')
-        #    if ('topic3' in d) == True:
-        #        pres_topic3=pd.concat([pres_topic3,index],axis=0,join='outer')
-        #herbs_topic1=pd.DataFrame(columns=['topic1'])
-        #herbs_topic2=pd.DataFrame(columns=['topic2'])
-        #herbs_topic3=pd.DataFrame(columns=['topic3'])
-        #for index, row in components_herb.iterrows():
-        #    i_list = []
-        #    for i in row:
-        #        i_list.append(i)
-        #    k=max(i_list)
-        #    d=components_herb.columns[components_herb.loc[index]==k].values.tolist()
-        #    index=str(index)
-        #    index=[index]
-        #    index=pd.DataFrame(index,columns=d)
-        #    if ('topic1' in d) == True:
-        #        herbs_topic1=pd.concat([herbs_topic1,index],axis=0,join='outer')
-        #    if ('topic2' in d) == True:
-        #        herbs_topic2=pd.concat([herbs_topic2,index],axis=0,join='outer')
-        #    if ('topic3' in d) == True:
-        #        herbs_topic3=pd.concat([herbs_topic3,index],axis=0,join='outer')
-        #with tab5_col1:
-        #    st.table(pres_topic1.head(3))
-        #    st.table(herbs_topic1.head(3))
-        #with tab5_col2:
-        #    st.table(pres_topic2.head(3))
-        #    st.table(herbs_topic2.head(3))
-        #with tab5_col3:
-        #    st.table(pres_topic3.head(3))
-        #    st.table(herbs_topic3.head(3))
-
-
-
-        st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
+        st.success('The topic classification based on LDiA is done,you can download this matrix in the "Matrix download" tab')
 
 
 
@@ -518,7 +467,7 @@ with tab7:
             file_name='cosine similarity.csv',
             mime='csv')
     # svd矩阵下载
-    # pres_svd_topic
+
     if svd_button_con == True:
         pres_svd_topic = convert_df(pres_svd_topic)
         herb_svd_weight = convert_df(herb_svd_weight)
@@ -532,6 +481,22 @@ with tab7:
             data=herb_svd_weight,
             file_name='svd herb weight.csv',
             mime='csv')
+    # ldia矩阵下载
+    if ldia_button_con == True:
+        components_herb = convert_df(components_herb)
+        components_pres = convert_df(components_pres)
+        st.download_button(
+            label='Download ldia topic matrix',
+            data=components_pres,
+            file_name='ldia topic.csv',
+            mime='csv')
+        st.download_button(
+            label='Download ldia herb weight matrix',
+            data=components_herb,
+            file_name='ldia herb weight.csv',
+            mime='csv')
+
+
 
 with tab8:
     st.write('Author information:')
