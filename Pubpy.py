@@ -378,32 +378,32 @@ with tab5:
     ldia_button_pressed = st.button('Launch', key=10)
     st.info('This may take a long time')
     if svd_button_pressed == True:
-        if num5 < len(txt.index):
-            x = []
-            y = []
-            for i in range(1, num5):
-                ldia = LDiA(n_components=i, learning_method='batch', evaluate_every=1, verbose=1, max_iter=50,random_state=123)
-                ldia = ldia.fit(herb_dense_dataframe)
-                plex = ldia.perplexity(herb_dense_dataframe)
-                x.append(i)
-                y.append(plex)
-            fig4,ax4 = plt.subplots()
-            ax4.set_figheight(10)
-            ax4.set_figwidth(10)
-            ax4.plot(x, y, linewidth=2.0)
-            plt.xlim = (1, 50)
-            plt.ylim = (min(y), max(y))
-            plt.set_xticks = np.arange(1, 50)
-            plt.set_yticks = np.arange(1, max(y), 100)
-            plt.axhline(y=min(y), c='r', ls='--', lw=2)
-            plt.axvline(x=x[y.index(min(y))], c='r', ls='--', lw=2)
-            plt.show()
-            st.pyplot(fig4)
-            with st.expander("See explanation"):
-                st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When the downward trend of perplexity begins to flatten, it is the number of topics we need to keep')
-        else:
-            st.write(
-                'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
+        #if num5 < len(txt.index):
+        x = []
+        y = []
+        for i in range(1, num5):
+            ldia = LDiA(n_components=i, learning_method='batch', evaluate_every=1, verbose=1, max_iter=50,random_state=123)
+            ldia = ldia.fit(herb_dense_dataframe)
+            plex = ldia.perplexity(herb_dense_dataframe)
+            x.append(i)
+            y.append(plex)
+        fig4,ax4 = plt.subplots()
+        ax4.set_figheight(10)
+        ax4.set_figwidth(10)
+        ax4.plot(x, y, linewidth=2.0)
+        plt.xlim = (1, 50)
+        plt.ylim = (min(y), max(y))
+        plt.set_xticks = np.arange(1, 50)
+        plt.set_yticks = np.arange(1, max(y), 100)
+        plt.axhline(y=min(y), c='r', ls='--', lw=2)
+        plt.axvline(x=x[y.index(min(y))], c='r', ls='--', lw=2)
+        plt.show()
+        st.pyplot(fig4)
+        with st.expander("See explanation"):
+            st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When the downward trend of perplexity begins to flatten, it is the number of topics we need to keep')
+        #else:
+            #st.write(
+                #'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
     st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
     num5_con = st.number_input('Enter the number of topics you have confirmed',step=1,format='%d',key=11)
     ldia_button_con = st.button('Continue', key=11)
