@@ -319,7 +319,7 @@ with tab2:
         plt.yticks(font=font)
         st.pyplot(fig3)
 
-svd_model= TruncatedSVD()
+
 
 with tab3:
     st.subheader('1.Topic classification based on Latent Semantic Analysis (LSA)')
@@ -328,19 +328,14 @@ with tab3:
         options=range(1, 100, 1), key=5)
     svd_button_pressed = st.button('Launch', key=9)
     # svd = TruncatedSVD()
-    def svd_trans(df):
+    if svd_button_pressed == True:
         if num4 < len(txt.index):
-            df = df.T
+            df = idf_df.T
             svd = TruncatedSVD(n_components=num4, n_iter=10, random_state=123)
-            global svd_model
             svd_model = svd.fit(df)
-            global svd_topic
             svd_topic = svd_model.transform(df)
-            global explvara_list
             explvara_list = list(svd_model.explained_variance_ratio_)
-            global sing
             sing = svd_model.singular_values_
-            global expl_cum
             expl_cum = np.cumsum(explvara_list)
             plt.plot(explvara_list)
             plt.plot(expl_cum)
@@ -352,11 +347,15 @@ with tab3:
             st.write(
                 'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
 
-    if svd_button_pressed == True:
-        svd_trans(df=idf_df)
-        st.write('If you have adjusted the number of topics, click "Continue"')
+
+    st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
+    num4_con = st.number_input('Enter the number of topics you have confirmed', key=10)')
     svd_button_con = st.button('Continue', key=10)
     if svd_button_con:
+        df = idf_df.T
+        svd = TruncatedSVD(n_components=num4, n_iter=10, random_state=123)
+        svd_model = svd.fit(df)
+        svd_topic = svd_model.transform(df)
         columns = ['topic{}'.format(i) for i in range(svd_model.n_components)]
         pres_svd_topic = pd.DataFrame(svd_topic, columns=columns, index=idf_df.index)
         herb_svd_weight = pd.DataFrame(svd_model.components_, columns=idf_df.columns,
