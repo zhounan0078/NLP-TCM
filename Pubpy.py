@@ -361,9 +361,12 @@ with tab3:
         herb_svd_weight = pd.DataFrame(svd.components_, columns=df.columns,
                                    index=columns)
         herb_svd_weight = herb_svd_weight.T
+        plt.scatter(herb_svd_weight['topic0'], herb_svd_weight['topic1'])
+        plt.scatter(pres_svd_topic['topic0'], pres_svd_topic['topic2'])
         st.table(pres_svd_topic.head(5))
         st.table(herb_svd_weight.head(5))
-        st.success('The topic classification based on LSA is done')
+
+        st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
 
 
 
