@@ -377,7 +377,7 @@ with tab5:
         options=range(1, 100, 1), key=6)
     ldia_button_pressed = st.button('Launch', key=10)
     #st.info('This may take a long time')
-    if svd_button_pressed == True:
+    if ldia_button_pressed == True:
         #if num5 < len(txt.index):
         x = []
         y = []
