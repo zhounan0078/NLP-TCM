@@ -405,7 +405,7 @@ with tab5:
             st.write(
                 'Please select a smaller number,you cannot choose a number larger than the number of prescriptions in the dataset')
     st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
-    num5_con = st.number_input('Enter the number of topics you have confirmed',step=1,format='%d',key=10)
+    num5_con = st.number_input('Enter the number of topics you have confirmed',step=1,format='%d',key=11)
     ldia_button_con = st.button('Continue', key=11)
     tab5_col1, tab5_col2, tab5_col3 = st.columns(3)
     if ldia_button_con:
