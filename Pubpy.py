@@ -118,7 +118,7 @@ total_herb_list = len(Counter_every_herb)
 total_herb_word_list = len(herb_word_list)
 # %%
 # 显示统计结果
-st.subheader('You can use the cursor keys "←" and "→" to see more tags')
+st.write('You can use the cursor keys "←" and "→" to see more tags')
 with tab1:
     st.write('1.The total number of different herbs: ', total_herb_list)
     st.write('2.The total number of herbs is:', total_herb_word_list)
