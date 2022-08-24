@@ -347,7 +347,7 @@ with tab3:
         st.write('Bottom 10 most important herbs')
         st.table(tf_idf_sort.tail(10))
         x= list((tf_idf_sort.tail(10)).index)
-        y= list((tf_idf_sort.tail(10)).values)
+        y= list((tf_idf_sort['tf_idf_value'].tail(10)))
         plt.bar(x,y)
         st.pyplot(plt)
 
