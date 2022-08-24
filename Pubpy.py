@@ -346,16 +346,16 @@ with tab3:
     if idf_button_con:
         with tab3_col1:
             st.write('Top 10 most important herbs')
-            st.table(tf_idf_sort.head(10))
-            idf_x1= list((tf_idf_sort.head(10)).index)
-            idf_y1= list((tf_idf_sort['tf_idf_value'].head(10)))
+            st.table(tf_idf_sort.head(num7))
+            idf_x1= list((tf_idf_sort.head(num7)).index)
+            idf_y1= list((tf_idf_sort['tf_idf_value'].head(num7)))
             plt.bar(idf_x1,idf_y1)
             st.pyplot(plt)
         with tab3_col2:
             st.write('Bottom 10 most important herbs')
-            st.table(tf_idf_sort.tail(10))
-            idf_x2= list((tf_idf_sort.tail(10)).index)
-            idf_y2= list((tf_idf_sort['tf_idf_value'].tail(10)))
+            st.table(tf_idf_sort.tail(num7))
+            idf_x2= list((tf_idf_sort.tail(num7)).index)
+            idf_y2= list((tf_idf_sort['tf_idf_value'].tail(num7)))
             plt.bar(idf_x2,idf_y2)
             st.pyplot(plt)
 
