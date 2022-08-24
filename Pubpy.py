@@ -337,12 +337,12 @@ with tab3:
                 idf_value= idf_i
                 herb_name= idf_df.columns[idf_df.loc[index] == idf_i].values[0]
                 tf_idf_sort= tf_idf_sort.append({'herb': herb_name, 'tf_idf_value': idf_value}, ignore_index=True)
-        tf_idf_sort= tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
-        tf_idf_sort = tf_idf_sort.set_index("herb")
         st.success("The calculation of characteristic drugs and generic herbs has been completed, please select the number of herbs you need to present")
         num7 = st.select_slider(
             'Please select the number of themes you wish to try',
             options=range(1, 50, 1), key=7)
+    tf_idf_sort= tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
+    tf_idf_sort = tf_idf_sort.set_index("herb")
     tab3_col1,tab3_col2 = st.columns(2)
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
