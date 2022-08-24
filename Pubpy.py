@@ -343,7 +343,7 @@ with tab3:
         num7 = st.select_slider(
             'Please select the number of themes you wish to try',
             options=range(1, 50, 1), key=7)
-        tab3_col1,tab3_col2 = st.columns(2)
+    tab3_col1,tab3_col2 = st.columns(2)
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
         with tab3_col1:
