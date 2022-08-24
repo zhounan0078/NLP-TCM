@@ -423,9 +423,7 @@ with tab5:
         plt.set_yticks = np.arange(1, max(y), 100)
         plt.axhline(y=min(y), c='r', ls='--', lw=2)
         plt.axvline(x=x[y.index(min(y))], c='r', ls='--', lw=2)
-        #plt.show()
         st.pyplot(plt)
-        st.write('hhahahahah')
         with st.expander("See explanation"):
             st.write('Perplexity is an important reference indicator for determining the number of topics in the LDiA model. When perplexity is at its lowest point, we can take the value here as the number of reserved topics')
     st.write('If you confirm the number of topics you want to get based on the line chart, please fill in the blank and click "Continue" to get the specific topic matrix')
