@@ -337,7 +337,7 @@ with tab3:
             tf_idf_sort= tf_idf_sort.append({'herb': herb_name, 'tf_idf_value': idf_value}, ignore_index=True)
     tf_idf_sort= tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
     tf_idf_sort = tf_idf_sort.set_index("herb")
-    st.success("The calculation of characteristic drugs and generic herbs has been completed, please select the number of herbs you need to present")
+    st.success("The calculation of Featured and generic herbs has been completed, please select the number of herbs you need to present")
     num7 = st.select_slider(
         'Please select the number of themes you wish to try',
         options=range(1, 50, 1), key=7)
