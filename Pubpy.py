@@ -328,7 +328,26 @@ with tab2:
         plt.xticks(font=font)
         plt.yticks(font=font)
         st.pyplot(fig3)
-
+with tab3:
+    tf_idf_sort= pd.DataFrame(columns=['herb', 'tf_idf_value'])
+    for index, row in idf_df.iterrows():
+        for idf_i in row:
+            idf_value= idf_i
+            herb_name= idf_df.columns[idf_df.loc[index] == idf_i].values[0]
+            tf_idf_sort= tf_idf_sort.append({'herb': herb_name, 'tf_idf_value': idf_value}, ignore_index=True)
+    tf_idf_sort= tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
+    tf_idf_sort = tf_idf_sort.set_index("herb")
+    tab3_col1,tab3_col2 = st.beta_columns(2)
+    with tab3_col1:
+        st.write('Top 10 most important herbs')
+        st.table(tf_idf_sort.head(10))
+        plt.plot(tf_idf_sort.head(10))
+        st.pyplot(plt)
+    with tab3_col2:
+        st.write('Bottom 10 most important herbs')
+        st.table(tf_idf_sort.tail(10))
+        plt.plot(tf_idf_sort.tail(10))
+        st.pyplot(plt)
 
 with tab4:
     st.subheader('Topic classification based on Latent Semantic Analysis (LSA)')
