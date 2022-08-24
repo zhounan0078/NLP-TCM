@@ -338,7 +338,7 @@ with tab3:
     tf_idf_sort= tf_idf_sort.sort_values(by=['tf_idf_value'], ascending=False)
     tf_idf_sort = tf_idf_sort.set_index("herb")
     tab3_col1,tab3_col2 = st.columns(2)
-    with tab3_col1:
+    #with tab3_col1:
         #st.write('Top 10 most important herbs')
         #st.table(tf_idf_sort.head(10))
         #plt.bar(tf_idf_sort.head(10))
