@@ -479,7 +479,7 @@ with tab6:
         search_herb = st.text_input('Enter the name of the herb you want to search',key=12)
         search_button = st.button('Search', key=12)
         if search_button:
-            feed_herb=model.most_similar(postive=[search_herb],topn=10)
+            feed_herb=model.wv.most_similar(postive=[search_herb],topn=10)
             feed_herb=pd.DataFrame(feed_herb,columns=['herb','similarity'])
             st.table(feed_herb)
 
