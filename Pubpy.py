@@ -472,11 +472,11 @@ with tab6:
     w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
         x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count'])
     st.altair_chart(w2v_data, use_container_width=True)
-    op_w2v=st.radio('What\'s your favorite movie genre?',('Similar herbal search', 'Herbal analogy', 'Prescription similarity assessment'))
+    op_w2v=st.radio('What\'s your favorite movie genre?',('Similar herbal search', 'Herbal analogy', 'Compatibility assessment'))
     if op_w2v=='Similar herbal search':
         st.subheader('Similar herbal search')
         st.write('Please enter the name of the herb you want to search')
-        search_herb = st.text_input('Enter the name of the herb you want to search',key=12)
+        search_herb = st.text_input('Enter the herb',key=12)
         search_button = st.button('Search', key=12)
         if search_button:
             feed_herb=model.wv.most_similar(positive=[search_herb],topn=10)
@@ -506,6 +506,16 @@ with tab6:
                 st.write('Imitating the combination rule of {} and {}, {}is a more matching herb with {}'.format(search_herb_p1,search_herb_n1,best_match,search_herb_p2))
                 st.write('Alternative herbs that can be paired with {} in the table below'.format(search_herb_p2))
                 st.table(feed_herb)
+
+    if op_w2v=='Compatibility assessment':
+        st.subheader('Compatibility assessment')
+        st.write('Please enter the herb list you want to assessment,Use "," (English format) to separate the herbs')
+        input_herb = st.text_input(key=15)
+        input_herb_list = input_herb.split(',')
+        feed_herb=model.wv.doesnt_match(input_herb_list)
+        st.write('In this list of herbs, {} has the farthest vector distance from other herbs. Please evaluate whether the use of {} is reasonable in combination with the needs of clinical practice.'.format(feed_herb,feed_herb))
+        
+        
 
 
 
