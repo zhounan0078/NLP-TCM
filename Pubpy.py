@@ -16,6 +16,7 @@ from sklearn.decomposition import LatentDirichletAllocation as LDiA
 import gensim
 from PIL import Image
 import streamlit as st
+import altair as alt
 
 # %%
 # 全局设置
@@ -454,17 +455,25 @@ with tab5:
 
 with tab6:
     model = gensim.models.Word2Vec(list_vect,sg=0,min_count=1,vector_size = 100,window=avg_len)
+    model = model.save('word2vec.model')
+
     a=pd.DataFrame(model.wv.index_to_key,columns=['name'])
     b=pd.DataFrame(model.wv.vectors,index=a['name'])
     pca = PCA(n_components=2,random_state=123)
     pca = pca.fit(b)
     pca_vectr = pca.transform(b)
+    full_common_data = full_common_data.set_index('herb')
     columns = ['topic{}'.format(i) for i in range(pca.n_components)]
     pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
     pca_matrix=pca_topic.round(3)
+    pca_matrix = pca_matrix.join(full_common_data)
     x=pca_matrix['topic0']
     y=pca_matrix['topic1']
-    plt.scatter(x,y,marker='.')
+    c = alt.Chart(pca_matrix).mark_circle().encode(
+        x=['topic0'], y=['topic1'], size='count', color='c', tooltip=['a', 'b', 'c'])
+
+
+    plt.scatter(x,y,marker='.',size=)
     st.pyplot(plt)
 
 

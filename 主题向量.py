@@ -604,6 +604,10 @@ model = gensim.models.Word2Vec(word_vec_senten,sg=0,min_count=1,vector_size = 30
 #%%
 model.wv['川芎']
 #%%
+most_common_herb2 = word_bag.most_common()
+full_common_data = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
+full_common_data = full_common_data.set_index('herb')
+#%%
 a=pd.DataFrame(model.wv.index_to_key,columns=['name'])
 #%%
 b=pd.DataFrame(model.wv.vectors,index=a['name'])
@@ -616,7 +620,7 @@ pca_vectr = pca.transform(b)
 columns = ['topic{}'.format(i) for i in range(pca.n_components)]
 pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
 pca_matrix=pca_topic.round(3)
-
+pca_matrix = pca_matrix.join(full_common_data)
 #%%
 x=pca_matrix['topic0']
 y=pca_matrix['topic1']
