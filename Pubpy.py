@@ -455,8 +455,6 @@ with tab5:
 
 with tab6:
     model = gensim.models.Word2Vec(list_vect,sg=0,min_count=1,vector_size = 100,window=avg_len)
-    model = model.save('word2vec.model')
-
     a=pd.DataFrame(model.wv.index_to_key,columns=['name'])
     b=pd.DataFrame(model.wv.vectors,index=a['name'])
     pca = PCA(n_components=2,random_state=123)
@@ -472,8 +470,8 @@ with tab6:
     c = alt.Chart(pca_matrix).mark_circle().encode(
         x=['topic0'], y=['topic1'], size='count', color='c', tooltip=['a', 'b', 'c'])
     st.altair_chart(c, use_container_width=True)
+    model = model.save('word2vec.model')
 
-    
 
 
 
