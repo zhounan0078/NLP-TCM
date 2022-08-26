@@ -513,22 +513,7 @@ with tab6:
                 feed_herb=model.wv.doesnt_match(input_herb_list)
                 st.write('In this list of herbs, {} has the farthest vector distance from other herbs. Please evaluate whether the use of {} is reasonable in combination with the needs of clinical practice.'.format(feed_herb,feed_herb))
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    # %%
+# %%
 # 矩阵下载
 with tab7:
     # 频次矩阵下载
@@ -607,8 +592,6 @@ with tab7:
     # word2vec矩阵下载
 
     # word2vec模型下载
-
-
 
 
 
