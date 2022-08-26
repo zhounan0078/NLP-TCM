@@ -454,6 +454,7 @@ with tab5:
 
 with tab6:
     model = gensim.models.Word2Vec(list_vect,sg=0,min_count=1,vector_size = 100,window=avg_len)
+    a=pd.DataFrame(model.wv.index_to_key,columns=['name'])
     b=pd.DataFrame(model.wv.vectors,index=a['name'])
     pca = PCA(n_components=2,random_state=123)
     pca_vectr = pca.transform(b)
