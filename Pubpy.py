@@ -471,12 +471,9 @@ with tab6:
     y=pca_matrix['topic1']
     c = alt.Chart(pca_matrix).mark_circle().encode(
         x=['topic0'], y=['topic1'], size='count', color='c', tooltip=['a', 'b', 'c'])
+    st.altair_chart(c, use_container_width=True)
 
-
-    plt.scatter(x,y,marker='.',size=)
-    st.pyplot(plt)
-
-
+    
 
 
 
