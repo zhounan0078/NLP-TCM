@@ -465,6 +465,7 @@ with tab6:
     pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
     pca_matrix=pca_topic.round(3)
     pca_matrix = pca_matrix.join(full_common_data)
+    pca_matrix = pca_matrix.reset_index()
     x=pca_matrix['topic0']
     y=pca_matrix['topic1']
     st.table(pca_matrix.head(5))
