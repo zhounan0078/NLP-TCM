@@ -480,7 +480,7 @@ with tab6:
     #})
     st.success('The topic classification based on PCA is done,you can download this matrix in the "Matrix download" tab')
     w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
-        x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'topic1', 'count'])
+        x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count'])
     st.altair_chart(w2v_data, use_container_width=True)
     model = model.save('word2vec.model')
 
