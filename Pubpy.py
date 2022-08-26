@@ -379,11 +379,6 @@ with tab4:
             lsa_topic= pd.DataFrame({'topic': range(1, num4+1), 'explained_variance': explvara_list, 'cumulative_explained_variance': expl_cum, 'singular_values': sing})
             lsa_topic= lsa_topic.set_index('topic')
             st.line_chart(lsa_topic)
-            plt.plot(explvara_list,label='Explained variance ratio')
-            plt.plot(expl_cum,label='Cumulative explained variance ratio')
-            plt.plot(sing,label='singular values')
-            plt.legend()
-            st.pyplot(plt)
             with st.expander("See explanation"):
                 st.write('Explained variance ratio: The amount of information extracted by the topic can be understood as the weight of different topics. The higher the weight, the more information the topic can extract from the document. The lower the weight, the less information the topic can extract from the document. The weight of a topic is the square root of the sum of the square of the singular values of the topic. The weight of a topic is the square root of the sum of the square of the singular values of the topic.')
                 st.write('Cumulative explained variance ratio: Under the current number of topics, the total amount of information extracted by all topics, this indicator needs to be at least greater than 50%')
