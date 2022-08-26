@@ -472,7 +472,7 @@ with tab6:
     w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
         x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count'])
     st.altair_chart(w2v_data, use_container_width=True)
-    op_w2v=st.radio('What\'s your favorite movie genre?'('Similar herbal search', 'Herbal analogy', 'Prescription similarity assessment'))
+    op_w2v=st.radio('What\'s your favorite movie genre?',('Similar herbal search', 'Herbal analogy', 'Prescription similarity assessment'))
     if op_w2v=='Similar herbal search':
         st.subheader('Similar herbal search')
         st.write('Please enter the name of the herb you want to search')
