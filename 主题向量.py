@@ -13,9 +13,9 @@ import streamlit as st  # 导入streamlit
 
 # %%
 # 读文档，这里把方名set成index了，所以dataframe中只有草药
-txt = pd.read_csv('English example.csv')
+txt = pd.read_csv('矩阵3.csv')
 txt = pd.DataFrame(txt)
-txt = txt.set_index('Prescription name')
+txt = txt.set_index('方名')
 # %%
 # 遍历dataframe中的草药，把所有的草药怼成一个长字符串，空格分割
 sentence = ""
@@ -36,10 +36,10 @@ print(len(word_bag))
 print(len(ls))
 # 重新读文件，这里不设方名为index
 # %%
-file = pd.read_csv('English example.csv')
+file = pd.read_csv('矩阵3.csv')
 file = pd.DataFrame(file)
 # %%
-file = file.set_index('Prescription name')
+file = file.set_index('方名')
 
 # %%
 # 做成以{方名：组成}为键值对的字典

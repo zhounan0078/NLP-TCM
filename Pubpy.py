@@ -452,8 +452,18 @@ with tab5:
         st.success('The topic classification based on LDiA is done,you can download this matrix in the "Matrix download" tab')
 
 
-
-
+with tab6:
+    model = gensim.models.Word2Vec(list_vect,sg=0,min_count=1,vector_size = 100,window=avg_len)
+    b=pd.DataFrame(model.wv.vectors,index=a['name'])
+    pca = PCA(n_components=2,random_state=123)
+    pca_vectr = pca.transform(b)
+    columns = ['topic{}'.format(i) for i in range(pca.n_components)]
+    pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
+    pca_matrix=pca_topic.round(3)
+    x=pca_matrix['topic0']
+    y=pca_matrix['topic1']
+    plt.scatter(x,y,marker='*')
+    st.pyplot(plt)
 
 
 
