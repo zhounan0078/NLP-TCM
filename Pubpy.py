@@ -509,12 +509,12 @@ with tab6:
 
     if op_w2v=='Compatibility assessment':
         st.subheader('Compatibility assessment')
-        st.write('Please enter the herb list you want to assessment,Use "," (English format) to separate the herbs')
-        input_herb = st.text_input(key=15)
+        st.write('Please enter the herb list you want to assessment')
+        input_herb = st.text_input('Use "," (English format) to separate the herbs',key=15)
         input_herb_list = input_herb.split(',')
         feed_herb=model.wv.doesnt_match(input_herb_list)
         st.write('In this list of herbs, {} has the farthest vector distance from other herbs. Please evaluate whether the use of {} is reasonable in combination with the needs of clinical practice.'.format(feed_herb,feed_herb))
-        
+
         
 
 
