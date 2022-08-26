@@ -628,7 +628,7 @@ pca_matrix = pca_matrix.join(full_common_data)
 x=pca_matrix['topic0']
 y=pca_matrix['topic1']
 alt.Chart(pca_matrix).mark_circle().encode(
-    x='topic0', y='topic1', size='count', color='c', tooltip=['topic0', 'topic1', 'count'])
+    x='topic0', y='topic1', size='count', color='c', tooltip=['name', 'topic1', 'count'])
 #%%
 plt.scatter(x,y,marker='*')
 
