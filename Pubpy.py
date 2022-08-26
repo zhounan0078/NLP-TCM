@@ -472,6 +472,26 @@ with tab6:
     w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
         x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count'])
     st.altair_chart(w2v_data, use_container_width=True)
+    op_w2v=st.radio('What\'s your favorite movie genre?'('Similar herbal search', 'Herbal analogy', 'Prescription similarity assessment'))
+    if op_w2v=='Similar herbal search':
+        st.subheader('Similar herbal search')
+        st.write('Please enter the name of the herb you want to search')
+        search_herb = st.text_input('Enter the name of the herb you want to search',key=12)
+        search_button = st.button('Search', key=12)
+        if search_button:
+            feed_herb=model.most_similar(postive=[search_herb],topn=10)
+            feed_herb=pd.DataFrame(feed_herb,columns=['herb','similarity'])
+            st.table(feed_herb)
+
+    if op_w2v=='Herbal analogy':
+        st.subheader('Herbal analogy')
+        st.write('Please enter the name of the herb you want to search')
+        search_herb = st.text_input('Enter the name of the herb you want to search',key=13)
+        search_button = st.button('Search', key=13)
+        if search_button:
+            feed_herb=model.most_similar(search_herb)
+            feed_herb=pd.DataFrame(feed_herb,columns=['herb','similarity'])
+            st.table(feed_herb)
 
 
 
@@ -479,7 +499,13 @@ with tab6:
 
 
 
-# %%
+
+
+
+
+
+
+    # %%
 # 矩阵下载
 with tab7:
     # 频次矩阵下载
@@ -556,21 +582,9 @@ with tab7:
             data=pca_matrix,
             file_name='pca topic.xlsx')
     # word2vec矩阵下载
-    if b.empty == False:
-        b = convert_df(b)
-        st.download_button(
-            label='Download word2vec matrix',
-            data=b,
-            file_name='word2vec.xlsx')
+
     # word2vec模型下载
-    if model != None:
-        buffer = BytesIO()
-        model.wv.save_word2vec_format(buffer, binary=True)
-        buffer.seek(0)
-        st.download_button(
-            label='Download word2vec model',
-            data=buffer,
-            file_name='word2vec.model')
+
 
 
 
