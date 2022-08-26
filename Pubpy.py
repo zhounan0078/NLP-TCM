@@ -24,7 +24,7 @@ sns.set_theme(style="whitegrid")
 
 tab1, tab2, tab3, tab4, tab5, tab6,tab7,tab8 = st.tabs(
     ["Descriptive statistics", "Prescription similarity", "Featured and generic herbs",
-     "LSA topic distribution", "LDiA topic distribution","word embedding", "Matrix download",
+     "LSA topic distribution", "LDiA topic distribution","word embedding", "Download",
      "About the program"])
 mpl.rcParams['font.family'] = 'simhei.ttf'
 plt.style.use('ggplot')
@@ -406,7 +406,7 @@ with tab4:
         #st.pyplot(plt)
         st.table(pres_svd_topic.head(5))
         st.table(herb_svd_weight.head(5))
-        st.success('The topic classification based on LSA is done,you can download this matrix in the "Matrix download" tab')
+        st.success('The topic classification based on LSA is done,you can download this matrix in the "Download" tab')
 
 with tab5:
     st.subheader('Topic classification based on Latent Dirichlet Distribution (LDiA)')
@@ -450,7 +450,7 @@ with tab5:
         components_pres = pd.DataFrame(components_pres, index=herb_dense_dataframe.index, columns=columns)
         st.table(components_pres.head(5))
         st.table(components_herb.head(5))
-        st.success('The topic classification based on LDiA is done,you can download this matrix in the "Matrix download" tab')
+        st.success('The topic classification based on LDiA is done,you can download this matrix in the "Download" tab')
 
 
 with tab6:
@@ -468,21 +468,12 @@ with tab6:
     pca_matrix = pca_matrix.reset_index()
     x=pca_matrix['topic0']
     y=pca_matrix['topic1']
-    st.table(pca_matrix.head(5))
-    #st.vega_lite_chart(pca_matrix, {
-    #    'mark': {'type': 'circle', 'tooltip': True},
-    #    'encoding': {
-    #        'x': {'field': 'topic0', 'type': 'quantitative'},
-    #        'y': {'field': 'topic1', 'type': 'quantitative'},
-    #        'size': {'field': 'count', 'type': 'quantitative'},
-    #        'color': {'field': 'count', 'type': 'quantitative'},
-    #    },
-    #})
-    st.success('The topic classification based on PCA is done,you can download this matrix in the "Matrix download" tab')
+    st.success('The topic classification based on Word2Vec is done,you can download this matrix in the "Download" tab')
     w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
         x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count'])
     st.altair_chart(w2v_data, use_container_width=True)
-    model = model.save('word2vec.model')
+   
+
 
 
 
@@ -557,6 +548,30 @@ with tab7:
             label='Download ldia herb weight matrix',
             data=components_herb,
             file_name='ldia herb weight.xlsx')
+    # pca矩阵下载
+    if pca_matrix.empty == False:
+        pca_matrix = convert_df(pca_matrix)
+        st.download_button(
+            label='Download pca topic matrix',
+            data=pca_matrix,
+            file_name='pca topic.xlsx')
+    # word2vec矩阵下载
+    if b.empty == False:
+        b = convert_df(b)
+        st.download_button(
+            label='Download word2vec matrix',
+            data=b,
+            file_name='word2vec.xlsx')
+    # word2vec模型下载
+    if model.empty == False:
+        buffer = BytesIO()
+        model.wv.save_word2vec_format(buffer, binary=True)
+        buffer.seek(0)
+        st.download_button(
+            label='Download word2vec model',
+            data=buffer,
+            file_name='word2vec.model')
+
 
 
 
