@@ -468,7 +468,7 @@ with tab6:
     x=pca_matrix['topic0']
     y=pca_matrix['topic1']
     c = alt.Chart(pca_matrix).mark_circle().encode(
-        x=['topic0'], y=['topic1'], size='count', color='c', tooltip=['a', 'b', 'c'])
+        x=['topic0'], y=['topic1'], size=['count'], color='c', tooltip=['topic0', 'topic1', 'count'])
     st.altair_chart(c, use_container_width=True)
     model = model.save('word2vec.model')
 
