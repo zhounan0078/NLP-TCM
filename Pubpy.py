@@ -134,6 +134,8 @@ with tab1:
         st.write('The most common herb is: ', most_common_herb1)
         # 作图
         if most_common_herb1.empty == False:
+            most_common_herb1 = most_common_herb1.set_index('herb')
+            st.bar_chart(most_common_herb1)
             fig1, ax1 = plt.subplots()
             x = most_common_herb1['herb']
             y = most_common_herb1['count']
@@ -343,7 +345,7 @@ with tab3:
         'Please select the number of themes you wish to try',
         options=range(1, 50, 1), key=7)
     tab3_col1,tab3_col2 = st.columns(2)
-    
+
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
         with tab3_col1:
