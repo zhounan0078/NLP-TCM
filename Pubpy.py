@@ -494,10 +494,10 @@ with tab6:
 
         search_button = st.button('Search', key=13)
         if search_button:
-            if search_herb_p2.empty:
+            if search_herb_p2==None:
                 feed_herb=model.wv.similarity(search_herb_p1,search_herb_n1)
                 st.write('The similarity of {} and {} is {}'.format(search_herb_p1,search_herb_p2,feed_herb))
-            if search_herb_p2.empty==False:
+            if search_herb_p2!=None:
                 feed_herb=model.wv.most_similar(positive=[search_herb_p2,search_herb_p1],negative=[search_herb_n1],topn=10)
                 feed_herb=pd.DataFrame(feed_herb,columns=['herb','vector_similarity'])
                 feed_herb=feed_herb.sort_values(by='vector_similarity',ascending=False)
