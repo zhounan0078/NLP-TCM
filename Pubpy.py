@@ -343,7 +343,7 @@ with tab3:
         'Please select the number of themes you wish to try',
         options=range(1, 50, 1), key=7)
     tab3_col1,tab3_col2 = st.columns(2)
-    st.bar_chart(tf_idf_sort.head(num7), key=8, use_container_width=True, width=tab3_col1.width)
+    st.bar_chart(tf_idf_sort.head(num7), use_container_width=True, width=tab3_col1.width)
     idf_button_con = st.button('Continue', key=13)
     if idf_button_con:
         with tab3_col1:
