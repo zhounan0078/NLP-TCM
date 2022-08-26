@@ -128,23 +128,27 @@ with tab1:
     num1 = st.select_slider(
         'How many herbs do you need to display by frequency?',
         options=range(1, 50, 1), key=1)
+    tab1_col1, tab1_col2 = st.beta_columns(2)
+    most_common_herb1 = Counter_every_herb.most_common(num1)
+    most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
     if st.button('Launch', key=2):
-        most_common_herb1 = Counter_every_herb.most_common(num1)
-        most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
-        st.write('The most common herb is: ', most_common_herb1)
+        with tab1_col1:
+            st.write('The most common herb is: ')
+            st.table(most_common_herb1)
+        with tab1_col2:
         # 作图
-        if most_common_herb1.empty == False:
-            most_common_herb1 = most_common_herb1.set_index('herb')
-            st.bar_chart(most_common_herb1)
-            fig1, ax1 = plt.subplots()
-            x = most_common_herb1['herb']
-            y = most_common_herb1['count']
-            y = list(y)
-            y.reverse()  # 倒序
-            ax1.barh(x, y, align='center', color='c', tick_label=list(x))
-            plt.ylabel('herbs', fontsize=13, fontproperties=font)
-            plt.yticks(x, fontproperties=font)
-            st.pyplot(fig1)
+            if most_common_herb1.empty == False:
+                most_common_herb1 = most_common_herb1.set_index('herb')
+                st.bar_chart(most_common_herb1,use_container_width=False, width=800, height=400)
+                fig1, ax1 = plt.subplots()
+                x = most_common_herb1['herb']
+                y = most_common_herb1['count']
+                y = list(y)
+                y.reverse()  # 倒序
+                ax1.barh(x, y, align='center', color='c', tick_label=list(x))
+                plt.ylabel('herbs', fontsize=13, fontproperties=font)
+                plt.yticks(x, fontproperties=font)
+                st.pyplot(fig1)
     most_common_herb2 = Counter_every_herb.most_common()
     most_common_herb2 = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
     # 矩阵制作
