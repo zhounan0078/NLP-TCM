@@ -486,11 +486,11 @@ with tab6:
     if op_w2v=='Herbal analogy':
         st.subheader('Herbal analogy')
         st.write('Please enter the name of the herb you want to search')
-        st.write('If you want to directly compare the similarity of two herbs, please enter the herb name in Herb_1 and Herb_2')
+        st.write('If you want to directly compare the similarity of two herbs, please enter the herb name in Herb 1 and Herb 2')
         search_herb_p1 = st.text_input('Herb 1',key=13)
         search_herb_n1 = st.text_input('Herb 2',key=14)
-        st.write('If you want to use the method of analogy to explore the law of paired combination of herbs, please also fill in Herb_3 and Herb_4')
-        search_herb_p2 = st.text_input('Analogy Item 1',key=13)
+        st.write('If you want to use the method of analogy to explore the law of paired combination of herbs, please also fill in Analogy Item')
+        search_herb_p2 = st.text_input('Analogy Item',key=13)
 
         search_button = st.button('Search', key=13)
         if search_button:
@@ -506,7 +506,7 @@ with tab6:
                 st.write('Imitating the combination rule of {} and {}, {}is a more matching herb with {}'.format((search_herb_p1,search_herb_n1,best_match,search_herb_p2)))
                 st.write('Alternative herbs that can be paired with C in the table below')
                 st.table(feed_herb)
-                
+
 
 
 
