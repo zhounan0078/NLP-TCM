@@ -503,7 +503,7 @@ with tab6:
                 feed_herb=pd.DataFrame(feed_herb,columns=['herb','vector_similarity'])
                 feed_herb=feed_herb.sort_values(by='vector_similarity',ascending=False)
                 best_match=feed_herb.iloc[0,0]
-                st.write('Imitating the combination rule of {} and {}, {}is a more matching herb with {}'.format((search_herb_p1,search_herb_n1,best_match,search_herb_p2)))
+                st.write('Imitating the combination rule of {} and {}, {}is a more matching herb with {}'.format(search_herb_p1,search_herb_n1,best_match,search_herb_p2))
                 st.write('Alternative herbs that can be paired with C in the table below')
                 st.table(feed_herb)
 
