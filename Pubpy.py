@@ -457,6 +457,7 @@ with tab6:
     a=pd.DataFrame(model.wv.index_to_key,columns=['name'])
     b=pd.DataFrame(model.wv.vectors,index=a['name'])
     pca = PCA(n_components=2,random_state=123)
+    pca = pca.fit(b)
     pca_vectr = pca.transform(b)
     columns = ['topic{}'.format(i) for i in range(pca.n_components)]
     pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
