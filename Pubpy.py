@@ -464,7 +464,7 @@ with tab6:
     pca_matrix=pca_topic.round(3)
     x=pca_matrix['topic0']
     y=pca_matrix['topic1']
-    plt.scatter(x,y,marker='*')
+    plt.scatter(x,y,marker='.')
     st.pyplot(plt)
 
 
