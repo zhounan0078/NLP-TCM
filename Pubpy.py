@@ -472,7 +472,7 @@ with tab6:
     w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
         x='topic0', y='topic1', size='count', color='count', tooltip=['name', 'count'])
     st.altair_chart(w2v_data, use_container_width=True)
-   
+
 
 
 
@@ -563,7 +563,7 @@ with tab7:
             data=b,
             file_name='word2vec.xlsx')
     # word2vec模型下载
-    if model.empty == False:
+    if model != None:
         buffer = BytesIO()
         model.wv.save_word2vec_format(buffer, binary=True)
         buffer.seek(0)
