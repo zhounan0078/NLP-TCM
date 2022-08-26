@@ -424,6 +424,7 @@ with tab5:
             plex = ldia.perplexity(herb_dense_dataframe)
             x.append(i)
             y.append(plex)
+        st.line_chart(pd.DataFrame({'topic':x,'perplexity':y}))
         fig = plt.figure()
         fig.set_figheight(10)
         fig.set_figwidth(10)
