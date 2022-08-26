@@ -598,7 +598,8 @@ for index,row in herb_dense_dataframe.iterrows():
     word_herb=herb_dense_dataframe.columns[herb_dense_dataframe.loc[index]==1].values.tolist()
     word_vec_senten.append(word_herb)
 
-
+#%%
+import altair as alt
 #%%
 model = gensim.models.Word2Vec(word_vec_senten,sg=0,min_count=1,vector_size = 300,window=20)
 #%%
@@ -607,6 +608,7 @@ model.wv['川芎']
 most_common_herb2 = word_bag.most_common()
 full_common_data = pd.DataFrame(most_common_herb2, columns=['herb', 'count'])
 full_common_data = full_common_data.set_index('herb')
+full_common_data.astype(int)
 #%%
 a=pd.DataFrame(model.wv.index_to_key,columns=['name'])
 #%%
@@ -621,9 +623,12 @@ columns = ['topic{}'.format(i) for i in range(pca.n_components)]
 pca_topic = pd.DataFrame(pca_vectr, columns=columns, index=b.index)
 pca_matrix=pca_topic.round(3)
 pca_matrix = pca_matrix.join(full_common_data)
+
 #%%
 x=pca_matrix['topic0']
 y=pca_matrix['topic1']
+alt.Chart(pca_matrix).mark_circle().encode(
+    x='topic0', y='topic1', size='count', color='c', tooltip=['topic0', 'topic1', 'count'])
 #%%
 plt.scatter(x,y,marker='*')
 

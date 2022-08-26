@@ -468,9 +468,19 @@ with tab6:
     x=pca_matrix['topic0']
     y=pca_matrix['topic1']
     st.table(pca_matrix.head(5))
-    w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
-        x='topic0', y='topic1', size='count', color='c', tooltip=['topic0', 'topic1', 'count'])
-    st.altair_chart(w2v_data)
+    st.vega_lite_chart(pca_matrix, {
+        'mark': {'type': 'circle', 'tooltip': True},
+        'encoding': {
+            'x': {'field': 'topic0', 'type': 'quantitative'},
+            'y': {'field': 'topic1', 'type': 'quantitative'},
+            'size': {'field': 'count', 'type': 'quantitative'},
+            'color': {'field': 'count', 'type': 'quantitative'},
+        },
+    })
+    st.success('The topic classification based on PCA is done,you can download this matrix in the "Matrix download" tab')
+    #w2v_data= alt.Chart(pca_matrix).mark_circle().encode(
+    #    x='topic0', y='topic1', size='count', color='c', tooltip=['topic0', 'topic1', 'count'])
+    #st.altair_chart(w2v_data)
     model = model.save('word2vec.model')
 
 
