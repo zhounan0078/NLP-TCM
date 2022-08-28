@@ -132,12 +132,8 @@ with tab1:
     most_common_herb1 = Counter_every_herb.most_common(num1)
     most_common_herb1 = pd.DataFrame(most_common_herb1, columns=['herb', 'count'])
     if st.button('Launch', key=2):
-
           st.write('The most common herb is: ')
           st.table(most_common_herb1)
-
-
-        #
           if most_common_herb1.empty == False:
               fig1, ax1 = plt.subplots()
               x = most_common_herb1['herb']
