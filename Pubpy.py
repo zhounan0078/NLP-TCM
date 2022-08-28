@@ -303,7 +303,7 @@ with tab2:
         'Please select the name of the prescription you wish to follow', options=options, key=7)
     dense_dot_df = pd.DataFrame()
     cos_dot_df = pd.DataFrame()
-    if select_result:
+    if st.button('Launch', key=8):
         for item1 in select_result:
             dense_dot_matrix = pd.DataFrame()
             cos_dot_matrix = pd.DataFrame()
