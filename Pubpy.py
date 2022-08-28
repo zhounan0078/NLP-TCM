@@ -139,7 +139,7 @@ with tab1:
         # 作图
             if most_common_herb1.empty == False:
                 most_common_herb1 = most_common_herb1.set_index('herb')
-                st.bar_chart(most_common_herb1,use_container_width=True)
+                st.bar_chart(most_common_herb1,use_container_width=True,height=600)
                 fig1, ax1 = plt.subplots()
                 x = most_common_herb1['herb']
                 y = most_common_herb1['count']
