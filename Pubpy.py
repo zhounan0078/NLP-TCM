@@ -134,7 +134,7 @@ with tab1:
     if st.button('Launch', key=2):
 
           st.write('The most common herb is: ')
-          st.table(most_common_herb1,use_column_names=True)
+          st.table(most_common_herb1)
 
 
         #
